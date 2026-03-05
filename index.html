@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RAG Database Manager — TicoSys Admin</title>
+  <title>TicoSys Admin Pro</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet">
@@ -82,15 +82,31 @@
     }
 
     @keyframes pulse {
+      0%, 100% { opacity: 1 }
+      50% { opacity: 0.5 }
+    }
 
-      0%,
-      100% {
-        opacity: 1
-      }
-
-      50% {
-        opacity: 0.5
-      }
+    /* NAV PILLS */
+    .nav-tabs {
+      display: flex;
+      gap: 12px;
+    }
+    .nav-tab {
+      padding: 8px 16px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-tab:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+    }
+    .nav-tab.active {
+      color: #fff;
+      background: var(--accent);
     }
 
     /* AUTH OVERLAY */
@@ -115,24 +131,22 @@
       box-shadow: var(--card-shadow);
     }
 
-    .auth-card h2 {
-      font-size: 22px;
-      margin-bottom: 8px;
-    }
+    .auth-card h2 { font-size: 22px; margin-bottom: 8px; }
+    .auth-card p { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
 
-    .auth-card p {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 28px;
-    }
-
-    /* MAIN LAYOUT */
-    main {
-      flex: 1;
+    /* LAYOUTS TRANSLATED TO TABS */
+    .main-view { display: none; min-height: calc(100vh - 65px); }
+    .main-view.active { display: flex; flex-direction: column; }
+    
+    .view-split {
       display: grid;
       grid-template-columns: 280px 1fr;
-      gap: 0;
-      min-height: calc(100vh - 65px);
+      flex: 1;
+    }
+    .view-full {
+      flex: 1;
+      padding: 32px;
+      overflow-y: auto;
     }
 
     /* SIDEBAR */
@@ -157,26 +171,17 @@
       justify-content: space-between;
     }
 
-    .db-list {
-      flex: 1;
-      overflow-y: auto;
-    }
-
+    .db-list { flex: 1; overflow-y: auto; }
     .db-item {
       display: flex;
       align-items: center;
       gap: 10px;
       padding: 12px 20px;
       cursor: pointer;
-      transition: all 0.15s;
       border-left: 3px solid transparent;
       font-size: 13px;
     }
-
-    .db-item:hover {
-      background: var(--surface2);
-    }
-
+    .db-item:hover { background: var(--surface2); }
     .db-item.active {
       background: rgba(99, 102, 241, 0.12);
       border-left-color: var(--accent);
@@ -184,60 +189,25 @@
       font-weight: 600;
     }
 
-    .db-icon {
-      font-size: 16px;
-      flex-shrink: 0;
-    }
-
-    .db-name {
-      flex: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .db-badge {
-      background: var(--surface2);
-      color: var(--muted);
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 20px;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
     /* CONTENT */
-    .content {
-      padding: 32px;
-      overflow-y: auto;
-    }
-
-    /* CARDS */
+    .content { padding: 32px; overflow-y: auto; }
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 24px;
       margin-bottom: 20px;
-      box-shadow: var(--card-shadow);
     }
-
     .card-title {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
       margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-
-    /* STATS GRID */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
+    
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
     .stat-card {
       background: var(--surface2);
       border: 1px solid var(--border);
@@ -245,32 +215,12 @@
       padding: 20px;
       text-align: center;
     }
-
-    .stat-value {
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
+    .stat-value { font-size: 32px; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
 
     /* TABLE */
-    .table-wrap {
-      overflow-x: auto;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th {
       background: var(--surface2);
       padding: 12px 16px;
@@ -278,332 +228,68 @@
       font-weight: 600;
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
       color: var(--muted);
       border-bottom: 1px solid var(--border);
     }
+    td { padding: 12px 16px; border-bottom: 1px solid rgba(42, 48, 71, 0.5); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(99, 102, 241, 0.04); }
 
-    td {
-      padding: 12px 16px;
-      border-bottom: 1px solid rgba(42, 48, 71, 0.5);
-      vertical-align: top;
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    tr:hover td {
-      background: rgba(99, 102, 241, 0.04);
-    }
-
-    .preview-text {
-      max-width: 300px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      color: var(--muted);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-    }
+    .preview-text { max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 11px; }
 
     /* BADGES */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 3px 9px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 500;
-    }
-
-    .badge-pdf {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-    }
-
-    .badge-excel {
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-    }
-
-    .badge-txt {
-      background: rgba(99, 102, 241, 0.15);
-      color: #818cf8;
-    }
-
-    .badge-other {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
-    }
+    .badge { padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+    .badge-pdf { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+    .badge-excel { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .badge-txt { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+    .badge-other { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
 
     /* BUTTONS */
     .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      border-radius: 9px;
-      border: none;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 500;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.15s;
+      display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
+      border-radius: 9px; border: none; cursor: pointer; font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif;
     }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; }
+    .btn-danger { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+    .btn-sm { padding: 5px 11px; font-size: 12px; }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: white;
+    input, select, textarea {
+      background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+      border-radius: 9px; padding: 10px 14px; font-size: 13px; font-family: 'Inter', sans-serif; width: 100%; outline: none;
     }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 80px; }
+    
+    .form-row { display: flex; gap: 12px; margin-bottom: 16px; }
+    .form-group { flex: 1; }
+    .form-group label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; font-weight: 500; }
 
-    .btn-primary:hover {
-      opacity: 0.88;
-      transform: translateY(-1px);
-    }
-
-    .btn-danger {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-
-    .btn-danger:hover {
-      background: rgba(239, 68, 68, 0.25);
-    }
-
-    .btn-ghost {
-      background: var(--surface2);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .btn-sm {
-      padding: 5px 11px;
-      font-size: 12px;
-    }
-
-    .btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* INPUTS */
-    input,
-    select {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 9px;
-      padding: 10px 14px;
-      font-size: 13px;
-      font-family: 'Inter', sans-serif;
-      width: 100%;
-      transition: border-color 0.15s;
-      outline: none;
-    }
-
-    input:focus,
-    select:focus {
-      border-color: var(--accent);
-    }
-
-    /* FORM ROW */
-    .form-row {
-      display: flex;
-      gap: 12px;
-      align-items: flex-end;
-    }
-
-    .form-group {
-      flex: 1;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 6px;
-      font-weight: 500;
-    }
-
-    /* EMPTY STATE */
-    .empty {
-      text-align: center;
-      padding: 48px;
-      color: var(--muted);
-    }
-
-    .empty .icon {
-      font-size: 48px;
-      margin-bottom: 12px;
-    }
-
-    .empty h3 {
-      font-size: 16px;
-      margin-bottom: 6px;
-      color: var(--text);
-    }
-
-    .empty p {
-      font-size: 13px;
-    }
-
+    .empty { text-align: center; padding: 48px; color: var(--muted); }
+    .empty h3 { font-size: 16px; margin: 6px 0; color: var(--text); }
+    
     /* TOAST */
-    #toast-container {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .toast {
-      padding: 14px 20px;
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 500;
-      color: white;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 260px;
-      animation: slideIn 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(360px);
-        opacity: 0
-      }
-
-      to {
-        transform: none;
-        opacity: 1
-      }
-    }
-
-    .toast-success {
-      background: linear-gradient(135deg, #059669, #10b981);
-    }
-
-    .toast-error {
-      background: linear-gradient(135deg, #dc2626, #ef4444);
-    }
-
-    .toast-info {
-      background: linear-gradient(135deg, #4f46e5, #6366f1);
-    }
+    #toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+    .toast { padding: 14px 20px; border-radius: 12px; font-size: 13px; color: white; display: flex; gap: 10px; animation: slideIn 0.3s ease; }
+    @keyframes slideIn { from { transform: translateX(360px); opacity: 0 } to { transform: none; opacity: 1 } }
+    .toast-success { background: linear-gradient(135deg, #059669, #10b981); }
+    .toast-error { background: linear-gradient(135deg, #dc2626, #ef4444); }
 
     /* MODAL */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 500;
-      backdrop-filter: blur(4px);
-    }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 500; backdrop-filter: blur(4px); }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px; width: 420px; max-height: 90vh; overflow-y: auto;}
+    .modal.large { width: 680px; }
+    .modal h3 { font-size: 18px; margin-bottom: 8px; }
+    .modal p { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+    .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+    
+    .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .modal-overlay.open {
-      display: flex;
-    }
-
-    .modal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px;
-      width: 420px;
-      box-shadow: var(--card-shadow);
-    }
-
-    .modal h3 {
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-
-    .modal p {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 24px;
-    }
-
-    .modal-doc-name {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 12px 16px;
-      margin-bottom: 24px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      color: #f87171;
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 12px;
-      justify-content: flex-end;
-    }
-
-    /* SPINNER */
-    .spinner {
-      width: 18px;
-      height: 18px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      display: inline-block;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* WELCOME */
-    .welcome {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      text-align: center;
-      gap: 16px;
-    }
-
-    .welcome h2 {
-      font-size: 28px;
-      font-weight: 700;
-    }
-
-    .welcome p {
-      color: var(--muted);
-      max-width: 380px;
-      line-height: 1.6;
-    }
-
-    .page {
-      display: none;
-    }
-
-    .page.active {
-      display: block;
-    }
+    /* UTILS */
+    .crm-link { color: var(--accent); text-decoration: none; word-break: break-all;}
+    .crm-link:hover { text-decoration: underline; }
   </style>
 </head>
 
@@ -612,144 +298,177 @@
   <!-- AUTH OVERLAY -->
   <div class="auth-overlay" id="authOverlay">
     <div class="auth-card">
-      <div class="logo-icon" style="width:56px;height:56px;border-radius:14px;font-size:28px;margin:0 auto 20px;">🗄️
-      </div>
-      <h2>RAG Admin Panel</h2>
-      <p>Ingresa tu clave de acceso para continuar</p>
+      <div class="logo-icon" style="width:56px;height:56px;font-size:28px;margin:0 auto 20px;">🛡️</div>
+      <h2>Administración TicoSys</h2>
+      <p>Ingresa tu clave de acceso maestra</p>
       <div class="form-group" style="margin-bottom:16px;">
-        <input type="password" id="authInput" placeholder="Clave de acceso..."
-          onkeydown="if(event.key==='Enter')doLogin()">
+        <input type="password" id="authInput" placeholder="Clave de acceso..." onkeydown="if(event.key==='Enter')doLogin()">
       </div>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="doLogin()">Ingresar</button>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="doLogin()">Autenticar</button>
     </div>
   </div>
 
   <!-- HEADER -->
   <header>
     <div class="logo">
-      <div class="logo-icon">🗄️</div>
-      RAG Admin Panel
+      <div class="logo-icon">TS</div>
+      TicoSys Admin Pro
+    </div>
+    <div class="nav-tabs">
+      <div class="nav-tab active" onclick="switchView('view-rag')" id="tab-rag">🗄️ Bases RAG</div>
+      <div class="nav-tab" onclick="switchView('view-crm')" id="tab-crm">👥 Clientes (CRM)</div>
     </div>
     <div style="display:flex;align-items:center;gap:16px;">
       <span style="font-size:12px;color:var(--muted);" id="headerStatus">Conectando...</span>
       <div class="status-dot" id="statusDot" style="background:var(--warning)"></div>
-      <button class="btn btn-ghost btn-sm" onclick="refreshAll()">⟳ Actualizar</button>
     </div>
   </header>
 
-  <!-- MAIN -->
-  <main>
+  <!-- VIEW: RAG -->
+  <main id="view-rag" class="main-view active view-split">
     <!-- SIDEBAR -->
     <aside>
       <div class="sidebar-header">
         <span>Bases de Datos</span>
-        <button class="btn btn-ghost btn-sm" onclick="openCreateModal()" title="Nueva base de datos">＋</button>
+        <button class="btn btn-ghost btn-sm" onclick="openCreateModal()" title="Nueva DB">＋</button>
       </div>
       <div class="db-list" id="dbList">
-        <div class="empty" style="padding:24px 16px;">
-          <div class="spinner"></div>
-          <p style="margin-top:12px;font-size:12px;">Cargando...</p>
-        </div>
+        <div class="empty"><div class="spinner"></div></div>
       </div>
     </aside>
 
     <!-- CONTENT -->
     <div class="content">
-      <!-- Welcome -->
-      <div id="pageWelcome" class="page active">
-        <div class="welcome">
+      <div id="pageWelcome" style="display:none; height:100%; align-items:center; justify-content:center; text-align:center;">
+        <div>
           <div style="font-size:64px;">🗄️</div>
           <h2>Selecciona una base de datos</h2>
-          <p>Elige una base de datos del panel izquierdo para ver sus documentos, estadísticas y gestionar el contenido.
-          </p>
+          <p style="color:var(--muted); max-width:380px; margin:16px auto;">Gestiona los documentos de la memoria RAG de tus clientes.</p>
           <button class="btn btn-primary" onclick="openCreateModal()">＋ Crear nueva base de datos</button>
         </div>
       </div>
 
-      <!-- DB view -->
-      <div id="pageDB" class="page">
+      <div id="pageDB" style="display:none;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
           <div>
             <h1 id="dbTitle" style="font-size:22px;font-weight:700;"></h1>
-            <p id="dbSubtitle" style="color:var(--muted);font-size:13px;margin-top:4px;"></p>
+            <p id="dbSubtitle" style="color:var(--muted);font-size:13px;"></p>
           </div>
-          <button class="btn btn-primary" onclick="loadDocs(currentSchema)">
-            ↻ Recargar
-          </button>
+          <button class="btn btn-ghost" onclick="loadDocs(currentSchema)">↻ Recargar Docs</button>
         </div>
 
-        <!-- Stats -->
-        <div class="stats-grid" id="statsGrid">
-          <div class="stat-card">
-            <div class="stat-value" id="statChunks">—</div>
-            <div class="stat-label">Total Chunks</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value" id="statDocs">—</div>
-            <div class="stat-label">Documentos</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value" id="statSchema" style="font-size:14px;padding-top:8px;">—</div>
-            <div class="stat-label">Schema PostgreSQL</div>
-          </div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-value" id="statChunks">—</div><div class="stat-label">Total Chunks</div></div>
+          <div class="stat-card"><div class="stat-value" id="statDocs">—</div><div class="stat-label">Documentos</div></div>
+          <div class="stat-card"><div class="stat-value" id="statSchema" style="font-size:16px;padding-top:14px;">—</div><div class="stat-label">Schema PostgreSQL</div></div>
         </div>
 
-        <!-- Documentos -->
         <div class="card">
-          <div class="card-title">
-            📄 Documentos indexados
-            <span id="docsCount" style="font-size:12px;color:var(--muted);font-weight:400;margin-left:auto;"></span>
-          </div>
-
-          <div class="form-row" style="margin-bottom:16px;">
-            <div class="form-group">
-              <input type="text" id="searchInput" placeholder="🔍 Buscar documento..." oninput="filterDocs()">
-            </div>
-          </div>
-
-          <div id="docsContainer">
-            <div class="empty">
-              <div class="icon">⏳</div>
-              <h3>Cargando documentos...</h3>
-            </div>
-          </div>
+          <div class="card-title">📄 Documentos indexados <span id="docsCount" style="font-size:12px;color:var(--muted);margin-left:auto;"></span></div>
+          <input type="text" id="searchInput" placeholder="🔍 Buscar documento..." oninput="filterDocs()" style="margin-bottom:16px;">
+          <div id="docsContainer"></div>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- MODAL ELIMINAR -->
-  <div class="modal-overlay" id="deleteModal">
+  <!-- VIEW: CRM -->
+  <main id="view-crm" class="main-view view-full">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+      <div>
+        <h1 style="font-size:24px;font-weight:700;">Directorio de Clientes TicoSys</h1>
+        <p style="color:var(--muted);font-size:13px;margin-top:4px;">Gestión de información, recursos y bases de datos RAG.</p>
+      </div>
+      <div style="display:flex; gap:12px;">
+        <button class="btn btn-ghost" onclick="loadCrm()">↻ Actualizar</button>
+        <button class="btn btn-primary" onclick="openCrmModal()">＋ Registrar Cliente</button>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="table-wrap">
+        <table id="crmTable">
+          <thead>
+            <tr>
+              <th>Cliente / Organización</th>
+              <th>Contacto</th>
+              <th>Plan</th>
+              <th>Base de Datos RAG</th>
+              <th>Documentos / Workflows</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="crmBody">
+            <tr><td colspan="6" class="empty">Cargando clientes...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL: CREAR DB RAG -->
+  <div class="modal-overlay" id="createModal">
     <div class="modal">
-      <h3>⚠️ Eliminar documento</h3>
-      <p>Esta acción eliminará <strong>todos los chunks</strong> del documento de la base de datos RAG. No se puede
-        deshacer.</p>
-      <div class="modal-doc-name" id="deleteDocName"></div>
+      <h3>✨ Nueva base de datos RAG</h3>
+      <p>Crea el schema y entorno inteligente para el cliente.</p>
+      <div class="form-group" style="margin-bottom:20px;">
+        <label>Nombre del schema (sin espacios)</label>
+        <input type="text" id="newSchemaInput" placeholder="ej: clinica_prevaler">
+      </div>
       <div class="modal-actions">
-        <button class="btn btn-ghost" onclick="closeDeleteModal()">Cancelar</button>
-        <button class="btn btn-danger" id="confirmDeleteBtn" onclick="confirmDelete()">
-          🗑️ Sí, eliminar
-        </button>
+        <button class="btn btn-ghost" onclick="document.getElementById('createModal').classList.remove('open')">Cancelar</button>
+        <button class="btn btn-primary" id="confirmCreateBtn" onclick="confirmCreate()">＋ Crear base</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL CREAR DB -->
-  <div class="modal-overlay" id="createModal">
-    <div class="modal">
-      <h3>✨ Nueva base de datos RAG</h3>
-      <p>Se creará un schema PostgreSQL nuevo con la tabla <code style="color:var(--accent)">rag_docs</code> lista para
-        indexar documentos.</p>
-      <div class="form-group" style="margin-bottom:20px;">
-        <label>Nombre del schema (sin espacios, minúsculas)</label>
-        <input type="text" id="newSchemaInput" placeholder="ej: clinica_nuevo_cliente"
-          oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9_]/g,'')">
+  <!-- MODAL: FORMULARIO CRM -->
+  <div class="modal-overlay" id="crmModal">
+    <div class="modal large">
+      <h3 id="crmModalTitle">👤 Nuevo Cliente</h3>
+      <p>Registra la información del cliente, planes cotizados y recursos.</p>
+      <input type="hidden" id="crmId">
+      
+      <div class="form-row">
+        <div class="form-group"><label>Nombre de la Empresa o Cliente *</label><input type="text" id="crmName"></div>
+        <div class="form-group"><label>Base RAG (Schema)</label><input type="text" id="crmSchema" placeholder="Ej: clinica_prevaler"></div>
       </div>
+      
+      <div class="form-row">
+        <div class="form-group"><label>Email de Contacto</label><input type="email" id="crmEmail"></div>
+        <div class="form-group"><label>Teléfono (WhatsApp)</label><input type="text" id="crmPhone"></div>
+        <div class="form-group"><label>Responsable</label><input type="text" id="crmResp"></div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group"><label>Plan Aprobado</label>
+            <select id="crmPlan">
+                <option value="Basico">Básico</option>
+                <option value="Profesional">Profesional</option>
+                <option value="Enterprise">Enterprise</option>
+            </select>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:16px;">
+        <label>Notas del Cliente</label>
+        <textarea id="crmNotes" placeholder="Detalles, accesos, requerimientos particulares..."></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Link Cotización / Documentos (Google Drive, Docs...)</label>
+          <input type="text" id="crmDocs" placeholder="https://docs.google.com/...">
+        </div>
+        <div class="form-group">
+          <label>URL Workflow Principal N8N</label>
+          <input type="text" id="crmWf" placeholder="https://n8n.ticosys.com/workflow/...">
+        </div>
+      </div>
+
       <div class="modal-actions">
-        <button class="btn btn-ghost" onclick="closeCreateModal()">Cancelar</button>
-        <button class="btn btn-primary" id="confirmCreateBtn" onclick="confirmCreate()">
-          ＋ Crear base de datos
-        </button>
+        <button class="btn btn-ghost" onclick="document.getElementById('crmModal').classList.remove('open')">Cancelar</button>
+        <button class="btn btn-primary" id="crmSaveBtn" onclick="saveCrm()">💾 Guardar Cliente</button>
       </div>
     </div>
   </div>
@@ -762,36 +481,37 @@
     // CONFIG
     // ================================================================
     const N8N_WEBHOOK = 'https://n8n.ticosys.com/webhook/rag-admin';
-    const ADMIN_SECRET = 'ticosys-rag-admin-2024';  // secreto del webhook
-    const LOGIN_PASSWORD = 'Buscaloserver01*';               // contraseña del panel
+    const ADMIN_SECRET = 'ticosys-rag-admin-2024';
+    const LOGIN_PASSWORD = 'Buscaloserver01*';
 
     let allDocs = [];
     let currentSchema = '';
-    let pendingDeleteTitle = '';
+    let crmData = [];
 
     // ================================================================
-    // AUTH
+    // AUTH & UI
     // ================================================================
     function doLogin() {
-      const val = document.getElementById('authInput').value;
-      if (val === LOGIN_PASSWORD) {
+      if (document.getElementById('authInput').value === LOGIN_PASSWORD) {
         document.getElementById('authOverlay').style.display = 'none';
         init();
-      } else {
-        showToast('Clave incorrecta', 'error');
-        document.getElementById('authInput').value = '';
-        document.getElementById('authInput').classList.add('shake');
-        setTimeout(() => document.getElementById('authInput').classList.remove('shake'), 500);
-      }
+      } else { showToast('Clave incorrecta', 'error'); }
+    }
+
+    function switchView(viewId) {
+      document.querySelectorAll('.main-view').forEach(e=>e.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(e=>e.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+      document.getElementById(viewId === 'view-rag' ? 'tab-rag' : 'tab-crm').classList.add('active');
+      if (viewId === 'view-crm') loadCrm();
     }
 
     // ================================================================
-    // API CALL
+    // API
     // ================================================================
     async function api(action, extra = {}) {
       const res = await fetch(N8N_WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action, secret: ADMIN_SECRET, ...extra })
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -802,228 +522,211 @@
     // INIT
     // ================================================================
     async function init() {
-      await loadDatabases();
-    }
-
-    async function loadDatabases() {
-      try {
-        const data = await api('list_dbs');
-        renderDBList(data.databases || []);
-        setConnected(true);
-      } catch (e) {
-        setConnected(false);
-        showToast('No se pudo conectar con n8n', 'error');
-        renderDBList([]);
-      }
-    }
-
-    function setConnected(ok) {
       const dot = document.getElementById('statusDot');
-      const txt = document.getElementById('headerStatus');
-      dot.style.background = ok ? 'var(--success)' : 'var(--danger)';
-      dot.style.boxShadow = ok ? '0 0 8px var(--success)' : '0 0 8px var(--danger)';
-      txt.textContent = ok ? 'Conectado a n8n' : 'Sin conexión';
-    }
-
-    function renderDBList(dbs) {
-      const el = document.getElementById('dbList');
-      if (dbs.length === 0) {
-        el.innerHTML = '<div class="empty" style="padding:24px 16px;"><div style="font-size:28px;">📭</div><p style="font-size:12px;margin-top:8px;">Sin bases de datos.</p></div>';
-        return;
+      try {
+        await loadDatabases();
+        dot.style.background = 'var(--success)';
+        document.getElementById('headerStatus').textContent = 'Conectado';
+      } catch (e) {
+        dot.style.background = 'var(--danger)';
+        document.getElementById('headerStatus').textContent = 'Error de conexión';
       }
-      el.innerHTML = dbs.map(db => `
-    <div class="db-item ${db === currentSchema ? 'active' : ''}" onclick="selectDB('${db}')" id="dbitem-${db}">
-      <span class="db-icon">🗄️</span>
-      <span class="db-name">${db}</span>
-    </div>
-  `).join('');
     }
 
     // ================================================================
-    // SELECT DB
+    // RAG MODULE
     // ================================================================
+    async function loadDatabases() {
+      const data = await api('list_dbs');
+      const el = document.getElementById('dbList');
+      if (!data.databases || data.databases.length === 0) { el.innerHTML = '<div class="empty">Sin bases de datos</div>'; return;}
+      el.innerHTML = data.databases.map(db => `
+        <div class="db-item ${db === currentSchema ? 'active' : ''}" onclick="selectDB('${db}')" id="dbitem-${db}">
+          <span class="db-icon">🗄️</span><span class="db-name">${db}</span>
+        </div>
+      `).join('');
+    }
+
     async function selectDB(schema) {
       currentSchema = schema;
       document.querySelectorAll('.db-item').forEach(el => el.classList.remove('active'));
-      const item = document.getElementById(`dbitem-${schema}`);
-      if (item) item.classList.add('active');
-      showPage('pageDB');
+      document.getElementById(`dbitem-${schema}`).classList.add('active');
+      document.getElementById('pageWelcome').style.display = 'none';
+      document.getElementById('pageDB').style.display = 'block';
       document.getElementById('dbTitle').textContent = schema;
-      document.getElementById('dbSubtitle').textContent = `PostgreSQL › ${schema}.rag_docs`;
       document.getElementById('statSchema').textContent = schema;
       await loadDocs(schema);
     }
 
     async function loadDocs(schema) {
-      document.getElementById('docsContainer').innerHTML = '<div class="empty"><div class="spinner"></div><p style="margin-top:12px;">Cargando documentos...</p></div>';
-      document.getElementById('statChunks').textContent = '…';
-      document.getElementById('statDocs').textContent = '…';
-
+      document.getElementById('docsContainer').innerHTML = '<div class="empty"><div class="spinner"></div></div>';
       try {
         const data = await api('list_docs', { schema });
         allDocs = data.documentos || [];
         document.getElementById('statChunks').textContent = data.total_chunks || 0;
         document.getElementById('statDocs').textContent = allDocs.length;
         renderDocs(allDocs);
-        if (data.error) showToast(data.error, 'error');
-      } catch (e) {
-        document.getElementById('docsContainer').innerHTML = '<div class="empty"><div class="icon">❌</div><h3>Error al cargar</h3><p>' + e.message + '</p></div>';
-      }
+      } catch (e) { document.getElementById('docsContainer').innerHTML = '<div class="empty">Error</div>'; }
     }
 
     function renderDocs(docs) {
-      document.getElementById('docsCount').textContent = `${docs.length} archivos`;
-      if (docs.length === 0) {
-        document.getElementById('docsContainer').innerHTML = '<div class="empty"><div class="icon">📭</div><h3>Sin documentos</h3><p>Esta base de datos está vacía. Sube archivos a la carpeta de Google Drive para indexarlos.</p></div>';
-        return;
-      }
+      if (docs.length === 0) { document.getElementById('docsContainer').innerHTML = '<div class="empty">Vacío</div>'; return; }
       document.getElementById('docsContainer').innerHTML = `
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Documento</th>
-            <th>Tipo</th>
-            <th>Chunks</th>
-            <th>Preview</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${docs.map(doc => `
+        <div class="table-wrap"><table>
+          <thead><tr><th>Documento</th><th>Tipo</th><th>Chunks</th><th>Preview</th><th></th></tr></thead>
+          <tbody>${docs.map(d => `
             <tr>
-              <td style="font-weight:500;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${doc.titulo}">${doc.titulo || 'Sin título'}</td>
-              <td>${getBadge(doc.tipo)}</td>
-              <td style="font-family:'JetBrains Mono',monospace;color:var(--accent);">${doc.chunks}</td>
-              <td><div class="preview-text">${doc.preview || ''}</div></td>
-              <td>
-                <button class="btn btn-danger btn-sm" onclick="openDeleteModal('${escHtml(doc.titulo)}')">
-                  🗑️ Eliminar
-                </button>
-              </td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    </div>
-  `;
+              <td>${d.titulo}</td><td>${d.tipo}</td><td>${d.chunks}</td>
+              <td class="preview-text">${d.preview}</td>
+              <td><button class="btn btn-danger btn-sm" onclick="deleteDoc('${d.titulo}')">🗑️ Eliminar</button></td>
+            </tr>`).join('')}
+          </tbody>
+        </table></div>`;
     }
 
-    function filterDocs() {
-      const q = document.getElementById('searchInput').value.toLowerCase();
-      const filtered = allDocs.filter(d => (d.titulo || '').toLowerCase().includes(q));
-      renderDocs(filtered);
+    async function deleteDoc(title) {
+      if(!confirm(`¿Eliminar ${title}?`)) return;
+      await api('delete_doc', { schema: currentSchema, title });
+      showToast('Eliminado', 'success');
+      loadDocs(currentSchema);
     }
 
-    function getBadge(tipo) {
-      const map = {
-        'pdf': ['badge-pdf', '📄 PDF'],
-        'excel': ['badge-excel', '📊 Excel'],
-        'txt_csv_otros': ['badge-txt', '📝 TXT/CSV'],
-        'txt': ['badge-txt', '📝 TXT'],
-        'csv': ['badge-txt', '📊 CSV'],
-      };
-      const [cls, label] = map[tipo] || ['badge-other', '📎 Otro'];
-      return `<span class="badge ${cls}">${label}</span>`;
-    }
-
-    function escHtml(s) { return (s || '').replace(/'/g, "\\'"); }
-
-    // ================================================================
-    // DELETE
-    // ================================================================
-    function openDeleteModal(title) {
-      pendingDeleteTitle = title;
-      document.getElementById('deleteDocName').textContent = title;
-      document.getElementById('deleteModal').classList.add('open');
-    }
-    function closeDeleteModal() {
-      document.getElementById('deleteModal').classList.remove('open');
-      pendingDeleteTitle = '';
-    }
-
-    async function confirmDelete() {
-      const btn = document.getElementById('confirmDeleteBtn');
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner"></span> Eliminando...';
+    function openCreateModal() { document.getElementById('createModal').classList.add('open'); }
+    async function confirmCreate() {
+      const s = document.getElementById('newSchemaInput').value.trim();
+      const b = document.getElementById('confirmCreateBtn');
+      if(s.length < 3) return showToast('Muy corto', 'error');
+      b.disabled=true; b.innerHTML='Creando...';
       try {
-        const data = await api('delete_doc', { schema: currentSchema, title: pendingDeleteTitle });
-        closeDeleteModal();
-        showToast(`✅ ${data.message || 'Eliminado correctamente'}`, 'success');
-        await loadDocs(currentSchema);
+        await api('create_db', { new_schema: s });
+        showToast('DB creada', 'success');
+        document.getElementById('createModal').classList.remove('open');
+        loadDatabases();
+      } catch(e) { showToast(e.message, 'error'); }
+      b.disabled=false; b.innerHTML='＋ Crear base';
+    }
+
+    // ================================================================
+    // CRM MODULE
+    // ================================================================
+    async function loadCrm() {
+      document.getElementById('crmBody').innerHTML = '<tr><td colspan="6" class="empty"><div class="spinner"></div> Cargando...</td></tr>';
+      try {
+        const data = await api('crm_list');
+        crmData = data.clients || [];
+        renderCrm(crmData);
       } catch (e) {
-        showToast('Error al eliminar: ' + e.message, 'error');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '🗑️ Sí, eliminar';
+        document.getElementById('crmBody').innerHTML = '<tr><td colspan="6" class="empty">Error de carga</td></tr>';
       }
     }
 
-    // ================================================================
-    // CREATE DB
-    // ================================================================
-    function openCreateModal() {
-      document.getElementById('createModal').classList.add('open');
-      document.getElementById('newSchemaInput').value = '';
-    }
-    function closeCreateModal() {
-      document.getElementById('createModal').classList.remove('open');
-    }
-
-    async function confirmCreate() {
-      const schema = document.getElementById('newSchemaInput').value.trim();
-      if (!schema || schema.length < 3) {
-        showToast('El nombre debe tener al menos 3 caracteres', 'error');
+    function renderCrm(clients) {
+      if (clients.length === 0) {
+        document.getElementById('crmBody').innerHTML = '<tr><td colspan="6" class="empty">No hay clientes registrados en el CRM.</td></tr>';
         return;
       }
-      const btn = document.getElementById('confirmCreateBtn');
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner"></span> Creando...';
-      try {
-        const data = await api('create_db', { new_schema: schema });
-        closeCreateModal();
-        showToast(`✅ Base de datos '${schema}' creada exitosamente`, 'success');
-        await refreshAll();
-      } catch (e) {
-        showToast('Error: ' + e.message, 'error');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '＋ Crear base de datos';
+      document.getElementById('crmBody').innerHTML = clients.map(c => {
+        let docsUrl = ""; let wfUrl = "";
+        try { docsUrl = JSON.parse(c.documents || "[]")[0] || ""; } catch(e){}
+        try { wfUrl = JSON.parse(c.workflow_links || "[]")[0] || ""; } catch(e){}
+        
+        let schemaHtml = c.db_schema ? `<span class="badge badge-txt" style="cursor:pointer;" onclick="switchView('view-rag'); selectDB('${c.db_schema}');" title="Ver DB">${c.db_schema}</span>` : `<span class="badge badge-other">Sin DB</span>`;
+
+        return `
+        <tr>
+          <td><div style="font-weight:600;">${c.name}</div><div style="font-size:11px;color:var(--muted)">${c.notes ? c.notes.substring(0,30)+'...' : ''}</div></td>
+          <td>
+            <div>✉️ ${c.email || '-'}</div>
+            <div>📞 ${c.phone || '-'}</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">Resp: ${c.responsible || '-'}</div>
+          </td>
+          <td><span class="badge badge-excel">${c.plan || '-'}</span></td>
+          <td>${schemaHtml}</td>
+          <td>
+            ${docsUrl ? `<a href="${docsUrl}" target="_blank" class="crm-link">📄 Cotización/Docs</a><br>` : ''}
+            ${wfUrl ? `<a href="${wfUrl}" target="_blank" class="crm-link">⚙️ Acceso N8N</a>` : ''}
+          </td>
+          <td>
+            <button class="btn btn-ghost btn-sm" onclick="editCrm('${c.id}')">✏️ Editar</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteCrm('${c.id}', '${c.name.replace(/'/g,"\\'").replace(/"/g,"&quot;")}')">🗑️</button>
+          </td>
+        </tr>
+      `}).join('');
+    }
+
+    function openCrmModal(client = null) {
+      document.getElementById('crmModal').classList.add('open');
+      if (client) {
+        document.getElementById('crmModalTitle').textContent = `✏️ Editar Cliente: ${client.name}`;
+        document.getElementById('crmId').value = client.id;
+        document.getElementById('crmName').value = client.name;
+        document.getElementById('crmSchema').value = client.db_schema;
+        document.getElementById('crmEmail').value = client.email;
+        document.getElementById('crmPhone').value = client.phone;
+        document.getElementById('crmResp').value = client.responsible;
+        document.getElementById('crmPlan').value = client.plan;
+        document.getElementById('crmNotes').value = client.notes;
+        
+        try { document.getElementById('crmDocs').value = JSON.parse(client.documents || "[]")[0] || ""; } catch(e){}
+        try { document.getElementById('crmWf').value = JSON.parse(client.workflow_links || "[]")[0] || ""; } catch(e){}
+
+      } else {
+        document.getElementById('crmModalTitle').textContent = "👤 Nuevo Cliente";
+        document.getElementById('crmId').value = "";
+        ['crmName','crmSchema','crmEmail','crmPhone','crmResp','crmNotes','crmDocs','crmWf'].forEach(id => document.getElementById(id).value = "");
+        document.getElementById('crmPlan').value = "Profesional";
       }
     }
 
-    // ================================================================
-    // UTILS
-    // ================================================================
-    function showPage(id) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+    function editCrm(id) {
+      const client = crmData.find(c => c.id === id);
+      if (client) openCrmModal(client);
     }
 
-    async function refreshAll() {
-      await loadDatabases();
-      if (currentSchema) await loadDocs(currentSchema);
+    async function deleteCrm(id, name) {
+      if(!confirm(`¿Eliminar definitivamente el cliente ${name} del CRM?\nNota: Su base de datos RAG no se borrará.`)) return;
+      try {
+        await api('crm_delete', { client_id: id });
+        showToast('Cliente borrado', 'success');
+        loadCrm();
+      } catch(e) { showToast(e.message, 'error'); }
+    }
+
+    async function saveCrm() {
+      const id = document.getElementById('crmId').value;
+      const client = {
+        id,
+        name: document.getElementById('crmName').value,
+        db_schema: document.getElementById('crmSchema').value,
+        email: document.getElementById('crmEmail').value,
+        phone: document.getElementById('crmPhone').value,
+        responsible: document.getElementById('crmResp').value,
+        plan: document.getElementById('crmPlan').value,
+        notes: document.getElementById('crmNotes').value,
+        documents: [document.getElementById('crmDocs').value].filter(Boolean),
+        workflow_links: [document.getElementById('crmWf').value].filter(Boolean),
+      };
+
+      if (!client.name) return showToast('El nombre de la empresa es obligatorio', 'error');
+
+      const btn = document.getElementById('crmSaveBtn');
+      btn.disabled = true; btn.innerHTML = 'Guardando...';
+      try {
+        await api('crm_save', { client });
+        showToast('Cliente guardado con éxito', 'success');
+        document.getElementById('crmModal').classList.remove('open');
+        loadCrm();
+      } catch (e) { showToast(e.message, 'error'); }
+      btn.disabled = false; btn.innerHTML = '💾 Guardar Cliente';
     }
 
     function showToast(msg, type = 'info') {
-      const container = document.getElementById('toast-container');
       const el = document.createElement('div');
       el.className = `toast toast-${type}`;
-      const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
-      el.innerHTML = `<span>${icon}</span><span>${msg}</span>`;
-      container.appendChild(el);
+      el.innerHTML = `<span>${msg}</span>`;
+      document.getElementById('toast-container').appendChild(el);
       setTimeout(() => el.remove(), 4000);
     }
-
-    // Close modals on overlay click
-    document.getElementById('deleteModal').addEventListener('click', function (e) {
-      if (e.target === this) closeDeleteModal();
-    });
-    document.getElementById('createModal').addEventListener('click', function (e) {
-      if (e.target === this) closeCreateModal();
-    });
-    document.getElementById('authInput').focus();
   </script>
 </body>
-
 </html>
