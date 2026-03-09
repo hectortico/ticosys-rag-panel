@@ -82,8 +82,15 @@
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1 }
-      50% { opacity: 0.5 }
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.5
+      }
     }
 
     /* NAV PILLS */
@@ -91,6 +98,7 @@
       display: flex;
       gap: 12px;
     }
+
     .nav-tab {
       padding: 8px 16px;
       border-radius: 9px;
@@ -100,10 +108,12 @@
       cursor: pointer;
       transition: all 0.2s;
     }
+
     .nav-tab:hover {
       color: var(--text);
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
     }
+
     .nav-tab.active {
       color: #fff;
       background: var(--accent);
@@ -131,18 +141,34 @@
       box-shadow: var(--card-shadow);
     }
 
-    .auth-card h2 { font-size: 22px; margin-bottom: 8px; }
-    .auth-card p { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
+    .auth-card h2 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .auth-card p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 28px;
+    }
 
     /* LAYOUTS TRANSLATED TO TABS */
-    .main-view { display: none; min-height: calc(100vh - 65px); }
-    .main-view.active { display: flex; flex-direction: column; }
-    
+    .main-view {
+      display: none;
+      min-height: calc(100vh - 65px);
+    }
+
+    .main-view.active {
+      display: flex;
+      flex-direction: column;
+    }
+
     .view-split {
       display: grid;
       grid-template-columns: 280px 1fr;
       flex: 1;
     }
+
     .view-full {
       flex: 1;
       padding: 32px;
@@ -171,7 +197,11 @@
       justify-content: space-between;
     }
 
-    .db-list { flex: 1; overflow-y: auto; }
+    .db-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+
     .db-item {
       display: flex;
       align-items: center;
@@ -181,7 +211,11 @@
       border-left: 3px solid transparent;
       font-size: 13px;
     }
-    .db-item:hover { background: var(--surface2); }
+
+    .db-item:hover {
+      background: var(--surface2);
+    }
+
     .db-item.active {
       background: rgba(99, 102, 241, 0.12);
       border-left-color: var(--accent);
@@ -190,7 +224,11 @@
     }
 
     /* CONTENT */
-    .content { padding: 32px; overflow-y: auto; }
+    .content {
+      padding: 32px;
+      overflow-y: auto;
+    }
+
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -198,6 +236,7 @@
       padding: 24px;
       margin-bottom: 20px;
     }
+
     .card-title {
       font-size: 18px;
       font-weight: 600;
@@ -206,8 +245,14 @@
       align-items: center;
       gap: 8px;
     }
-    
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
     .stat-card {
       background: var(--surface2);
       border: 1px solid var(--border);
@@ -215,12 +260,32 @@
       padding: 20px;
       text-align: center;
     }
-    .stat-value { font-size: 32px; font-weight: 700; color: var(--accent); }
-    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
 
     /* TABLE */
-    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
     th {
       background: var(--surface2);
       padding: 12px 16px;
@@ -231,65 +296,264 @@
       color: var(--muted);
       border-bottom: 1px solid var(--border);
     }
-    td { padding: 12px 16px; border-bottom: 1px solid rgba(42, 48, 71, 0.5); vertical-align: middle; }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: rgba(99, 102, 241, 0.04); }
 
-    .preview-text { max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 11px; }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(42, 48, 71, 0.5);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(99, 102, 241, 0.04);
+    }
+
+    .preview-text {
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--muted);
+      font-size: 11px;
+    }
 
     /* BADGES */
-    .badge { padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; }
-    .badge-pdf { background: rgba(239, 68, 68, 0.15); color: #f87171; }
-    .badge-excel { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-    .badge-txt { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
-    .badge-other { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .badge {
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .badge-pdf {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+    }
+
+    .badge-excel {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+    }
+
+    .badge-txt {
+      background: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+    }
+
+    .badge-other {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+    }
 
     /* BUTTONS */
     .btn {
-      display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
-      border-radius: 9px; border: none; cursor: pointer; font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 9px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
     }
-    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; }
-    .btn-danger { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
-    .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-    .btn-sm { padding: 5px 11px; font-size: 12px; }
 
-    input, select, textarea {
-      background: var(--surface2); border: 1px solid var(--border); color: var(--text);
-      border-radius: 9px; padding: 10px 14px; font-size: 13px; font-family: 'Inter', sans-serif; width: 100%; outline: none;
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white;
     }
-    input:focus, select:focus, textarea:focus { border-color: var(--accent); }
-    textarea { resize: vertical; min-height: 80px; }
-    
-    .form-row { display: flex; gap: 12px; margin-bottom: 16px; }
-    .form-group { flex: 1; }
-    .form-group label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; font-weight: 500; }
 
-    .empty { text-align: center; padding: 48px; color: var(--muted); }
-    .empty h3 { font-size: 16px; margin: 6px 0; color: var(--text); }
-    
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-ghost {
+      background: var(--surface2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-sm {
+      padding: 5px 11px;
+      font-size: 12px;
+    }
+
+    input,
+    select,
+    textarea {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 9px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      width: 100%;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      flex: 1;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 48px;
+      color: var(--muted);
+    }
+
+    .empty h3 {
+      font-size: 16px;
+      margin: 6px 0;
+      color: var(--text);
+    }
+
     /* TOAST */
-    #toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-    .toast { padding: 14px 20px; border-radius: 12px; font-size: 13px; color: white; display: flex; gap: 10px; animation: slideIn 0.3s ease; }
-    @keyframes slideIn { from { transform: translateX(360px); opacity: 0 } to { transform: none; opacity: 1 } }
-    .toast-success { background: linear-gradient(135deg, #059669, #10b981); }
-    .toast-error { background: linear-gradient(135deg, #dc2626, #ef4444); }
+    #toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 13px;
+      color: white;
+      display: flex;
+      gap: 10px;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(360px);
+        opacity: 0
+      }
+
+      to {
+        transform: none;
+        opacity: 1
+      }
+    }
+
+    .toast-success {
+      background: linear-gradient(135deg, #059669, #10b981);
+    }
+
+    .toast-error {
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+    }
 
     /* MODAL */
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 500; backdrop-filter: blur(4px); }
-    .modal-overlay.open { display: flex; }
-    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px; width: 420px; max-height: 90vh; overflow-y: auto;}
-    .modal.large { width: 680px; }
-    .modal h3 { font-size: 18px; margin-bottom: 8px; }
-    .modal p { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
-    .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
-    
-    .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 500;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      width: 420px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal.large {
+      width: 680px;
+    }
+
+    .modal h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .modal p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      margin-top: 24px;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     /* UTILS */
-    .crm-link { color: var(--accent); text-decoration: none; word-break: break-all;}
-    .crm-link:hover { text-decoration: underline; }
+    .crm-link {
+      color: var(--accent);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .crm-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 
@@ -302,7 +566,8 @@
       <h2>Administración TicoSys</h2>
       <p>Ingresa tu clave de acceso maestra</p>
       <div class="form-group" style="margin-bottom:16px;">
-        <input type="password" id="authInput" placeholder="Clave de acceso..." onkeydown="if(event.key==='Enter')doLogin()">
+        <input type="password" id="authInput" placeholder="Clave de acceso..."
+          onkeydown="if(event.key==='Enter')doLogin()">
       </div>
       <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="doLogin()">Autenticar</button>
     </div>
@@ -333,17 +598,21 @@
         <button class="btn btn-ghost btn-sm" onclick="openCreateModal()" title="Nueva DB">＋</button>
       </div>
       <div class="db-list" id="dbList">
-        <div class="empty"><div class="spinner"></div></div>
+        <div class="empty">
+          <div class="spinner"></div>
+        </div>
       </div>
     </aside>
 
     <!-- CONTENT -->
     <div class="content">
-      <div id="pageWelcome" style="display:none; height:100%; align-items:center; justify-content:center; text-align:center;">
+      <div id="pageWelcome"
+        style="display:none; height:100%; align-items:center; justify-content:center; text-align:center;">
         <div>
           <div style="font-size:64px;">🗄️</div>
           <h2>Selecciona una base de datos</h2>
-          <p style="color:var(--muted); max-width:380px; margin:16px auto;">Gestiona los documentos de la memoria RAG de tus clientes.</p>
+          <p style="color:var(--muted); max-width:380px; margin:16px auto;">Gestiona los documentos de la memoria RAG de
+            tus clientes.</p>
           <button class="btn btn-primary" onclick="openCreateModal()">＋ Crear nueva base de datos</button>
         </div>
       </div>
@@ -358,14 +627,25 @@
         </div>
 
         <div class="stats-grid">
-          <div class="stat-card"><div class="stat-value" id="statChunks">—</div><div class="stat-label">Total Chunks</div></div>
-          <div class="stat-card"><div class="stat-value" id="statDocs">—</div><div class="stat-label">Documentos</div></div>
-          <div class="stat-card"><div class="stat-value" id="statSchema" style="font-size:16px;padding-top:14px;">—</div><div class="stat-label">Schema PostgreSQL</div></div>
+          <div class="stat-card">
+            <div class="stat-value" id="statChunks">—</div>
+            <div class="stat-label">Total Chunks</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statDocs">—</div>
+            <div class="stat-label">Documentos</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statSchema" style="font-size:16px;padding-top:14px;">—</div>
+            <div class="stat-label">Schema PostgreSQL</div>
+          </div>
         </div>
 
         <div class="card">
-          <div class="card-title">📄 Documentos indexados <span id="docsCount" style="font-size:12px;color:var(--muted);margin-left:auto;"></span></div>
-          <input type="text" id="searchInput" placeholder="🔍 Buscar documento..." oninput="filterDocs()" style="margin-bottom:16px;">
+          <div class="card-title">📄 Documentos indexados <span id="docsCount"
+              style="font-size:12px;color:var(--muted);margin-left:auto;"></span></div>
+          <input type="text" id="searchInput" placeholder="🔍 Buscar documento..." oninput="filterDocs()"
+            style="margin-bottom:16px;">
           <div id="docsContainer"></div>
         </div>
       </div>
@@ -377,14 +657,15 @@
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
       <div>
         <h1 style="font-size:24px;font-weight:700;">Directorio de Clientes TicoSys</h1>
-        <p style="color:var(--muted);font-size:13px;margin-top:4px;">Gestión de información, recursos y bases de datos RAG.</p>
+        <p style="color:var(--muted);font-size:13px;margin-top:4px;">Gestión de información, recursos y bases de datos
+          RAG.</p>
       </div>
       <div style="display:flex; gap:12px;">
         <button class="btn btn-ghost" onclick="loadCrm()">↻ Actualizar</button>
         <button class="btn btn-primary" onclick="openCrmModal()">＋ Registrar Cliente</button>
       </div>
     </div>
-    
+
     <div class="card">
       <div class="table-wrap">
         <table id="crmTable">
@@ -399,7 +680,9 @@
             </tr>
           </thead>
           <tbody id="crmBody">
-            <tr><td colspan="6" class="empty">Cargando clientes...</td></tr>
+            <tr>
+              <td colspan="6" class="empty">Cargando clientes...</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -416,7 +699,8 @@
         <input type="text" id="newSchemaInput" placeholder="ej: clinica_prevaler">
       </div>
       <div class="modal-actions">
-        <button class="btn btn-ghost" onclick="document.getElementById('createModal').classList.remove('open')">Cancelar</button>
+        <button class="btn btn-ghost"
+          onclick="document.getElementById('createModal').classList.remove('open')">Cancelar</button>
         <button class="btn btn-primary" id="confirmCreateBtn" onclick="confirmCreate()">＋ Crear base</button>
       </div>
     </div>
@@ -428,25 +712,26 @@
       <h3 id="crmModalTitle">👤 Nuevo Cliente</h3>
       <p>Registra la información del cliente, planes cotizados y recursos.</p>
       <input type="hidden" id="crmId">
-      
+
       <div class="form-row">
         <div class="form-group"><label>Nombre de la Empresa o Cliente *</label><input type="text" id="crmName"></div>
-        <div class="form-group"><label>Base RAG (Schema)</label><input type="text" id="crmSchema" placeholder="Ej: clinica_prevaler"></div>
+        <div class="form-group"><label>Base RAG (Schema)</label><input type="text" id="crmSchema"
+            placeholder="Ej: clinica_prevaler"></div>
       </div>
-      
+
       <div class="form-row">
         <div class="form-group"><label>Email de Contacto</label><input type="email" id="crmEmail"></div>
         <div class="form-group"><label>Teléfono (WhatsApp)</label><input type="text" id="crmPhone"></div>
         <div class="form-group"><label>Responsable</label><input type="text" id="crmResp"></div>
       </div>
-      
+
       <div class="form-row">
         <div class="form-group"><label>Plan Aprobado</label>
-            <select id="crmPlan">
-                <option value="Basico">Básico</option>
-                <option value="Profesional">Profesional</option>
-                <option value="Enterprise">Enterprise</option>
-            </select>
+          <select id="crmPlan">
+            <option value="Basico">Básico</option>
+            <option value="Profesional">Profesional</option>
+            <option value="Enterprise">Enterprise</option>
+          </select>
         </div>
       </div>
 
@@ -467,7 +752,8 @@
       </div>
 
       <div class="modal-actions">
-        <button class="btn btn-ghost" onclick="document.getElementById('crmModal').classList.remove('open')">Cancelar</button>
+        <button class="btn btn-ghost"
+          onclick="document.getElementById('crmModal').classList.remove('open')">Cancelar</button>
         <button class="btn btn-primary" id="crmSaveBtn" onclick="saveCrm()">💾 Guardar Cliente</button>
       </div>
     </div>
@@ -499,8 +785,8 @@
     }
 
     function switchView(viewId) {
-      document.querySelectorAll('.main-view').forEach(e=>e.classList.remove('active'));
-      document.querySelectorAll('.nav-tab').forEach(e=>e.classList.remove('active'));
+      document.querySelectorAll('.main-view').forEach(e => e.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(e => e.classList.remove('active'));
       document.getElementById(viewId).classList.add('active');
       document.getElementById(viewId === 'view-rag' ? 'tab-rag' : 'tab-crm').classList.add('active');
       if (viewId === 'view-crm') loadCrm();
@@ -539,7 +825,7 @@
     async function loadDatabases() {
       const data = await api('list_dbs');
       const el = document.getElementById('dbList');
-      if (!data.databases || data.databases.length === 0) { el.innerHTML = '<div class="empty">Sin bases de datos</div>'; return;}
+      if (!data.databases || data.databases.length === 0) { el.innerHTML = '<div class="empty">Sin bases de datos</div>'; return; }
       el.innerHTML = data.databases.map(db => `
         <div class="db-item ${db === currentSchema ? 'active' : ''}" onclick="selectDB('${db}')" id="dbitem-${db}">
           <span class="db-icon">🗄️</span><span class="db-name">${db}</span>
@@ -585,7 +871,7 @@
     }
 
     async function deleteDoc(title) {
-      if(!confirm(`¿Eliminar ${title}?`)) return;
+      if (!confirm(`¿Eliminar ${title}?`)) return;
       await api('delete_doc', { schema: currentSchema, title });
       showToast('Eliminado', 'success');
       loadDocs(currentSchema);
@@ -595,15 +881,15 @@
     async function confirmCreate() {
       const s = document.getElementById('newSchemaInput').value.trim();
       const b = document.getElementById('confirmCreateBtn');
-      if(s.length < 3) return showToast('Muy corto', 'error');
-      b.disabled=true; b.innerHTML='Creando...';
+      if (s.length < 3) return showToast('Muy corto', 'error');
+      b.disabled = true; b.innerHTML = 'Creando...';
       try {
         await api('create_db', { new_schema: s });
         showToast('DB creada', 'success');
         document.getElementById('createModal').classList.remove('open');
         loadDatabases();
-      } catch(e) { showToast(e.message, 'error'); }
-      b.disabled=false; b.innerHTML='＋ Crear base';
+      } catch (e) { showToast(e.message, 'error'); }
+      b.disabled = false; b.innerHTML = '＋ Crear base';
     }
 
     // ================================================================
@@ -627,14 +913,14 @@
       }
       document.getElementById('crmBody').innerHTML = clients.map(c => {
         let docsUrl = ""; let wfUrl = "";
-        try { docsUrl = JSON.parse(c.documents || "[]")[0] || ""; } catch(e){}
-        try { wfUrl = JSON.parse(c.workflow_links || "[]")[0] || ""; } catch(e){}
-        
+        try { docsUrl = JSON.parse(c.documents || "[]")[0] || ""; } catch (e) { }
+        try { wfUrl = JSON.parse(c.workflow_links || "[]")[0] || ""; } catch (e) { }
+
         let schemaHtml = c.db_schema ? `<span class="badge badge-txt" style="cursor:pointer;" onclick="switchView('view-rag'); selectDB('${c.db_schema}');" title="Ver DB">${c.db_schema}</span>` : `<span class="badge badge-other">Sin DB</span>`;
 
         return `
         <tr>
-          <td><div style="font-weight:600;">${c.name}</div><div style="font-size:11px;color:var(--muted)">${c.notes ? c.notes.substring(0,30)+'...' : ''}</div></td>
+          <td><div style="font-weight:600;">${c.name}</div><div style="font-size:11px;color:var(--muted)">${c.notes ? c.notes.substring(0, 30) + '...' : ''}</div></td>
           <td>
             <div>✉️ ${c.email || '-'}</div>
             <div>📞 ${c.phone || '-'}</div>
@@ -648,7 +934,7 @@
           </td>
           <td>
             <button class="btn btn-ghost btn-sm" onclick="editCrm('${c.id}')">✏️ Editar</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteCrm('${c.id}', '${c.name.replace(/'/g,"\\'").replace(/"/g,"&quot;")}')">🗑️</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteCrm('${c.id}', '${c.name.replace(/'/g, "\\'").replace(/"/g, "&quot;")}')">🗑️</button>
           </td>
         </tr>
       `}).join('');
@@ -666,14 +952,14 @@
         document.getElementById('crmResp').value = client.responsible;
         document.getElementById('crmPlan').value = client.plan;
         document.getElementById('crmNotes').value = client.notes;
-        
-        try { document.getElementById('crmDocs').value = JSON.parse(client.documents || "[]")[0] || ""; } catch(e){}
-        try { document.getElementById('crmWf').value = JSON.parse(client.workflow_links || "[]")[0] || ""; } catch(e){}
+
+        try { document.getElementById('crmDocs').value = JSON.parse(client.documents || "[]")[0] || ""; } catch (e) { }
+        try { document.getElementById('crmWf').value = JSON.parse(client.workflow_links || "[]")[0] || ""; } catch (e) { }
 
       } else {
         document.getElementById('crmModalTitle').textContent = "👤 Nuevo Cliente";
         document.getElementById('crmId').value = "";
-        ['crmName','crmSchema','crmEmail','crmPhone','crmResp','crmNotes','crmDocs','crmWf'].forEach(id => document.getElementById(id).value = "");
+        ['crmName', 'crmSchema', 'crmEmail', 'crmPhone', 'crmResp', 'crmNotes', 'crmDocs', 'crmWf'].forEach(id => document.getElementById(id).value = "");
         document.getElementById('crmPlan').value = "Profesional";
       }
     }
@@ -684,12 +970,12 @@
     }
 
     async function deleteCrm(id, name) {
-      if(!confirm(`¿Eliminar definitivamente el cliente ${name} del CRM?\nNota: Su base de datos RAG no se borrará.`)) return;
+      if (!confirm(`¿Eliminar definitivamente el cliente ${name} del CRM?\nNota: Su base de datos RAG no se borrará.`)) return;
       try {
         await api('crm_delete', { client_id: id });
         showToast('Cliente borrado', 'success');
         loadCrm();
-      } catch(e) { showToast(e.message, 'error'); }
+      } catch (e) { showToast(e.message, 'error'); }
     }
 
     async function saveCrm() {
@@ -729,4 +1015,5 @@
     }
   </script>
 </body>
+
 </html>
