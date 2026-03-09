@@ -749,6 +749,10 @@
           <label>URL Workflow Principal N8N</label>
           <input type="text" id="crmWf" placeholder="https://n8n.ticosys.com/workflow/...">
         </div>
+        <div class="form-group">
+          <label>Google Drive Folder ID (Opcional)</label>
+          <input type="text" id="crmDrive" placeholder="1fcPmkgQvoh3jd55hi...">
+        </div>
       </div>
 
       <div class="modal-actions">
@@ -836,7 +840,7 @@
     async function selectDB(schema) {
       currentSchema = schema;
       document.querySelectorAll('.db-item').forEach(el => el.classList.remove('active'));
-      document.getElementById(`dbitem-${schema}`).classList.add('active');
+      document.getElementById(\`dbitem-\${schema}\`).classList.add('active');
       document.getElementById('pageWelcome').style.display = 'none';
       document.getElementById('pageDB').style.display = 'block';
       document.getElementById('dbTitle').textContent = schema;
@@ -857,21 +861,21 @@
 
     function renderDocs(docs) {
       if (docs.length === 0) { document.getElementById('docsContainer').innerHTML = '<div class="empty">Vacío</div>'; return; }
-      document.getElementById('docsContainer').innerHTML = `
+      document.getElementById('docsContainer').innerHTML = \`
         <div class="table-wrap"><table>
           <thead><tr><th>Documento</th><th>Tipo</th><th>Chunks</th><th>Preview</th><th></th></tr></thead>
-          <tbody>${docs.map(d => `
+          <tbody>\${docs.map(d => \`
             <tr>
-              <td>${d.titulo}</td><td>${d.tipo}</td><td>${d.chunks}</td>
-              <td class="preview-text">${d.preview}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="deleteDoc('${d.titulo}')">🗑️ Eliminar</button></td>
-            </tr>`).join('')}
+              <td>\${d.titulo}</td><td>\${d.tipo}</td><td>\${d.chunks}</td>
+              <td class="preview-text">\${d.preview}</td>
+              <td><button class="btn btn-danger btn-sm" onclick="deleteDoc('\${d.titulo}')">🗑️ Eliminar</button></td>
+            </tr>\`).join('')}
           </tbody>
-        </table></div>`;
+        </table></div>\`;
     }
 
     async function deleteDoc(title) {
-      if (!confirm(`¿Eliminar ${title}?`)) return;
+      if (!confirm(\`¿Eliminar \${title}?\`)) return;
       await api('delete_doc', { schema: currentSchema, title });
       showToast('Eliminado', 'success');
       loadDocs(currentSchema);
@@ -916,34 +920,38 @@
         try { docsUrl = JSON.parse(c.documents || "[]")[0] || ""; } catch (e) { }
         try { wfUrl = JSON.parse(c.workflow_links || "[]")[0] || ""; } catch (e) { }
 
-        let schemaHtml = c.db_schema ? `<span class="badge badge-txt" style="cursor:pointer;" onclick="switchView('view-rag'); selectDB('${c.db_schema}');" title="Ver DB">${c.db_schema}</span>` : `<span class="badge badge-other">Sin DB</span>`;
+        let schemaHtml = c.db_schema ? \`<span class="badge badge-txt" style="cursor:pointer;" onclick="switchView('view-rag'); selectDB('\${c.db_schema}');" title="Ver DB">\${c.db_schema}</span>\` : \`<span class="badge badge-other">Sin DB</span>\`;
 
-        return `
+        return \`
         <tr>
-          <td><div style="font-weight:600;">${c.name}</div><div style="font-size:11px;color:var(--muted)">${c.notes ? c.notes.substring(0, 30) + '...' : ''}</div></td>
+          <td><div style="font-weight:600;">\${c.name}</div><div style="font-size:11px;color:var(--muted)">\${c.notes ? c.notes.substring(0, 30) + '...' : ''}</div></td>
           <td>
-            <div>✉️ ${c.email || '-'}</div>
-            <div>📞 ${c.phone || '-'}</div>
-            <div style="font-size:11px;color:var(--muted);margin-top:2px;">Resp: ${c.responsible || '-'}</div>
+            <div>✉️ \${c.email || '-'}</div>
+            <div>📞 \${c.phone || '-'}</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">Resp: \${c.responsible || '-'}</div>
           </td>
-          <td><span class="badge badge-excel">${c.plan || '-'}</span></td>
-          <td>${schemaHtml}</td>
+          <td><span class="badge badge-excel">\${c.plan || '-'}</span></td>
+          <td>\${schemaHtml}</td>
           <td>
-            ${docsUrl ? `<a href="${docsUrl}" target="_blank" class="crm-link">📄 Cotización/Docs</a><br>` : ''}
-            ${wfUrl ? `<a href="${wfUrl}" target="_blank" class="crm-link">⚙️ Acceso N8N</a>` : ''}
+            \${docsUrl ? \`<a href="\${docsUrl}" target="_blank" class="crm-link">📄 Cotización/Docs</a><br>\` : ''}
+            \${wfUrl ? \`<a href="\${wfUrl}" target="_blank" class="crm-link">⚙️ Acceso N8N</a>\` : ''}
+            \${c.drive_folder_id ? \`<div style="font-size:10px;color:var(--muted);margin-top:4px;">Drive: \${c.drive_folder_id.substring(0, 10)}...</div>\` : ''}
           </td>
           <td>
-            <button class="btn btn-ghost btn-sm" onclick="editCrm('${c.id}')">✏️ Editar</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteCrm('${c.id}', '${c.name.replace(/'/g, "\\'").replace(/"/g, "&quot;")}')">🗑️</button>
+            <div style="display:flex; flex-direction:column; gap:4px;">
+              <button class="btn btn-ghost btn-sm" onclick="editCrm('\${c.id}')">✏️ Editar</button>
+              \${c.db_schema ? \`<button class="btn btn-primary btn-sm" onclick="cloneBaseWorkflow('\${c.name}', '\${c.db_schema}', '\${c.drive_folder_id || ''}')" title="Clonar Workflow Base">📋 Clonar WF</button>\` : ''}
+              <button class="btn btn-danger btn-sm" onclick="deleteCrm('\${c.id}', '\${c.name.replace(/'/g, "\\\\'").replace(/"/g, "&quot;")}')">🗑️ Borrar</button>
+            </div>
           </td>
         </tr>
-      `}).join('');
+      \`}).join('');
     }
 
     function openCrmModal(client = null) {
       document.getElementById('crmModal').classList.add('open');
       if (client) {
-        document.getElementById('crmModalTitle').textContent = `✏️ Editar Cliente: ${client.name}`;
+        document.getElementById('crmModalTitle').textContent = \`✏️ Editar Cliente: \${client.name}\`;
         document.getElementById('crmId').value = client.id;
         document.getElementById('crmName').value = client.name;
         document.getElementById('crmSchema').value = client.db_schema;
@@ -955,11 +963,12 @@
 
         try { document.getElementById('crmDocs').value = JSON.parse(client.documents || "[]")[0] || ""; } catch (e) { }
         try { document.getElementById('crmWf').value = JSON.parse(client.workflow_links || "[]")[0] || ""; } catch (e) { }
+        document.getElementById('crmDrive').value = client.drive_folder_id || "";
 
       } else {
         document.getElementById('crmModalTitle').textContent = "👤 Nuevo Cliente";
         document.getElementById('crmId').value = "";
-        ['crmName', 'crmSchema', 'crmEmail', 'crmPhone', 'crmResp', 'crmNotes', 'crmDocs', 'crmWf'].forEach(id => document.getElementById(id).value = "");
+        ['crmName', 'crmSchema', 'crmEmail', 'crmPhone', 'crmResp', 'crmNotes', 'crmDocs', 'crmWf', 'crmDrive'].forEach(id => document.getElementById(id).value = "");
         document.getElementById('crmPlan').value = "Profesional";
       }
     }
@@ -970,7 +979,7 @@
     }
 
     async function deleteCrm(id, name) {
-      if (!confirm(`¿Eliminar definitivamente el cliente ${name} del CRM?\nNota: Su base de datos RAG no se borrará.`)) return;
+      if (!confirm(\`¿Eliminar definitivamente el cliente \${name} del CRM?\\nNota: Su base de datos RAG no se borrará.\`)) return;
       try {
         await api('crm_delete', { client_id: id });
         showToast('Cliente borrado', 'success');
@@ -989,6 +998,7 @@
         responsible: document.getElementById('crmResp').value,
         plan: document.getElementById('crmPlan').value,
         notes: document.getElementById('crmNotes').value,
+        drive_folder_id: document.getElementById('crmDrive').value,
         documents: [document.getElementById('crmDocs').value].filter(Boolean),
         workflow_links: [document.getElementById('crmWf').value].filter(Boolean),
       };
@@ -1006,10 +1016,25 @@
       btn.disabled = false; btn.innerHTML = '💾 Guardar Cliente';
     }
 
+    async function cloneBaseWorkflow(name, schema, folder_id) {
+      if (!confirm(\`¿Deseas clonar el Workflow Base para \${name}?\\nEsto creará un nuevo flujo en n8n adaptado al esquema '\${schema}'.\`)) return;
+      showToast('Clonando workflow...', 'info');
+      try {
+        const res = await api('clone_workflow', { name, schema, folder_id });
+        if (res.success) {
+          showToast('Workflow clonado con éxito', 'success');
+          // Podríamos intentar abrir el link si lo tenemos, o recargar el CRM
+          loadCrm();
+        } else {
+          showToast('Error al clonar: ' + res.error, 'error');
+        }
+      } catch (e) { showToast(e.message, 'error'); }
+    }
+
     function showToast(msg, type = 'info') {
       const el = document.createElement('div');
-      el.className = `toast toast-${type}`;
-      el.innerHTML = `<span>${msg}</span>`;
+      el.className = \`toast toast-\${type}\`;
+      el.innerHTML = \`<span>\${msg}</span>\`;
       document.getElementById('toast-container').appendChild(el);
       setTimeout(() => el.remove(), 4000);
     }
