@@ -604,15 +604,23 @@
   <!-- VIEW: RAG -->
   <main id="view-rag" class="main-view active view-split">
     <!-- SIDEBAR -->
-    <aside>
-      <div class="sidebar-header">
-        <span>Bases de Datos</span>
-        <button class="btn btn-ghost btn-sm" onclick="openCreateModal()" title="Nueva DB">＋</button>
-      </div>
-      <div class="db-list" id="dbList">
-        <div class="empty">
-          <div class="spinner"></div>
+    <aside style="justify-content: space-between;">
+      <div style="display: flex; flex-direction: column; height: 100%; overflow: hidden;">
+        <div class="sidebar-header">
+          <span>Bases de Datos</span>
         </div>
+        <div class="db-list" id="dbList" style="flex: 1; overflow-y: auto;">
+          <div class="empty">
+            <div class="spinner"></div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="padding: 16px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; flex-shrink: 0;">
+        <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="openCreateModal()">✨
+          Nueva Base RAG</button>
+        <button class="btn btn-ghost" style="width: 100%; justify-content: center;"
+          onclick="switchView('view-crm'); setTimeout(openCrmModal, 100);">👤 Nuevo Cliente</button>
       </div>
     </aside>
 
@@ -727,8 +735,16 @@
 
       <div class="form-row">
         <div class="form-group"><label>Nombre de la Empresa o Cliente *</label><input type="text" id="crmName"></div>
-        <div class="form-group"><label>Base RAG (Schema)</label><input type="text" id="crmSchema"
-            placeholder="Ej: clinica_prevaler"></div>
+        <div class="form-group">
+          <label>Base RAG (Schema)</label>
+          <input type="text" id="crmSchema" placeholder="Ej: clinica_prevaler">
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; margin-top:8px;"
+            id="crmAutoCreateDbLabel">
+            <input type="checkbox" id="crmAutoCreateDb" checked>
+            <span style="font-size:11px; color:var(--muted); text-transform:none;">Crear schema asociado en Postgres (si
+              no existe)</span>
+          </label>
+        </div>
       </div>
 
       <div class="form-row">
@@ -993,6 +1009,7 @@
 
     function openCrmModal(client = null) {
       document.getElementById('crmModal').classList.add('open');
+      document.getElementById('crmAutoCreateDbLabel').style.display = client ? 'none' : 'flex';
       if (client) {
         document.getElementById('crmModalTitle').textContent = `✏️ Editar Cliente: ${client.name}`;
         document.getElementById('crmId').value = client.id;
@@ -1051,6 +1068,10 @@
       const btn = document.getElementById('crmSaveBtn');
       btn.disabled = true; btn.innerHTML = 'Guardando...';
       try {
+        if (!id && client.db_schema && document.getElementById('crmAutoCreateDb').checked) {
+          showToast('Creando schema de base RAG...', 'info');
+          try { await api('create_db', { new_schema: client.db_schema }); } catch (err) { console.warn(err); }
+        }
         await api('crm_save', { client });
         showToast('Cliente guardado con éxito', 'success');
         document.getElementById('crmModal').classList.remove('open');
