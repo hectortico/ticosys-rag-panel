@@ -801,273 +801,272 @@
     }
 
     function switchView(viewId) {
-      document.querySelectorAll('.main-view').forEach(v => v.classList.remove('active'));
-      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-      const el = document.getElementById(viewId);
-      if (el) el.classList.add('active');
-      const tabId = 'tab-' + viewId.replace('view-', '');
-      const tab = document.getElementById(tabId);
-      if (tab) tab.classList.add('active');
+      document.querySelectorAll('.main-view').forEach(e => e.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(e => e.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+      document.getElementById(viewId === 'view-rag' ? 'tab-rag' : 'tab-crm').classList.add('active');
       if (viewId === 'view-crm') loadCrm();
     }
 
     // ================================================================
-    // API CALL
+    // API
     // ================================================================
     async function api(action, extra = {}) {
       const res = await fetch(N8N_WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action, secret: ADMIN_SECRET, ...extra })
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
-      return res.json();
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
     }
 
     // ================================================================
     // INIT
     // ================================================================
     async function init() {
+      const dot = document.getElementById('statusDot');
       try {
-        await api('init_crm');
-      } catch (e) { /* ok, table may already exist */ }
-      loadDatabases();
-    }
-
-    // ================================================================
-    // DATABASES
-    // ================================================================
-    async function loadDatabases() {
-      const list = document.getElementById('dbList');
-      list.innerHTML = '<div class="empty"><div class="spinner"></div></div>';
-      try {
-        const data = await api('list_dbs');
-        const dbs = data.databases || [];
-        document.getElementById('statusDot').style.background = 'var(--success)';
-        document.getElementById('headerStatus').textContent = `${dbs.length} bases activas`;
-        if (!dbs.length) {
-          list.innerHTML = '<div class="empty"><h3>Sin bases</h3><p>Crea tu primera base de datos RAG</p></div>';
-          document.getElementById('pageWelcome').style.display = 'flex';
-          return;
-        }
-        list.innerHTML = dbs.map(db => `
-          <div class="db-item" id="dbitem-${db}" onclick="selectDB('${db}')">
-            <span>🗄️</span>
-            <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${db}</span>
-            <span class="db-item-actions" title="Eliminar base de datos" onclick="event.stopPropagation(); deleteDB('${db}')">🗑️</span>
-          </div>`).join('');
-        document.getElementById('pageWelcome').style.display = 'flex';
-        document.getElementById('pageDB').style.display = 'none';
+        await loadDatabases();
+        dot.style.background = 'var(--success)';
+        document.getElementById('headerStatus').textContent = 'Conectado';
       } catch (e) {
-        document.getElementById('statusDot').style.background = 'var(--danger)';
+        dot.style.background = 'var(--danger)';
         document.getElementById('headerStatus').textContent = 'Error de conexión';
-        list.innerHTML = '<div class="empty">Error al cargar</div>';
       }
     }
 
-    function selectDB(schema) {
-      currentSchema = schema;
-      document.querySelectorAll('.db-item').forEach(el => el.classList.remove('active'));
-      document.getElementById(`dbitem-${schema}`)?.classList.add('active');
-      document.getElementById('pageWelcome').style.display = 'none';
-      document.getElementById('pageDB').style.display = 'block';
-      document.getElementById('dbTitle').textContent = '🗄️ ' + schema;
-      document.getElementById('dbSubtitle').textContent = `Schema PostgreSQL: ${schema}`;
-      document.getElementById('statSchema').textContent = schema;
-      loadDocs(schema);
+    // ================================================================
+    // RAG MODULE
+    // ================================================================
+    async function loadDatabases() {
+      const data = await api('list_dbs');
+      const el = document.getElementById('dbList');
+      if (!data.databases || data.databases.length === 0) { el.innerHTML = '<div class="empty">Sin bases de datos</div>'; return; }
+      el.innerHTML = data.databases.map(db => `
+        <div class="db-item ${db === currentSchema ? 'active' : ''}" onclick="selectDB('${db}')" id="dbitem-${db}">
+          <span class="db-icon">🗄️</span>
+          <span class="db-name">${db}</span>
+          <div class="db-item-actions" onclick="event.stopPropagation(); deleteDB('${db}')" title="Borrar base de datos">
+            🗑️
+          </div>
+        </div>
+      `).join('');
     }
 
     async function deleteDB(schema) {
-      if (!confirm(`⚠️ ADVERTENCIA: Esta acción eliminará PERMANENTEMENTE la base de datos "${schema}" y todos sus documentos RAG.\n\n¿Estás seguro de que deseas continuar?`)) return;
-      if (!confirm(`🛑 CONFIRMACIÓN FINAL\n\nEscribe el nombre del schema para confirmar que entiendes que esto es IRREVERSIBLE.\n\nSe eliminará: "${schema}" con todos sus datos.`)) return;
-      showToast(`Eliminando base de datos "${schema}"...`, 'info');
+      if (!confirm(`⚠️ ADVERTENCIA: Esta acción eliminará PERMANENTEMENTE la base de datos "${schema}" y todos sus documentos.\n\nEsto es IRREVERSIBLE.\n\n¿Deseas continuar?`)) return;
+
+      const verify = prompt(`Para confirmar, escribe el nombre exacto de la base de datos a eliminar:\n\n${schema}`);
+      if (verify !== schema) {
+        if (verify !== null) showToast('Nombre incorrecto. Operación cancelada.', 'info');
+        return;
+      }
+
+      const dot = document.getElementById('statusDot');
       try {
-        const res = await api('delete_db', { schema });
-        if (res.success) {
-          showToast(res.message || `Base "${schema}" eliminada.`, 'success');
-          if (currentSchema === schema) {
-            currentSchema = '';
-            document.getElementById('pageDB').style.display = 'none';
-            document.getElementById('pageWelcome').style.display = 'flex';
-          }
-          loadDatabases();
-        } else {
-          showToast('Error: ' + res.error, 'error');
+        dot.style.background = 'var(--warning)';
+        await api('delete_db', { schema });
+        showToast(`Base de datos '${schema}' eliminada`, 'success');
+        if (currentSchema === schema) {
+          currentSchema = '';
+          document.getElementById('pageDB').style.display = 'none';
+          document.getElementById('pageWelcome').style.display = 'flex';
         }
-      } catch (e) { showToast(e.message, 'error'); }
+        loadDatabases();
+      } catch (e) {
+        showToast('Error al borrar DB: ' + e.message, 'error');
+      } finally {
+        dot.style.background = 'var(--success)';
+      }
     }
 
-    // ================================================================
-    // DOCUMENTS
-    // ================================================================
+    async function selectDB(schema) {
+      currentSchema = schema;
+      document.querySelectorAll('.db-item').forEach(el => el.classList.remove('active'));
+      document.getElementById(`dbitem-${schema}`).classList.add('active');
+      document.getElementById('pageWelcome').style.display = 'none';
+      document.getElementById('pageDB').style.display = 'block';
+      document.getElementById('dbTitle').textContent = schema;
+      document.getElementById('statSchema').textContent = schema;
+      await loadDocs(schema);
+    }
+
     async function loadDocs(schema) {
       document.getElementById('docsContainer').innerHTML = '<div class="empty"><div class="spinner"></div></div>';
-      document.getElementById('statChunks').textContent = '…';
-      document.getElementById('statDocs').textContent = '…';
       try {
         const data = await api('list_docs', { schema });
         allDocs = data.documentos || [];
         document.getElementById('statChunks').textContent = data.total_chunks || 0;
-        document.getElementById('statDocs').textContent = data.total_docs || 0;
+        document.getElementById('statDocs').textContent = allDocs.length;
         renderDocs(allDocs);
-      } catch (e) {
-        document.getElementById('docsContainer').innerHTML = '<div class="empty">Error al cargar documentos</div>';
-      }
+      } catch (e) { document.getElementById('docsContainer').innerHTML = '<div class="empty">Error</div>'; }
     }
 
     function renderDocs(docs) {
-      const container = document.getElementById('docsContainer');
-      document.getElementById('docsCount').textContent = `${docs.length} documentos`;
-      if (!docs.length) { container.innerHTML = '<div class="empty"><h3>Sin documentos</h3><p>Sin documentos indexados aún.</p></div>'; return; }
-      const badgeClass = t => t === 'pdf' ? 'badge-pdf' : t === 'excel' ? 'badge-excel' : t === 'txt' ? 'badge-txt' : 'badge-other';
-      container.innerHTML = `<div class="table-wrap"><table>
-        <thead><tr><th>Documento</th><th>Tipo</th><th>Chunks</th><th>Preview</th><th></th></tr></thead>
-        <tbody>${docs.map(d => `<tr>
-          <td style="font-weight:500;">${d.titulo || '—'}</td>
-          <td><span class="badge ${badgeClass(d.tipo)}">${d.tipo || 'general'}</span></td>
-          <td style="text-align:center;">${d.chunks}</td>
-          <td><span class="preview-text">${d.preview || ''}</span></td>
-          <td><button class="btn btn-danger btn-sm" onclick="deleteDoc('${currentSchema}','${(d.titulo || '').replace(/'/g, "\\'")}')">🗑️ Eliminar</button></td>
-        </tr>`).join('')}</tbody>
-      </table></div>`;
+      if (docs.length === 0) { document.getElementById('docsContainer').innerHTML = '<div class="empty">Vacío</div>'; return; }
+      document.getElementById('docsContainer').innerHTML = `
+        <div class="table-wrap"><table>
+          <thead><tr><th>Documento</th><th>Tipo</th><th>Chunks</th><th>Preview</th><th></th></tr></thead>
+          <tbody>${docs.map(d => `
+            <tr>
+              <td>${d.titulo}</td><td>${d.tipo}</td><td>${d.chunks}</td>
+              <td class="preview-text">${d.preview}</td>
+              <td><button class="btn btn-danger btn-sm" onclick="deleteDoc('${d.titulo}')">🗑️ Eliminar</button></td>
+            </tr>`).join('')}
+          </tbody>
+        </table></div>`;
     }
 
-    function filterDocs() {
-      const q = document.getElementById('searchInput').value.toLowerCase();
-      renderDocs(allDocs.filter(d => (d.titulo || '').toLowerCase().includes(q)));
+    async function deleteDoc(title) {
+      if (!confirm(`¿Eliminar ${title}?`)) return;
+      await api('delete_doc', { schema: currentSchema, title });
+      showToast('Eliminado', 'success');
+      loadDocs(currentSchema);
     }
 
-    async function deleteDoc(schema, title) {
-      if (!confirm(`¿Eliminar todos los chunks del documento "${title}" del schema "${schema}"?`)) return;
-      showToast('Eliminando documento...', 'info');
-      try {
-        const res = await api('delete_doc', { schema, title });
-        if (res.success) { showToast(res.message, 'success'); loadDocs(schema); }
-        else showToast('Error: ' + res.error, 'error');
-      } catch (e) { showToast(e.message, 'error'); }
-    }
-
-    // ================================================================
-    // CREATE DB
-    // ================================================================
-    function openCreateModal() { document.getElementById('createModal').classList.add('open'); document.getElementById('newSchemaInput').value = ''; }
-
+    function openCreateModal() { document.getElementById('createModal').classList.add('open'); }
     async function confirmCreate() {
-      const schema = document.getElementById('newSchemaInput').value.trim().replace(/[^a-zA-Z0-9_]/g, '').toLowerCase();
-      if (!schema || schema.length < 2) return showToast('Nombre invalido. Usa solo letras, numeros y guiones bajos.', 'error');
+      const s = document.getElementById('newSchemaInput').value.trim();
       const b = document.getElementById('confirmCreateBtn');
-      b.disabled = true; b.innerHTML = '<div class="spinner"></div> Creando...';
+      if (s.length < 3) return showToast('Muy corto', 'error');
+      b.disabled = true; b.innerHTML = 'Creando...';
       try {
-        const res = await api('create_db', { new_schema: schema });
-        if (res.success) {
-          showToast(`Base "${res.schema_creado}" creada con éxito`, 'success');
-          document.getElementById('createModal').classList.remove('open');
-          loadDatabases();
-          setTimeout(() => selectDB(schema), 800);
-        } else showToast('Error: ' + res.error, 'error');
+        await api('create_db', { new_schema: s });
+        showToast('DB creada', 'success');
+        document.getElementById('createModal').classList.remove('open');
+        loadDatabases();
       } catch (e) { showToast(e.message, 'error'); }
       b.disabled = false; b.innerHTML = '＋ Crear base';
     }
 
     // ================================================================
-    // CRM
+    // CRM MODULE
     // ================================================================
     async function loadCrm() {
-      document.getElementById('crmBody').innerHTML = '<tr><td colspan="6" class="empty"><div class="spinner"></div></td></tr>';
+      document.getElementById('crmBody').innerHTML = '<tr><td colspan="6" class="empty"><div class="spinner"></div> Cargando...</td></tr>';
       try {
         const data = await api('crm_list');
         crmData = data.clients || [];
         renderCrm(crmData);
-      } catch (e) { document.getElementById('crmBody').innerHTML = '<tr><td colspan="6" class="empty">Error al cargar clientes</td></tr>'; }
-    }
-
-    function renderCrm(clients) {
-      if (!clients.length) { document.getElementById('crmBody').innerHTML = '<tr><td colspan="6" class="empty">Sin clientes registrados</td></tr>'; return; }
-      document.getElementById('crmBody').innerHTML = clients.map(c => {
-        const wfLink = (c.workflow_links || [])[0] || '';
-        const doc = (c.documents || [])[0] || '';
-        const cloneBtn = c.db_schema ? `<button class="btn btn-ghost btn-sm" title="Clonar Workflow Base" onclick="cloneBaseWorkflow('${c.name}', '${c.db_schema}', '${c.drive_folder_id || ''}')">📋 Clonar WF</button>` : '';
-        return `<tr>
-          <td><strong style="cursor:pointer;" onclick="openCrmModal(${JSON.stringify(c).replace(/"/g, '&quot;')})">${c.name}</strong><br><span style="font-size:11px;color:var(--muted);">${c.responsible || ''}</span></td>
-          <td>${c.email || '—'}<br><span style="font-size:11px;color:var(--muted);">${c.phone || ''}</span></td>
-          <td><span class="badge badge-txt">${c.plan || '—'}</span></td>
-          <td style="font-family:monospace;font-size:12px;">${c.db_schema || '—'}</td>
-          <td>${doc ? `<a class="crm-link" href="${doc}" target="_blank">📄 Doc</a>` : '—'} ${wfLink ? `<a class="crm-link" href="${wfLink}" target="_blank">⚙️ WF</a>` : ''}</td>
-          <td style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn btn-ghost btn-sm" onclick="openCrmModal(${JSON.stringify(c).replace(/"/g, '&quot;')})">✏️ Editar</button>
-            ${cloneBtn}
-            <button class="btn btn-danger btn-sm" onclick="deleteCrm('${c.id}', '${c.name.replace(/'/g, "\\'")}')">🗑️</button>
-          </td>
-        </tr>`;
-      }).join('');
-    }
-
-    function openCrmModal(client) {
-      document.getElementById('crmModal').classList.add('open');
-      ['crmId', 'crmName', 'crmSchema', 'crmEmail', 'crmPhone', 'crmResp', 'crmNotes', 'crmDocs', 'crmWf', 'crmDrive'].forEach(id => document.getElementById(id).value = '');
-      document.getElementById('crmPlan').value = 'Profesional';
-      document.getElementById('crmModalTitle').textContent = '👤 Nuevo Cliente';
-      if (client && typeof client === 'object') {
-        document.getElementById('crmModalTitle').textContent = `✏️ Editar Cliente: ${client.name}`;
-        document.getElementById('crmId').value = client.id || '';
-        document.getElementById('crmName').value = client.name || '';
-        document.getElementById('crmSchema').value = client.db_schema || '';
-        document.getElementById('crmEmail').value = client.email || '';
-        document.getElementById('crmPhone').value = client.phone || '';
-        document.getElementById('crmResp').value = client.responsible || '';
-        document.getElementById('crmPlan').value = client.plan || 'Profesional';
-        document.getElementById('crmNotes').value = client.notes || '';
-        document.getElementById('crmDrive').value = client.drive_folder_id || '';
-        document.getElementById('crmDocs').value = (client.documents || [])[0] || '';
-        document.getElementById('crmWf').value = (client.workflow_links || [])[0] || '';
+      } catch (e) {
+        document.getElementById('crmBody').innerHTML = '<tr><td colspan="6" class="empty">Error de carga</td></tr>';
       }
     }
 
-    async function saveCrm() {
-      const client = {
-        name: document.getElementById('crmName').value.trim(),
-        db_schema: document.getElementById('crmSchema').value.trim(),
-        email: document.getElementById('crmEmail').value.trim(),
-        phone: document.getElementById('crmPhone').value.trim(),
-        responsible: document.getElementById('crmResp').value.trim(),
-        plan: document.getElementById('crmPlan').value,
-        notes: document.getElementById('crmNotes').value.trim(),
-        drive_folder_id: document.getElementById('crmDrive').value.trim(),
-        documents: [document.getElementById('crmDocs').value.trim()].filter(Boolean),
-        workflow_links: [document.getElementById('crmWf').value.trim()].filter(Boolean),
-      };
-      const id = document.getElementById('crmId').value;
-      if (id) client.id = id;
-      if (!client.name) return showToast('El nombre de la empresa es obligatorio', 'error');
-      const b = document.getElementById('crmSaveBtn');
-      b.disabled = true; b.innerHTML = '<div class="spinner"></div>';
-      try {
-        const res = await api('crm_save', { client });
-        if (res.success) {
-          showToast('Cliente guardado correctamente.', 'success');
-          document.getElementById('crmModal').classList.remove('open');
-          loadCrm();
-        } else showToast('Error: ' + res.error, 'error');
-      } catch (e) { showToast(e.message, 'error'); }
-      b.disabled = false; b.innerHTML = '💾 Guardar Cliente';
+    function renderCrm(clients) {
+      if (clients.length === 0) {
+        document.getElementById('crmBody').innerHTML = '<tr><td colspan="6" class="empty">No hay clientes registrados en el CRM.</td></tr>';
+        return;
+      }
+      document.getElementById('crmBody').innerHTML = clients.map(c => {
+        let docsUrl = ""; let wfUrl = "";
+        try { docsUrl = JSON.parse(c.documents || "[]")[0] || ""; } catch (e) { }
+        try { wfUrl = JSON.parse(c.workflow_links || "[]")[0] || ""; } catch (e) { }
+
+        let schemaHtml = c.db_schema ? `<span class="badge badge-txt" style="cursor:pointer;" onclick="switchView('view-rag'); selectDB('${c.db_schema}');" title="Ver DB">${c.db_schema}</span>` : `<span class="badge badge-other">Sin DB</span>`;
+
+        return `
+        <tr>
+          <td><div style="font-weight:600;">${c.name}</div><div style="font-size:11px;color:var(--muted)">${c.notes ? c.notes.substring(0, 30) + '...' : ''}</div></td>
+          <td>
+            <div>✉️ ${c.email || '-'}</div>
+            <div>📞 ${c.phone || '-'}</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">Resp: ${c.responsible || '-'}</div>
+          </td>
+          <td><span class="badge badge-excel">${c.plan || '-'}</span></td>
+          <td>${schemaHtml}</td>
+          <td>
+            ${docsUrl ? `<a href="${docsUrl}" target="_blank" class="crm-link">📄 Cotización/Docs</a><br>` : ''}
+            ${wfUrl ? `<a href="${wfUrl}" target="_blank" class="crm-link">⚙️ Acceso N8N</a>` : ''}
+            ${c.drive_folder_id ? `<div style="font-size:10px;color:var(--muted);margin-top:4px;">Drive: ${c.drive_folder_id.substring(0, 10)}...</div>` : ''}
+          </td>
+          <td>
+            <div style="display:flex; flex-direction:column; gap:4px;">
+              <button class="btn btn-ghost btn-sm" onclick="editCrm('${c.id}')">✏️ Editar</button>
+              ${c.db_schema ? `<button class="btn btn-primary btn-sm" onclick="cloneBaseWorkflow('${c.name}', '${c.db_schema}', '${c.drive_folder_id || ''}')" title="Clonar Workflow Base">📋 Clonar WF</button>` : ''}
+              <button class="btn btn-danger btn-sm" onclick="deleteCrm('${c.id}', '${c.name.replace(/'/g, "\\'").replace(/"/g, "&quot;")}')">🗑️ Borrar</button>
+            </div>
+          </td>
+        </tr>
+      `}).join('');
+    }
+
+    function openCrmModal(client = null) {
+      document.getElementById('crmModal').classList.add('open');
+      if (client) {
+        document.getElementById('crmModalTitle').textContent = `✏️ Editar Cliente: ${client.name}`;
+        document.getElementById('crmId').value = client.id;
+        document.getElementById('crmName').value = client.name;
+        document.getElementById('crmSchema').value = client.db_schema;
+        document.getElementById('crmEmail').value = client.email;
+        document.getElementById('crmPhone').value = client.phone;
+        document.getElementById('crmResp').value = client.responsible;
+        document.getElementById('crmPlan').value = client.plan;
+        document.getElementById('crmNotes').value = client.notes;
+
+        try { document.getElementById('crmDocs').value = JSON.parse(client.documents || "[]")[0] || ""; } catch (e) { }
+        try { document.getElementById('crmWf').value = JSON.parse(client.workflow_links || "[]")[0] || ""; } catch (e) { }
+        document.getElementById('crmDrive').value = client.drive_folder_id || "";
+
+      } else {
+        document.getElementById('crmModalTitle').textContent = "👤 Nuevo Cliente";
+        document.getElementById('crmId').value = "";
+        ['crmName', 'crmSchema', 'crmEmail', 'crmPhone', 'crmResp', 'crmNotes', 'crmDocs', 'crmWf', 'crmDrive'].forEach(id => document.getElementById(id).value = "");
+        document.getElementById('crmPlan').value = "Profesional";
+      }
+    }
+
+    function editCrm(id) {
+      const client = crmData.find(c => c.id === id);
+      if (client) openCrmModal(client);
     }
 
     async function deleteCrm(id, name) {
-      if (!confirm(`¿Eliminar al cliente ${name} del CRM?\nNota: Su base de datos RAG no se eliminará.`)) return;
+      if (!confirm(`¿Eliminar definitivamente el cliente ${name} del CRM?\nNota: Su base de datos RAG no se borrará.`)) return;
       try {
         await api('crm_delete', { client_id: id });
-        showToast('Cliente eliminado del CRM.', 'success');
+        showToast('Cliente borrado', 'success');
         loadCrm();
       } catch (e) { showToast(e.message, 'error'); }
     }
 
+    async function saveCrm() {
+      const id = document.getElementById('crmId').value;
+      const client = {
+        id,
+        name: document.getElementById('crmName').value,
+        db_schema: document.getElementById('crmSchema').value,
+        email: document.getElementById('crmEmail').value,
+        phone: document.getElementById('crmPhone').value,
+        responsible: document.getElementById('crmResp').value,
+        plan: document.getElementById('crmPlan').value,
+        notes: document.getElementById('crmNotes').value,
+        drive_folder_id: document.getElementById('crmDrive').value,
+        documents: [document.getElementById('crmDocs').value].filter(Boolean),
+        workflow_links: [document.getElementById('crmWf').value].filter(Boolean),
+      };
+
+      if (!client.name) return showToast('El nombre de la empresa es obligatorio', 'error');
+
+      const btn = document.getElementById('crmSaveBtn');
+      btn.disabled = true; btn.innerHTML = 'Guardando...';
+      try {
+        await api('crm_save', { client });
+        showToast('Cliente guardado con éxito', 'success');
+        document.getElementById('crmModal').classList.remove('open');
+        loadCrm();
+      } catch (e) { showToast(e.message, 'error'); }
+      btn.disabled = false; btn.innerHTML = '💾 Guardar Cliente';
+    }
+
     async function cloneBaseWorkflow(name, schema, folder_id) {
-      if (!confirm(`¿Clonar el Workflow Base para el cliente "${name}" con schema "${schema}"?`)) return;
+      if (!confirm(`¿Deseas clonar el Workflow Base para ${name}?\nEsto creará un nuevo flujo en n8n adaptado al esquema '${schema}'.`)) return;
       showToast('Clonando workflow...', 'info');
       try {
         const res = await api('clone_workflow', { name, schema, folder_id });
         if (res.success) {
           showToast('Workflow clonado con éxito', 'success');
+          // Podríamos intentar abrir el link si lo tenemos, o recargar el CRM
           loadCrm();
         } else {
           showToast('Error al clonar: ' + res.error, 'error');
