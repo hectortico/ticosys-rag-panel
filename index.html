@@ -845,9 +845,15 @@
         await loadDatabases();
         dot.style.background = 'var(--success)';
         document.getElementById('headerStatus').textContent = 'Conectado';
+        // Mostrar pantalla de bienvenida si no hay schema seleccionado
+        if (!currentSchema) {
+          document.getElementById('pageWelcome').style.display = 'flex';
+          document.getElementById('pageDB').style.display = 'none';
+        }
       } catch (e) {
         dot.style.background = 'var(--danger)';
         document.getElementById('headerStatus').textContent = 'Error de conexión';
+        document.getElementById('pageWelcome').style.display = 'flex';
       }
     }
 
