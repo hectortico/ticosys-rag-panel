@@ -646,6 +646,20 @@
           <button class="btn btn-ghost" onclick="loadDocs(currentSchema)">↻ Recargar Docs</button>
         </div>
 
+        <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--accent); padding: 12px 16px; margin-bottom: 24px; border-radius: 4px;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                <span>💡</span> Configuración en n8n
+              </div>
+              <div style="font-size: 13px; color: var(--muted);">Para usar esta base de datos en los nodos Postgres de n8n, el <b>Table Name</b> correcto es:</div>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 6px; font-family: monospace; font-size: 14px; user-select: all; color: var(--accent); font-weight: 500;" id="n8nTableName">
+              schema.rag_docs
+            </div>
+          </div>
+        </div>
+
         <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-value" id="statChunks">—</div>
@@ -656,8 +670,8 @@
             <div class="stat-label">Documentos</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value" id="statSchema" style="font-size:16px;padding-top:14px;">—</div>
-            <div class="stat-label">Schema PostgreSQL</div>
+            <div class="stat-value" id="statSchema" style="font-size:16px;padding-top:14px;color:var(--accent);">—</div>
+            <div class="stat-label">Tabla para n8n</div>
           </div>
         </div>
 
@@ -714,6 +728,9 @@
     <div class="modal">
       <h3>✨ Nueva base de datos RAG</h3>
       <p>Crea el schema y entorno inteligente para el cliente.</p>
+      <div style="background: rgba(234, 179, 8, 0.1); border-left: 3px solid var(--warning); padding: 10px 12px; margin-bottom: 16px; border-radius: 4px; font-size: 12px; color: var(--text);">
+        <strong>Nota importante sobre n8n:</strong> Al crear una base aquí (ej: <code>mi_cliente</code>), el <b>Table Name</b> correcto a usar en los nodos Postgres de n8n será siempre <code>mi_cliente.rag_docs</code>
+      </div>
       <div class="form-group" style="margin-bottom:20px;">
         <label>Nombre del schema (sin espacios)</label>
         <input type="text" id="newSchemaInput" placeholder="ej: clinica_prevaler">
@@ -908,8 +925,9 @@
       document.getElementById(`dbitem-${schema}`).classList.add('active');
       document.getElementById('pageWelcome').style.display = 'none';
       document.getElementById('pageDB').style.display = 'block';
+      document.getElementById('n8nTableName').innerText = schema + '.rag_docs';
       document.getElementById('dbTitle').textContent = schema;
-      document.getElementById('statSchema').textContent = schema;
+      document.getElementById('statSchema').textContent = schema + '.rag_docs';
       await loadDocs(schema);
     }
 
