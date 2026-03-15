@@ -10,18 +10,18 @@
     rel="stylesheet">
   <style>
     :root {
-      --bg: #0d0f14;
-      --surface: #161a24;
-      --surface2: #1e2333;
-      --border: #2a3047;
-      --accent: #6366f1;
-      --accent2: #8b5cf6;
+      --bg: #f6f6f8;
+      --surface: #ffffff;
+      --surface2: #f8fafc;
+      --border: #e2e8f0;
+      --accent: #135bec;
+      --accent2: #0f4abc;
       --success: #10b981;
       --danger: #ef4444;
       --warning: #f59e0b;
-      --text: #e2e8f0;
+      --text: #0f172a;
       --muted: #64748b;
-      --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
     }
 
     * {
@@ -111,7 +111,7 @@
 
     .nav-tab:hover {
       color: var(--text);
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.05);
     }
 
     .nav-tab.active {
@@ -213,7 +213,7 @@
     }
 
     .db-item.active {
-      background: rgba(99, 102, 241, 0.12);
+      background: rgba(19, 91, 236, 0.08);
       border-left-color: var(--accent);
       color: var(--accent);
       font-weight: 600;
@@ -271,6 +271,7 @@
       border-radius: 12px;
       padding: 20px;
       text-align: center;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
     }
 
     .stat-value {
@@ -311,7 +312,7 @@
 
     td {
       padding: 12px 16px;
-      border-bottom: 1px solid rgba(42, 48, 71, 0.5);
+      border-bottom: 1px solid var(--border);
       vertical-align: middle;
     }
 
@@ -320,7 +321,7 @@
     }
 
     tr:hover td {
-      background: rgba(99, 102, 241, 0.04);
+      background: rgba(19, 91, 236, 0.04);
     }
 
     .preview-text {
@@ -566,6 +567,60 @@
     .crm-link:hover {
       text-decoration: underline;
     }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .view-split.active, .view-full.active {
+        display: flex;
+        flex-direction: column;
+      }
+      aside {
+        max-height: 250px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 10px;
+      }
+      .actions {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+      }
+      .actions button, .actions input, .actions select {
+        width: 100%;
+      }
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+        height: auto;
+      }
+      .nav-tabs {
+        margin-top: 10px;
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 5px;
+      }
+      .form-row {
+        flex-direction: column;
+      }
+      .content {
+        padding: 16px;
+      }
+      .modal {
+        width: 90%;
+        padding: 24px;
+        margin: auto;
+      }
+      .modal.large {
+        width: 95%;
+      }
+      .table-wrap {
+        margin-bottom: 24px;
+      }
+    }
   </style>
 </head>
 
@@ -574,8 +629,8 @@
   <!-- AUTH OVERLAY -->
   <div class="auth-overlay" id="authOverlay">
     <div class="auth-card">
-      <div class="logo-icon" style="width:56px;height:56px;font-size:28px;margin:0 auto 20px;">???????</div>
-      <h2>Administraci??n TicoSys</h2>
+      <div class="logo-icon" style="width:56px;height:56px;font-size:28px;margin:0 auto 20px;">🛡️</div>
+      <h2>Administración TicoSys</h2>
       <p>Ingresa tu clave de acceso maestra</p>
       <div class="form-group" style="margin-bottom:16px;">
         <input type="password" id="authInput" placeholder="Clave de acceso..."
@@ -592,8 +647,8 @@
       TicoSys Admin Pro
     </div>
     <div class="nav-tabs">
-      <div class="nav-tab active" onclick="switchView('view-rag')" id="tab-rag">??????? Bases RAG</div>
-      <div class="nav-tab" onclick="switchView('view-crm')" id="tab-crm">???? Clientes (CRM)</div>
+      <div class="nav-tab active" onclick="switchView('view-rag')" id="tab-rag">🗄️ Bases RAG</div>
+      <div class="nav-tab" onclick="switchView('view-crm')" id="tab-crm">👥 Clientes (CRM)</div>
     </div>
     <div style="display:flex;align-items:center;gap:16px;">
       <span style="font-size:12px;color:var(--muted);" id="headerStatus">Conectando...</span>
@@ -604,15 +659,23 @@
   <!-- VIEW: RAG -->
   <main id="view-rag" class="main-view active view-split">
     <!-- SIDEBAR -->
-    <aside>
-      <div class="sidebar-header">
-        <span>Bases de Datos</span>
-        <button class="btn btn-ghost btn-sm" onclick="openCreateModal()" title="Nueva DB">???</button>
-      </div>
-      <div class="db-list" id="dbList">
-        <div class="empty">
-          <div class="spinner"></div>
+    <aside style="justify-content: space-between;">
+      <div style="display: flex; flex-direction: column; height: 100%; overflow: hidden;">
+        <div class="sidebar-header">
+          <span>Bases de Datos</span>
         </div>
+        <div class="db-list" id="dbList" style="flex: 1; overflow-y: auto;">
+          <div class="empty">
+            <div class="spinner"></div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="padding: 16px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; flex-shrink: 0;">
+        <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="openCreateModal()">✨
+          Nueva Base RAG</button>
+        <button class="btn btn-ghost" style="width: 100%; justify-content: center;"
+          onclick="switchView('view-crm'); setTimeout(openCrmModal, 100);">👤 Nuevo Cliente</button>
       </div>
     </aside>
 
@@ -621,11 +684,11 @@
       <div id="pageWelcome"
         style="display:none; height:100%; align-items:center; justify-content:center; text-align:center;">
         <div>
-          <div style="font-size:64px;">???????</div>
+          <div style="font-size:64px;">🗄️</div>
           <h2>Selecciona una base de datos</h2>
           <p style="color:var(--muted); max-width:380px; margin:16px auto;">Gestiona los documentos de la memoria RAG de
             tus clientes.</p>
-          <button class="btn btn-primary" onclick="openCreateModal()">??? Crear nueva base de datos</button>
+          <button class="btn btn-primary" onclick="openCreateModal()">＋ Crear nueva base de datos</button>
         </div>
       </div>
 
@@ -635,28 +698,42 @@
             <h1 id="dbTitle" style="font-size:22px;font-weight:700;"></h1>
             <p id="dbSubtitle" style="color:var(--muted);font-size:13px;"></p>
           </div>
-          <button class="btn btn-ghost" onclick="loadDocs(currentSchema)">??? Recargar Docs</button>
+          <button class="btn btn-ghost" onclick="loadDocs(currentSchema)">↻ Recargar Docs</button>
+        </div>
+
+        <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--accent); padding: 12px 16px; margin-bottom: 24px; border-radius: 4px;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                <span>💡</span> Configuración en n8n
+              </div>
+              <div style="font-size: 13px; color: var(--muted);">Para usar esta base de datos en los nodos Postgres de n8n, el <b>Table Name</b> correcto es:</div>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 6px; font-family: monospace; font-size: 14px; user-select: all; color: var(--accent); font-weight: 500;" id="n8nTableName">
+              schema.rag_docs
+            </div>
+          </div>
         </div>
 
         <div class="stats-grid">
           <div class="stat-card">
-            <div class="stat-value" id="statChunks">???</div>
+            <div class="stat-value" id="statChunks">—</div>
             <div class="stat-label">Total Chunks</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value" id="statDocs">???</div>
+            <div class="stat-value" id="statDocs">—</div>
             <div class="stat-label">Documentos</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value" id="statSchema" style="font-size:16px;padding-top:14px;">???</div>
-            <div class="stat-label">Schema PostgreSQL</div>
+            <div class="stat-value" id="statSchema" style="font-size:16px;padding-top:14px;color:var(--accent);">—</div>
+            <div class="stat-label">Tabla para n8n</div>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-title">???? Documentos indexados <span id="docsCount"
+          <div class="card-title">📄 Documentos indexados <span id="docsCount"
               style="font-size:12px;color:var(--muted);margin-left:auto;"></span></div>
-          <input type="text" id="searchInput" placeholder="???? Buscar documento..." oninput="filterDocs()"
+          <input type="text" id="searchInput" placeholder="🔍 Buscar documento..." oninput="filterDocs()"
             style="margin-bottom:16px;">
           <div id="docsContainer"></div>
         </div>
@@ -669,12 +746,12 @@
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
       <div>
         <h1 style="font-size:24px;font-weight:700;">Directorio de Clientes TicoSys</h1>
-        <p style="color:var(--muted);font-size:13px;margin-top:4px;">Gesti??n de informaci??n, recursos y bases de datos
+        <p style="color:var(--muted);font-size:13px;margin-top:4px;">Gestión de información, recursos y bases de datos
           RAG.</p>
       </div>
       <div style="display:flex; gap:12px;">
-        <button class="btn btn-ghost" onclick="loadCrm()">??? Actualizar</button>
-        <button class="btn btn-primary" onclick="openCrmModal()">??? Registrar Cliente</button>
+        <button class="btn btn-ghost" onclick="loadCrm()">↻ Actualizar</button>
+        <button class="btn btn-primary" onclick="openCrmModal()">＋ Registrar Cliente</button>
       </div>
     </div>
 
@@ -683,7 +760,7 @@
         <table id="crmTable">
           <thead>
             <tr>
-              <th>Cliente / Organizaci??n</th>
+              <th>Cliente / Organización</th>
               <th>Contacto</th>
               <th>Plan</th>
               <th>Base de Datos RAG</th>
@@ -704,8 +781,11 @@
   <!-- MODAL: CREAR DB RAG -->
   <div class="modal-overlay" id="createModal">
     <div class="modal">
-      <h3>??? Nueva base de datos RAG</h3>
+      <h3>✨ Nueva base de datos RAG</h3>
       <p>Crea el schema y entorno inteligente para el cliente.</p>
+      <div style="background: rgba(234, 179, 8, 0.1); border-left: 3px solid var(--warning); padding: 10px 12px; margin-bottom: 16px; border-radius: 4px; font-size: 12px; color: var(--text);">
+        <strong>Nota importante sobre n8n:</strong> Al crear una base aquí (ej: <code>mi_cliente</code>), el <b>Table Name</b> correcto a usar en los nodos Postgres de n8n será siempre <code>mi_cliente.rag_docs</code>
+      </div>
       <div class="form-group" style="margin-bottom:20px;">
         <label>Nombre del schema (sin espacios)</label>
         <input type="text" id="newSchemaInput" placeholder="ej: clinica_prevaler">
@@ -713,7 +793,7 @@
       <div class="modal-actions">
         <button class="btn btn-ghost"
           onclick="document.getElementById('createModal').classList.remove('open')">Cancelar</button>
-        <button class="btn btn-primary" id="confirmCreateBtn" onclick="confirmCreate()">??? Crear base</button>
+        <button class="btn btn-primary" id="confirmCreateBtn" onclick="confirmCreate()">＋ Crear base</button>
       </div>
     </div>
   </div>
@@ -721,26 +801,34 @@
   <!-- MODAL: FORMULARIO CRM -->
   <div class="modal-overlay" id="crmModal">
     <div class="modal large">
-      <h3 id="crmModalTitle">???? Nuevo Cliente</h3>
-      <p>Registra la informaci??n del cliente, planes cotizados y recursos.</p>
+      <h3 id="crmModalTitle">👤 Nuevo Cliente</h3>
+      <p>Registra la información del cliente, planes cotizados y recursos.</p>
       <input type="hidden" id="crmId">
 
       <div class="form-row">
         <div class="form-group"><label>Nombre de la Empresa o Cliente *</label><input type="text" id="crmName"></div>
-        <div class="form-group"><label>Base RAG (Schema)</label><input type="text" id="crmSchema"
-            placeholder="Ej: clinica_prevaler"></div>
+        <div class="form-group">
+          <label>Base RAG (Schema)</label>
+          <input type="text" id="crmSchema" placeholder="Ej: clinica_prevaler">
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; margin-top:8px;"
+            id="crmAutoCreateDbLabel">
+            <input type="checkbox" id="crmAutoCreateDb" checked>
+            <span style="font-size:11px; color:var(--muted); text-transform:none;">Crear schema asociado en Postgres (si
+              no existe)</span>
+          </label>
+        </div>
       </div>
 
       <div class="form-row">
         <div class="form-group"><label>Email de Contacto</label><input type="email" id="crmEmail"></div>
-        <div class="form-group"><label>Tel??fono (WhatsApp)</label><input type="text" id="crmPhone"></div>
+        <div class="form-group"><label>Teléfono (WhatsApp)</label><input type="text" id="crmPhone"></div>
         <div class="form-group"><label>Responsable</label><input type="text" id="crmResp"></div>
       </div>
 
       <div class="form-row">
         <div class="form-group"><label>Plan Aprobado</label>
           <select id="crmPlan">
-            <option value="Basico">B??sico</option>
+            <option value="Basico">Básico</option>
             <option value="Profesional">Profesional</option>
             <option value="Enterprise">Enterprise</option>
           </select>
@@ -754,7 +842,7 @@
 
       <div class="form-row">
         <div class="form-group">
-          <label>Link Cotizaci??n / Documentos (Google Drive, Docs...)</label>
+          <label>Link Cotización / Documentos (Google Drive, Docs...)</label>
           <input type="text" id="crmDocs" placeholder="https://docs.google.com/...">
         </div>
         <div class="form-group">
@@ -770,7 +858,7 @@
       <div class="modal-actions">
         <button class="btn btn-ghost"
           onclick="document.getElementById('crmModal').classList.remove('open')">Cancelar</button>
-        <button class="btn btn-primary" id="crmSaveBtn" onclick="saveCrm()">???? Guardar Cliente</button>
+        <button class="btn btn-primary" id="crmSaveBtn" onclick="saveCrm()">💾 Guardar Cliente</button>
       </div>
     </div>
   </div>
@@ -782,7 +870,7 @@
     // ================================================================
     // CONFIG
     // ================================================================
-    const N8N_WEBHOOK = 'https://n8n.ticosys.com/webhook/rag-admin-stable';
+    const N8N_WEBHOOK = 'https://n8n.ticosys.com/webhook/rag-admin';
     const ADMIN_SECRET = 'ticosys-rag-admin-2024';
     const LOGIN_PASSWORD = 'Buscaloserver01*';
 
@@ -829,9 +917,15 @@
         await loadDatabases();
         dot.style.background = 'var(--success)';
         document.getElementById('headerStatus').textContent = 'Conectado';
+        // Mostrar pantalla de bienvenida si no hay schema seleccionado
+        if (!currentSchema) {
+          document.getElementById('pageWelcome').style.display = 'flex';
+          document.getElementById('pageDB').style.display = 'none';
+        }
       } catch (e) {
         dot.style.background = 'var(--danger)';
-        document.getElementById('headerStatus').textContent = 'Error de conexi??n';
+        document.getElementById('headerStatus').textContent = 'Error de conexión';
+        document.getElementById('pageWelcome').style.display = 'flex';
       }
     }
 
@@ -844,21 +938,21 @@
       if (!data.databases || data.databases.length === 0) { el.innerHTML = '<div class="empty">Sin bases de datos</div>'; return; }
       el.innerHTML = data.databases.map(db => `
         <div class="db-item ${db === currentSchema ? 'active' : ''}" onclick="selectDB('${db}')" id="dbitem-${db}">
-          <span class="db-icon">???????</span>
+          <span class="db-icon">🗄️</span>
           <span class="db-name">${db}</span>
           <div class="db-item-actions" onclick="event.stopPropagation(); deleteDB('${db}')" title="Borrar base de datos">
-            ???????
+            🗑️
           </div>
         </div>
       `).join('');
     }
 
     async function deleteDB(schema) {
-      if (!confirm(`?????? ADVERTENCIA: Esta acci??n eliminar?? PERMANENTEMENTE la base de datos "${schema}" y todos sus documentos.\n\nEsto es IRREVERSIBLE.\n\n??Deseas continuar?`)) return;
+      if (!confirm(`⚠️ ADVERTENCIA: Esta acción eliminará PERMANENTEMENTE la base de datos "${schema}" y todos sus documentos.\n\nEsto es IRREVERSIBLE.\n\n¿Deseas continuar?`)) return;
 
       const verify = prompt(`Para confirmar, escribe el nombre exacto de la base de datos a eliminar:\n\n${schema}`);
       if (verify !== schema) {
-        if (verify !== null) showToast('Nombre incorrecto. Operaci??n cancelada.', 'info');
+        if (verify !== null) showToast('Nombre incorrecto. Operación cancelada.', 'info');
         return;
       }
 
@@ -886,8 +980,9 @@
       document.getElementById(`dbitem-${schema}`).classList.add('active');
       document.getElementById('pageWelcome').style.display = 'none';
       document.getElementById('pageDB').style.display = 'block';
+      document.getElementById('n8nTableName').innerText = schema + '.rag_docs';
       document.getElementById('dbTitle').textContent = schema;
-      document.getElementById('statSchema').textContent = schema;
+      document.getElementById('statSchema').textContent = schema + '.rag_docs';
       await loadDocs(schema);
     }
 
@@ -903,7 +998,7 @@
     }
 
     function renderDocs(docs) {
-      if (docs.length === 0) { document.getElementById('docsContainer').innerHTML = '<div class="empty">Vac??o</div>'; return; }
+      if (docs.length === 0) { document.getElementById('docsContainer').innerHTML = '<div class="empty">Vacío</div>'; return; }
       document.getElementById('docsContainer').innerHTML = `
         <div class="table-wrap"><table>
           <thead><tr><th>Documento</th><th>Tipo</th><th>Chunks</th><th>Preview</th><th></th></tr></thead>
@@ -911,14 +1006,14 @@
             <tr>
               <td>${d.titulo}</td><td>${d.tipo}</td><td>${d.chunks}</td>
               <td class="preview-text">${d.preview}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="deleteDoc('${d.titulo}')">??????? Eliminar</button></td>
+              <td><button class="btn btn-danger btn-sm" onclick="deleteDoc('${d.titulo}')">🗑️ Eliminar</button></td>
             </tr>`).join('')}
           </tbody>
         </table></div>`;
     }
 
     async function deleteDoc(title) {
-      if (!confirm(`??Eliminar ${title}?`)) return;
+      if (!confirm(`¿Eliminar ${title}?`)) return;
       await api('delete_doc', { schema: currentSchema, title });
       showToast('Eliminado', 'success');
       loadDocs(currentSchema);
@@ -936,7 +1031,7 @@
         document.getElementById('createModal').classList.remove('open');
         loadDatabases();
       } catch (e) { showToast(e.message, 'error'); }
-      b.disabled = false; b.innerHTML = '??? Crear base';
+      b.disabled = false; b.innerHTML = '＋ Crear base';
     }
 
     // ================================================================
@@ -969,22 +1064,22 @@
         <tr>
           <td><div style="font-weight:600;">${c.name}</div><div style="font-size:11px;color:var(--muted)">${c.notes ? c.notes.substring(0, 30) + '...' : ''}</div></td>
           <td>
-            <div>?????? ${c.email || '-'}</div>
-            <div>???? ${c.phone || '-'}</div>
+            <div>✉️ ${c.email || '-'}</div>
+            <div>📞 ${c.phone || '-'}</div>
             <div style="font-size:11px;color:var(--muted);margin-top:2px;">Resp: ${c.responsible || '-'}</div>
           </td>
           <td><span class="badge badge-excel">${c.plan || '-'}</span></td>
           <td>${schemaHtml}</td>
           <td>
-            ${docsUrl ? `<a href="${docsUrl}" target="_blank" class="crm-link">???? Cotizaci??n/Docs</a><br>` : ''}
-            ${wfUrl ? `<a href="${wfUrl}" target="_blank" class="crm-link">?????? Acceso N8N</a>` : ''}
+            ${docsUrl ? `<a href="${docsUrl}" target="_blank" class="crm-link">📄 Cotización/Docs</a><br>` : ''}
+            ${wfUrl ? `<a href="${wfUrl}" target="_blank" class="crm-link">⚙️ Acceso N8N</a>` : ''}
             ${c.drive_folder_id ? `<div style="font-size:10px;color:var(--muted);margin-top:4px;">Drive: ${c.drive_folder_id.substring(0, 10)}...</div>` : ''}
           </td>
           <td>
             <div style="display:flex; flex-direction:column; gap:4px;">
-              <button class="btn btn-ghost btn-sm" onclick="editCrm('${c.id}')">?????? Editar</button>
-              ${c.db_schema ? `<button class="btn btn-primary btn-sm" onclick="cloneBaseWorkflow('${c.name}', '${c.db_schema}', '${c.drive_folder_id || ''}')" title="Clonar Workflow Base">???? Clonar WF</button>` : ''}
-              <button class="btn btn-danger btn-sm" onclick="deleteCrm('${c.id}', '${c.name.replace(/'/g, "\\'").replace(/"/g, "&quot;")}')">??????? Borrar</button>
+              <button class="btn btn-ghost btn-sm" onclick="editCrm('${c.id}')">✏️ Editar</button>
+              ${c.db_schema ? `<button class="btn btn-primary btn-sm" onclick="cloneBaseWorkflow('${c.name}', '${c.db_schema}', '${c.drive_folder_id || ''}')" title="Clonar Workflow Base">📋 Clonar WF</button>` : ''}
+              <button class="btn btn-danger btn-sm" onclick="deleteCrm('${c.id}', '${c.name.replace(/'/g, "\\'").replace(/"/g, "&quot;")}')">🗑️ Borrar</button>
             </div>
           </td>
         </tr>
@@ -993,8 +1088,9 @@
 
     function openCrmModal(client = null) {
       document.getElementById('crmModal').classList.add('open');
+      document.getElementById('crmAutoCreateDbLabel').style.display = client ? 'none' : 'flex';
       if (client) {
-        document.getElementById('crmModalTitle').textContent = `?????? Editar Cliente: ${client.name}`;
+        document.getElementById('crmModalTitle').textContent = `✏️ Editar Cliente: ${client.name}`;
         document.getElementById('crmId').value = client.id;
         document.getElementById('crmName').value = client.name;
         document.getElementById('crmSchema').value = client.db_schema;
@@ -1009,7 +1105,7 @@
         document.getElementById('crmDrive').value = client.drive_folder_id || "";
 
       } else {
-        document.getElementById('crmModalTitle').textContent = "???? Nuevo Cliente";
+        document.getElementById('crmModalTitle').textContent = "👤 Nuevo Cliente";
         document.getElementById('crmId').value = "";
         ['crmName', 'crmSchema', 'crmEmail', 'crmPhone', 'crmResp', 'crmNotes', 'crmDocs', 'crmWf', 'crmDrive'].forEach(id => document.getElementById(id).value = "");
         document.getElementById('crmPlan').value = "Profesional";
@@ -1022,7 +1118,7 @@
     }
 
     async function deleteCrm(id, name) {
-      if (!confirm(`??Eliminar definitivamente el cliente ${name} del CRM?\nNota: Su base de datos RAG no se borrar??.`)) return;
+      if (!confirm(`¿Eliminar definitivamente el cliente ${name} del CRM?\nNota: Su base de datos RAG no se borrará.`)) return;
       try {
         await api('crm_delete', { client_id: id });
         showToast('Cliente borrado', 'success');
@@ -1051,22 +1147,26 @@
       const btn = document.getElementById('crmSaveBtn');
       btn.disabled = true; btn.innerHTML = 'Guardando...';
       try {
+        if (!id && client.db_schema && document.getElementById('crmAutoCreateDb').checked) {
+          showToast('Creando schema de base RAG...', 'info');
+          try { await api('create_db', { new_schema: client.db_schema }); } catch (err) { console.warn(err); }
+        }
         await api('crm_save', { client });
-        showToast('Cliente guardado con ??xito', 'success');
+        showToast('Cliente guardado con éxito', 'success');
         document.getElementById('crmModal').classList.remove('open');
         loadCrm();
       } catch (e) { showToast(e.message, 'error'); }
-      btn.disabled = false; btn.innerHTML = '???? Guardar Cliente';
+      btn.disabled = false; btn.innerHTML = '💾 Guardar Cliente';
     }
 
     async function cloneBaseWorkflow(name, schema, folder_id) {
-      if (!confirm(`??Deseas clonar el Workflow Base para ${name}?\nEsto crear?? un nuevo flujo en n8n adaptado al esquema '${schema}'.`)) return;
+      if (!confirm(`¿Deseas clonar el Workflow Base para ${name}?\nEsto creará un nuevo flujo en n8n adaptado al esquema '${schema}'.`)) return;
       showToast('Clonando workflow...', 'info');
       try {
         const res = await api('clone_workflow', { name, schema, folder_id });
         if (res.success) {
-          showToast('Workflow clonado con ??xito', 'success');
-          // Podr??amos intentar abrir el link si lo tenemos, o recargar el CRM
+          showToast('Workflow clonado con éxito', 'success');
+          // Podríamos intentar abrir el link si lo tenemos, o recargar el CRM
           loadCrm();
         } else {
           showToast('Error al clonar: ' + res.error, 'error');
