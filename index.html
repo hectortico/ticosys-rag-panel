@@ -24,11 +24,7 @@
       --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -82,22 +78,12 @@
     }
 
     @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 1
-      }
-
-      50% {
-        opacity: 0.5
-      }
+      0%, 100% { opacity: 1 }
+      50% { opacity: 0.5 }
     }
 
     /* NAV PILLS */
-    .nav-tabs {
-      display: flex;
-      gap: 12px;
-    }
+    .nav-tabs { display: flex; gap: 12px; }
 
     .nav-tab {
       padding: 8px 16px;
@@ -109,15 +95,8 @@
       transition: all 0.2s;
     }
 
-    .nav-tab:hover {
-      color: var(--text);
-      background: rgba(0, 0, 0, 0.05);
-    }
-
-    .nav-tab.active {
-      color: #fff;
-      background: var(--accent);
-    }
+    .nav-tab:hover { color: var(--text); background: rgba(0, 0, 0, 0.05); }
+    .nav-tab.active { color: #fff; background: var(--accent); }
 
     /* AUTH OVERLAY */
     .auth-overlay {
@@ -141,35 +120,13 @@
       box-shadow: var(--card-shadow);
     }
 
-    .auth-card h2 {
-      font-size: 22px;
-      margin-bottom: 8px;
-    }
+    .auth-card h2 { font-size: 22px; margin-bottom: 8px; }
+    .auth-card p { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
 
-    .auth-card p {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 28px;
-    }
-
-    /* LAYOUTS TRANSLATED TO TABS */
-    .main-view {
-      display: none;
-      min-height: calc(100vh - 65px);
-      flex: 1;
-    }
-
-    .view-split.active {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-    }
-
-    .view-full.active {
-      display: flex;
-      flex-direction: column;
-      padding: 32px;
-      overflow-y: auto;
-    }
+    /* LAYOUTS */
+    .main-view { display: none; min-height: calc(100vh - 65px); flex: 1; }
+    .view-split.active { display: grid; grid-template-columns: 280px 1fr; }
+    .view-full.active { display: flex; flex-direction: column; padding: 32px; overflow-y: auto; }
 
     /* SIDEBAR */
     aside {
@@ -193,10 +150,7 @@
       justify-content: space-between;
     }
 
-    .db-list {
-      flex: 1;
-      overflow-y: auto;
-    }
+    .db-list { flex: 1; overflow-y: auto; }
 
     .db-item {
       display: flex;
@@ -208,9 +162,7 @@
       font-size: 13px;
     }
 
-    .db-item:hover {
-      background: var(--surface2);
-    }
+    .db-item:hover { background: var(--surface2); }
 
     .db-item.active {
       background: rgba(19, 91, 236, 0.08);
@@ -226,20 +178,11 @@
       transition: opacity 0.2s;
     }
 
-    .db-item:hover .db-item-actions {
-      display: block;
-    }
-
-    .db-item-actions:hover {
-      opacity: 1;
-      color: var(--danger);
-    }
+    .db-item:hover .db-item-actions { display: block; }
+    .db-item-actions:hover { opacity: 1; color: var(--danger); }
 
     /* CONTENT */
-    .content {
-      padding: 32px;
-      overflow-y: auto;
-    }
+    .content { padding: 32px; overflow-y: auto; }
 
     .card {
       background: var(--surface);
@@ -274,30 +217,13 @@
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
     }
 
-    .stat-value {
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
+    .stat-value { font-size: 32px; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
 
     /* TABLE */
-    .table-wrap {
-      overflow-x: auto;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-    }
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
 
     th {
       background: var(--surface2);
@@ -310,19 +236,9 @@
       border-bottom: 1px solid var(--border);
     }
 
-    td {
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: middle;
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    tr:hover td {
-      background: rgba(19, 91, 236, 0.04);
-    }
+    td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(19, 91, 236, 0.04); }
 
     .preview-text {
       max-width: 300px;
@@ -334,32 +250,11 @@
     }
 
     /* BADGES */
-    .badge {
-      padding: 3px 9px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 500;
-    }
-
-    .badge-pdf {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-    }
-
-    .badge-excel {
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-    }
-
-    .badge-txt {
-      background: rgba(99, 102, 241, 0.15);
-      color: #818cf8;
-    }
-
-    .badge-other {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
-    }
+    .badge { padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+    .badge-pdf { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+    .badge-excel { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .badge-txt { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+    .badge-other { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
 
     /* BUTTONS */
     .btn {
@@ -373,33 +268,17 @@
       font-size: 13px;
       font-weight: 500;
       font-family: 'Inter', sans-serif;
+      transition: opacity 0.2s;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: white;
-    }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; }
+    .btn-danger { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+    .btn-success { background: linear-gradient(135deg, #059669, #10b981); color: white; }
+    .btn-sm { padding: 5px 11px; font-size: 12px; }
 
-    .btn-danger {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-
-    .btn-ghost {
-      background: var(--surface2);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn-sm {
-      padding: 5px 11px;
-      font-size: 12px;
-    }
-
-    input,
-    select,
-    textarea {
+    input, select, textarea {
       background: var(--surface2);
       border: 1px solid var(--border);
       color: var(--text);
@@ -411,26 +290,11 @@
       outline: none;
     }
 
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--accent);
-    }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 80px; }
 
-    textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    .form-row {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .form-group {
-      flex: 1;
-    }
+    .form-row { display: flex; gap: 12px; margin-bottom: 16px; }
+    .form-group { flex: 1; }
 
     .form-group label {
       display: block;
@@ -440,17 +304,42 @@
       font-weight: 500;
     }
 
-    .empty {
-      text-align: center;
-      padding: 48px;
+    /* HELP TEXT */
+    .help-text {
+      font-size: 11px;
       color: var(--muted);
+      margin-top: 5px;
+      line-height: 1.5;
     }
 
-    .empty h3 {
-      font-size: 16px;
-      margin: 6px 0;
-      color: var(--text);
+    .help-text strong { color: var(--text); }
+    .help-text code {
+      background: rgba(0,0,0,0.06);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 10px;
     }
+
+    /* CHATBOT SECTION */
+    .chatbot-section {
+      background: rgba(19, 91, 236, 0.04);
+      border: 1px solid rgba(19, 91, 236, 0.2);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .chatbot-section .form-group label { color: var(--text); }
+
+    .section-divider {
+      border-top: 1px solid var(--border);
+      margin: 20px 0 16px;
+      padding-top: 16px;
+    }
+
+    .empty { text-align: center; padding: 48px; color: var(--muted); }
+    .empty h3 { font-size: 16px; margin: 6px 0; color: var(--text); }
 
     /* TOAST */
     #toast-container {
@@ -471,27 +360,17 @@
       display: flex;
       gap: 10px;
       animation: slideIn 0.3s ease;
+      max-width: 320px;
     }
 
     @keyframes slideIn {
-      from {
-        transform: translateX(360px);
-        opacity: 0
-      }
-
-      to {
-        transform: none;
-        opacity: 1
-      }
+      from { transform: translateX(360px); opacity: 0 }
+      to { transform: none; opacity: 1 }
     }
 
-    .toast-success {
-      background: linear-gradient(135deg, #059669, #10b981);
-    }
-
-    .toast-error {
-      background: linear-gradient(135deg, #dc2626, #ef4444);
-    }
+    .toast-success { background: linear-gradient(135deg, #059669, #10b981); }
+    .toast-error { background: linear-gradient(135deg, #dc2626, #ef4444); }
+    .toast-info { background: linear-gradient(135deg, #2563eb, #135bec); }
 
     /* MODAL */
     .modal-overlay {
@@ -505,9 +384,7 @@
       backdrop-filter: blur(4px);
     }
 
-    .modal-overlay.open {
-      display: flex;
-    }
+    .modal-overlay.open { display: flex; }
 
     .modal {
       background: var(--surface);
@@ -519,20 +396,11 @@
       overflow-y: auto;
     }
 
-    .modal.large {
-      width: 680px;
-    }
+    .modal.large { width: 720px; }
+    .modal.xlarge { width: 820px; }
 
-    .modal h3 {
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-
-    .modal p {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 24px;
-    }
+    .modal h3 { font-size: 18px; margin-bottom: 8px; }
+    .modal p { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
 
     .modal-actions {
       display: flex;
@@ -551,75 +419,49 @@
       display: inline-block;
     }
 
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+    .spinner-blue {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(19, 91, 236, 0.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 16px auto;
     }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* PROGRESS STEPS */
+    .progress-steps { list-style: none; text-align: left; margin: 16px 0; }
+    .progress-step {
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+    }
+    .progress-step.done { color: var(--success); background: rgba(16, 185, 129, 0.08); }
+    .progress-step.active { color: var(--accent); background: rgba(19, 91, 236, 0.08); font-weight: 500; }
+    .progress-step.error { color: var(--danger); background: rgba(239, 68, 68, 0.08); }
 
     /* UTILS */
-    .crm-link {
-      color: var(--accent);
-      text-decoration: none;
-      word-break: break-all;
-    }
-
-    .crm-link:hover {
-      text-decoration: underline;
-    }
+    .crm-link { color: var(--accent); text-decoration: none; word-break: break-all; }
+    .crm-link:hover { text-decoration: underline; }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
-      .view-split.active, .view-full.active {
-        display: flex;
-        flex-direction: column;
-      }
-      aside {
-        max-height: 250px;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 10px;
-      }
-      .actions {
-        flex-direction: column;
-        width: 100%;
-        margin-top: 10px;
-      }
-      .actions button, .actions input, .actions select {
-        width: 100%;
-      }
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 16px;
-        height: auto;
-      }
-      .nav-tabs {
-        margin-top: 10px;
-        width: 100%;
-        overflow-x: auto;
-        padding-bottom: 5px;
-      }
-      .form-row {
-        flex-direction: column;
-      }
-      .content {
-        padding: 16px;
-      }
-      .modal {
-        width: 90%;
-        padding: 24px;
-        margin: auto;
-      }
-      .modal.large {
-        width: 95%;
-      }
-      .table-wrap {
-        margin-bottom: 24px;
-      }
+      .view-split.active, .view-full.active { display: flex; flex-direction: column; }
+      aside { max-height: 250px; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      header { flex-direction: column; align-items: flex-start; padding: 16px; height: auto; }
+      .nav-tabs { margin-top: 10px; width: 100%; overflow-x: auto; padding-bottom: 5px; }
+      .form-row { flex-direction: column; }
+      .content { padding: 16px; }
+      .modal { width: 90%; padding: 24px; margin: auto; }
+      .modal.large, .modal.xlarge { width: 95%; }
     }
   </style>
 </head>
@@ -665,29 +507,22 @@
           <span>Bases de Datos</span>
         </div>
         <div class="db-list" id="dbList" style="flex: 1; overflow-y: auto;">
-          <div class="empty">
-            <div class="spinner"></div>
-          </div>
+          <div class="empty"><div class="spinner"></div></div>
         </div>
       </div>
-      <div
-        style="padding: 16px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; flex-shrink: 0;">
-        <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="openCreateModal()">✨
-          Nueva Base RAG</button>
-        <button class="btn btn-ghost" style="width: 100%; justify-content: center;"
-          onclick="switchView('view-crm'); setTimeout(openCrmModal, 100);">👤 Nuevo Cliente</button>
+      <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; flex-shrink: 0;">
+        <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="openCreateModal()">✨ Nueva Base RAG</button>
+        <button class="btn btn-ghost" style="width: 100%; justify-content: center;" onclick="switchView('view-crm'); setTimeout(openCrmModal, 100);">👤 Nuevo Cliente</button>
       </div>
     </aside>
 
     <!-- CONTENT -->
     <div class="content">
-      <div id="pageWelcome"
-        style="display:none; height:100%; align-items:center; justify-content:center; text-align:center;">
+      <div id="pageWelcome" style="display:none; height:100%; align-items:center; justify-content:center; text-align:center;">
         <div>
           <div style="font-size:64px;">🗄️</div>
           <h2>Selecciona una base de datos</h2>
-          <p style="color:var(--muted); max-width:380px; margin:16px auto;">Gestiona los documentos de la memoria RAG de
-            tus clientes.</p>
+          <p style="color:var(--muted); max-width:380px; margin:16px auto;">Gestiona los documentos de la memoria RAG de tus clientes.</p>
           <button class="btn btn-primary" onclick="openCreateModal()">＋ Crear nueva base de datos</button>
         </div>
       </div>
@@ -709,9 +544,7 @@
               </div>
               <div style="font-size: 13px; color: var(--muted);">Para usar esta base de datos en los nodos Postgres de n8n, el <b>Table Name</b> correcto es:</div>
             </div>
-            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 6px; font-family: monospace; font-size: 14px; user-select: all; color: var(--accent); font-weight: 500;" id="n8nTableName">
-              schema.rag_docs
-            </div>
+            <div style="background: rgba(0,0,0,0.08); border: 1px solid var(--border); padding: 6px 12px; border-radius: 6px; font-family: monospace; font-size: 14px; user-select: all; color: var(--accent); font-weight: 500;" id="n8nTableName">schema.rag_docs</div>
           </div>
         </div>
 
@@ -731,10 +564,8 @@
         </div>
 
         <div class="card">
-          <div class="card-title">📄 Documentos indexados <span id="docsCount"
-              style="font-size:12px;color:var(--muted);margin-left:auto;"></span></div>
-          <input type="text" id="searchInput" placeholder="🔍 Buscar documento..." oninput="filterDocs()"
-            style="margin-bottom:16px;">
+          <div class="card-title">📄 Documentos indexados <span id="docsCount" style="font-size:12px;color:var(--muted);margin-left:auto;"></span></div>
+          <input type="text" id="searchInput" placeholder="🔍 Buscar documento..." oninput="filterDocs()" style="margin-bottom:16px;">
           <div id="docsContainer"></div>
         </div>
       </div>
@@ -746,8 +577,7 @@
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
       <div>
         <h1 style="font-size:24px;font-weight:700;">Directorio de Clientes TicoSys</h1>
-        <p style="color:var(--muted);font-size:13px;margin-top:4px;">Gestión de información, recursos y bases de datos
-          RAG.</p>
+        <p style="color:var(--muted);font-size:13px;margin-top:4px;">Gestión de información, recursos y bases de datos RAG.</p>
       </div>
       <div style="display:flex; gap:12px;">
         <button class="btn btn-ghost" onclick="loadCrm()">↻ Actualizar</button>
@@ -769,9 +599,7 @@
             </tr>
           </thead>
           <tbody id="crmBody">
-            <tr>
-              <td colspan="6" class="empty">Cargando clientes...</td>
-            </tr>
+            <tr><td colspan="6" class="empty">Cargando clientes...</td></tr>
           </tbody>
         </table>
       </div>
@@ -784,37 +612,39 @@
       <h3>✨ Nueva base de datos RAG</h3>
       <p>Crea el schema y entorno inteligente para el cliente.</p>
       <div style="background: rgba(234, 179, 8, 0.1); border-left: 3px solid var(--warning); padding: 10px 12px; margin-bottom: 16px; border-radius: 4px; font-size: 12px; color: var(--text);">
-        <strong>Nota importante sobre n8n:</strong> Al crear una base aquí (ej: <code>mi_cliente</code>), el <b>Table Name</b> correcto a usar en los nodos Postgres de n8n será siempre <code>mi_cliente.rag_docs</code>
+        <strong>Nota:</strong> Al crear una base aquí (ej: <code>mi_cliente</code>), el <b>Table Name</b> en n8n será <code>mi_cliente.rag_docs</code>
       </div>
       <div class="form-group" style="margin-bottom:20px;">
         <label>Nombre del schema (sin espacios)</label>
         <input type="text" id="newSchemaInput" placeholder="ej: clinica_prevaler">
       </div>
       <div class="modal-actions">
-        <button class="btn btn-ghost"
-          onclick="document.getElementById('createModal').classList.remove('open')">Cancelar</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('createModal').classList.remove('open')">Cancelar</button>
         <button class="btn btn-primary" id="confirmCreateBtn" onclick="confirmCreate()">＋ Crear base</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: FORMULARIO CRM -->
+  <!-- MODAL: FORMULARIO CRM (UNIFICADO) -->
   <div class="modal-overlay" id="crmModal">
-    <div class="modal large">
+    <div class="modal xlarge">
       <h3 id="crmModalTitle">👤 Nuevo Cliente</h3>
-      <p>Registra la información del cliente, planes cotizados y recursos.</p>
+      <p>Registra la información del cliente. Activa el setup del chatbot para configurar todo automáticamente.</p>
       <input type="hidden" id="crmId">
 
+      <!-- DATOS BÁSICOS -->
       <div class="form-row">
-        <div class="form-group"><label>Nombre de la Empresa o Cliente *</label><input type="text" id="crmName"></div>
         <div class="form-group">
-          <label>Base RAG (Schema)</label>
-          <input type="text" id="crmSchema" placeholder="Ej: clinica_prevaler">
-          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; margin-top:8px;"
-            id="crmAutoCreateDbLabel">
+          <label>Nombre de la Empresa o Cliente *</label>
+          <input type="text" id="crmName" oninput="autoFillChatbotFields()">
+        </div>
+        <div class="form-group">
+          <label>Base RAG (Schema / Slug)</label>
+          <input type="text" id="crmSchema" placeholder="Ej: clinica_prevaler" oninput="syncSlug()">
+          <div class="help-text">Identificador único sin espacios ni mayúsculas. Se usa como nombre del schema de PostgreSQL y como base del slug del cliente.</div>
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; margin-top:8px;" id="crmAutoCreateDbLabel">
             <input type="checkbox" id="crmAutoCreateDb" checked>
-            <span style="font-size:11px; color:var(--muted); text-transform:none;">Crear schema asociado en Postgres (si
-              no existe)</span>
+            <span style="font-size:11px; color:var(--muted); text-transform:none;">Crear schema en Postgres al guardar</span>
           </label>
         </div>
       </div>
@@ -826,12 +656,29 @@
       </div>
 
       <div class="form-row">
-        <div class="form-group"><label>Plan Aprobado</label>
+        <div class="form-group">
+          <label>Plan Aprobado</label>
           <select id="crmPlan">
             <option value="Basico">Básico</option>
             <option value="Profesional">Profesional</option>
             <option value="Enterprise">Enterprise</option>
           </select>
+        </div>
+        <div class="form-group">
+          <label>Link Cotización / Documentos</label>
+          <input type="text" id="crmDocs" placeholder="https://docs.google.com/...">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>URL Workflow Principal N8N</label>
+          <input type="text" id="crmWf" placeholder="https://n8n.ticosys.com/workflow/...">
+        </div>
+        <div class="form-group">
+          <label>Google Drive Folder ID (Media del bot)</label>
+          <input type="text" id="crmDrive" placeholder="1fcPmkgQvoh3jd55hi...">
+          <div class="help-text">ID de la carpeta de Google Drive donde el cliente sube imágenes/videos para que el bot las envíe. Se obtiene del URL de la carpeta en Drive.</div>
         </div>
       </div>
 
@@ -840,25 +687,158 @@
         <textarea id="crmNotes" placeholder="Detalles, accesos, requerimientos particulares..."></textarea>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label>Link Cotización / Documentos (Google Drive, Docs...)</label>
-          <input type="text" id="crmDocs" placeholder="https://docs.google.com/...">
+      <!-- SEPARADOR: SETUP CHATBOT -->
+      <div class="section-divider">
+        <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+          <input type="checkbox" id="crmLaunchChatbot" onchange="toggleChatbotSection(this.checked)" style="width:18px; height:18px; accent-color: var(--accent);">
+          <div>
+            <div style="font-size:14px; font-weight:700; color:var(--text);">🤖 Activar Setup Completo del Chatbot IA</div>
+            <div style="font-size:12px; color:var(--muted); margin-top:2px;">Crea automáticamente: cuenta Chatwoot, agente bot, inbox, webhook y workflows de n8n (Template A + B).</div>
+          </div>
+        </label>
+      </div>
+
+      <!-- CAMPOS CHATBOT (ocultos por defecto) -->
+      <div id="chatbotSetupSection" style="display:none;">
+        <div class="chatbot-section">
+
+          <div style="font-size:12px; font-weight:600; color:var(--accent); margin-bottom:14px; text-transform:uppercase; letter-spacing:0.5px;">
+            ⚙️ Identificación del Cliente
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Slug Único del Cliente *</label>
+              <input type="text" id="crmSlug" placeholder="ej: clinica_salud">
+              <div class="help-text">
+                <strong>¿Qué es?</strong> Un identificador corto, sin espacios ni caracteres especiales (usa <code>_</code>).
+                Se usa como nombre del path del webhook y como clave interna del cliente en toda la plataforma.
+                <br><strong>Ejemplo:</strong> si el cliente es "Clínica Salud Norte", el slug sería <code>clinica_salud_norte</code>.
+                <br>⚠️ <strong>Una vez creado NO se puede cambiar.</strong>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Nombre del Bot</label>
+              <input type="text" id="crmBotNombre" placeholder="ej: Sofia, Luna, Max...">
+              <div class="help-text">
+                <strong>¿Qué es?</strong> El nombre con el que el asistente IA se presentará a los clientes en el chat.
+                <br><strong>Ejemplo:</strong> "Hola, soy Sofia de Clínica Salud Norte 👋"
+                <br><strong>Recomendación:</strong> usa un nombre amigable y corto.
+              </div>
+            </div>
+          </div>
+
+          <div style="font-size:12px; font-weight:600; color:var(--accent); margin: 8px 0 14px; text-transform:uppercase; letter-spacing:0.5px;">
+            📧 Cuentas y Accesos
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email del Agente Bot (Chatwoot) *</label>
+              <input type="email" id="crmBotEmail" placeholder="ej: bot@clinicasalud.com">
+              <div class="help-text">
+                <strong>¿Qué es?</strong> Se creará una cuenta de agente en Chatwoot con este email. El bot usará esta cuenta para responder.
+                <br><strong>Dónde se crea:</strong> automáticamente en <code>crm.ticosys.com</code>, en la cuenta del cliente.
+                <br><strong>Puede ser:</strong> un alias (<code>bot@cliente.com</code>) o subdominio. No necesita ser una casilla real.
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email del Administrador del Cliente *</label>
+              <input type="email" id="crmAdminEmail" placeholder="ej: admin@clinicasalud.com">
+              <div class="help-text">
+                <strong>¿Qué es?</strong> Recibirá acceso de administrador a la cuenta Chatwoot del cliente y los reportes diarios del sistema.
+                <br><strong>Dónde se configura:</strong> Chatwoot → Settings → Agents (se crea automáticamente).
+                <br><strong>Importante:</strong> debe ser un email válido al que el cliente tenga acceso.
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email para Envío de Notificaciones (SMTP)</label>
+              <input type="email" id="crmSmtpEmail" placeholder="ej: notificaciones@clinicasalud.com">
+              <div class="help-text">
+                <strong>¿Qué es?</strong> El email <em>desde el que</em> se enviarán confirmaciones de citas, recordatorios y seguimientos a los usuarios finales.
+                <br><strong>Dónde se usa:</strong> Gmail de TicoSys enviará "en nombre de" este email (o lo verás como remitente en los flows de n8n).
+                <br><strong>Si no tienes:</strong> usa el mismo que el email de contacto del cliente.
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Google Calendar ID</label>
+              <input type="text" id="crmCalendarId" placeholder="primary  ó  correo@gmail.com">
+              <div class="help-text">
+                <strong>¿Qué es?</strong> El ID del calendario de Google donde el bot agendará las citas de los usuarios.
+                <br><strong>Cómo encontrarlo:</strong> Google Calendar → Configuración del calendario → "ID de Calendario" (al final de la sección de integración).
+                <br><strong>Si es el calendario principal:</strong> usa simplemente <code>primary</code>.
+              </div>
+            </div>
+          </div>
+
+          <div style="font-size:12px; font-weight:600; color:var(--accent); margin: 8px 0 14px; text-transform:uppercase; letter-spacing:0.5px;">
+            🔑 Credenciales de API
+          </div>
+
+          <div class="form-group" style="margin-bottom:0;">
+            <label style="display:flex; align-items:center; gap:6px;">
+              n8n API Key
+              <span style="background: rgba(245,158,11,0.15); color: var(--warning); padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight:600; text-transform:none;">Expira ~28 Mar 2026</span>
+            </label>
+            <input type="text" id="crmN8nApiKey" placeholder="eyJhbGci... (dejar vacío para usar la clave guardada)" style="font-family:monospace; font-size:11px;">
+            <div class="help-text">
+              <strong>¿Qué es?</strong> Token JWT para que el installer pueda crear y activar workflows via la API de n8n.
+              <br><strong>Cómo obtener uno nuevo:</strong> ir a <code>n8n.ticosys.com</code> → Settings → API → Create API Key → copiar el token generado.
+              <br><strong>Si lo dejas vacío:</strong> se usará la clave guardada internamente (puede estar expirada).
+            </div>
+          </div>
+
+        </div><!-- fin chatbot-section -->
+      </div><!-- fin chatbotSetupSection -->
+
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeCrmModal()">Cancelar</button>
+        <button class="btn btn-primary" id="crmSaveBtn" onclick="saveCrm()">💾 Guardar Cliente</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PROGRESO DEL INSTALLER -->
+  <div class="modal-overlay" id="installerModal">
+    <div class="modal" style="text-align:center;">
+      <!-- Estado: en progreso -->
+      <div id="installerProgress">
+        <div style="font-size:48px; margin-bottom:8px;">🚀</div>
+        <h3>Configurando cliente...</h3>
+        <p>Este proceso puede tardar 30–60 segundos. Por favor no cierres esta ventana.</p>
+        <div class="spinner-blue"></div>
+        <p id="installerStatusMsg" style="font-size:13px; color:var(--accent); font-weight:500; margin-top:8px;">Iniciando...</p>
+        <ul class="progress-steps" id="installerSteps">
+          <li class="progress-step" id="step-crm">⏳ Guardando datos del cliente (CRM)</li>
+          <li class="progress-step" id="step-rag">⏳ Creando schema RAG en PostgreSQL</li>
+          <li class="progress-step" id="step-chatwoot">⏳ Creando cuenta en Chatwoot</li>
+          <li class="progress-step" id="step-workflows">⏳ Clonando y configurando workflows n8n</li>
+          <li class="progress-step" id="step-done">⏳ Finalizando setup</li>
+        </ul>
+      </div>
+
+      <!-- Estado: éxito -->
+      <div id="installerSuccess" style="display:none; text-align:left;">
+        <div style="text-align:center; margin-bottom:16px;">
+          <div style="font-size:48px;">✅</div>
+          <h3 style="margin-top:8px;">¡Setup completado con éxito!</h3>
         </div>
-        <div class="form-group">
-          <label>URL Workflow Principal N8N</label>
-          <input type="text" id="crmWf" placeholder="https://n8n.ticosys.com/workflow/...">
+        <div id="installerResults" style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:16px; font-size:12px; line-height:2;">
         </div>
-        <div class="form-group">
-          <label>Google Drive Folder ID (Opcional)</label>
-          <input type="text" id="crmDrive" placeholder="1fcPmkgQvoh3jd55hi...">
+        <div style="text-align:center; margin-top:20px;">
+          <button class="btn btn-primary" onclick="document.getElementById('installerModal').classList.remove('open'); loadCrm();">Ver clientes</button>
         </div>
       </div>
 
-      <div class="modal-actions">
-        <button class="btn btn-ghost"
-          onclick="document.getElementById('crmModal').classList.remove('open')">Cancelar</button>
-        <button class="btn btn-primary" id="crmSaveBtn" onclick="saveCrm()">💾 Guardar Cliente</button>
+      <!-- Estado: error -->
+      <div id="installerError" style="display:none;">
+        <div style="font-size:48px; margin-bottom:8px;">❌</div>
+        <h3>Error en el setup</h3>
+        <p id="installerErrorMsg" style="color:var(--danger); font-size:13px; margin-top:8px;"></p>
+        <button class="btn btn-ghost" style="margin-top:16px;" onclick="document.getElementById('installerModal').classList.remove('open')">Cerrar</button>
       </div>
     </div>
   </div>
@@ -917,7 +897,6 @@
         await loadDatabases();
         dot.style.background = 'var(--success)';
         document.getElementById('headerStatus').textContent = 'Conectado';
-        // Mostrar pantalla de bienvenida si no hay schema seleccionado
         if (!currentSchema) {
           document.getElementById('pageWelcome').style.display = 'flex';
           document.getElementById('pageDB').style.display = 'none';
@@ -935,53 +914,48 @@
     async function loadDatabases() {
       const data = await api('list_dbs');
       const el = document.getElementById('dbList');
-      if (!data.databases || data.databases.length === 0) { el.innerHTML = '<div class="empty">Sin bases de datos</div>'; return; }
+      if (!data.databases || data.databases.length === 0) {
+        el.innerHTML = '<div class="empty">Sin bases de datos</div>';
+        return;
+      }
       el.innerHTML = data.databases.map(db => `
         <div class="db-item ${db === currentSchema ? 'active' : ''}" onclick="selectDB('${db}')" id="dbitem-${db}">
-          <span class="db-icon">🗄️</span>
-          <span class="db-name">${db}</span>
-          <div class="db-item-actions" onclick="event.stopPropagation(); deleteDB('${db}')" title="Borrar base de datos">
-            🗑️
-          </div>
+          <span>🗄️</span>
+          <span>${db}</span>
+          <div class="db-item-actions" onclick="event.stopPropagation(); deleteDB('${db}')" title="Borrar base de datos">🗑️</div>
         </div>
       `).join('');
     }
 
     async function deleteDB(schema) {
-      if (!confirm(`⚠️ ADVERTENCIA: Esta acción eliminará PERMANENTEMENTE la base de datos "${schema}" y todos sus documentos.\n\nEsto es IRREVERSIBLE.\n\n¿Deseas continuar?`)) return;
-
-      const verify = prompt(`Para confirmar, escribe el nombre exacto de la base de datos a eliminar:\n\n${schema}`);
+      if (!confirm(`⚠️ Esta acción eliminará PERMANENTEMENTE la base de datos "${schema}" y todos sus documentos.\n\nEsto es IRREVERSIBLE.\n\n¿Deseas continuar?`)) return;
+      const verify = prompt(`Para confirmar, escribe el nombre exacto de la base de datos:\n\n${schema}`);
       if (verify !== schema) {
-        if (verify !== null) showToast('Nombre incorrecto. Operación cancelada.', 'info');
+        if (verify !== null) showToast('Nombre incorrecto. Cancelado.', 'error');
         return;
       }
-
-      const dot = document.getElementById('statusDot');
       try {
-        dot.style.background = 'var(--warning)';
         await api('delete_db', { schema });
-        showToast(`Base de datos '${schema}' eliminada`, 'success');
+        showToast(`Base '${schema}' eliminada`, 'success');
         if (currentSchema === schema) {
           currentSchema = '';
           document.getElementById('pageDB').style.display = 'none';
           document.getElementById('pageWelcome').style.display = 'flex';
         }
         loadDatabases();
-      } catch (e) {
-        showToast('Error al borrar DB: ' + e.message, 'error');
-      } finally {
-        dot.style.background = 'var(--success)';
-      }
+      } catch (e) { showToast('Error al borrar DB: ' + e.message, 'error'); }
     }
 
     async function selectDB(schema) {
       currentSchema = schema;
       document.querySelectorAll('.db-item').forEach(el => el.classList.remove('active'));
-      document.getElementById(`dbitem-${schema}`).classList.add('active');
+      const item = document.getElementById(`dbitem-${schema}`);
+      if (item) item.classList.add('active');
       document.getElementById('pageWelcome').style.display = 'none';
       document.getElementById('pageDB').style.display = 'block';
       document.getElementById('n8nTableName').innerText = schema + '.rag_docs';
       document.getElementById('dbTitle').textContent = schema;
+      document.getElementById('dbSubtitle').textContent = 'Tabla n8n: ' + schema + '.rag_docs';
       document.getElementById('statSchema').textContent = schema + '.rag_docs';
       await loadDocs(schema);
     }
@@ -993,12 +967,25 @@
         allDocs = data.documentos || [];
         document.getElementById('statChunks').textContent = data.total_chunks || 0;
         document.getElementById('statDocs').textContent = allDocs.length;
+        document.getElementById('docsCount').textContent = `${allDocs.length} documentos`;
         renderDocs(allDocs);
-      } catch (e) { document.getElementById('docsContainer').innerHTML = '<div class="empty">Error</div>'; }
+      } catch (e) { document.getElementById('docsContainer').innerHTML = '<div class="empty">Error al cargar</div>'; }
+    }
+
+    function filterDocs() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = allDocs.filter(d =>
+        (d.titulo || '').toLowerCase().includes(q) || (d.preview || '').toLowerCase().includes(q)
+      );
+      renderDocs(filtered);
+      document.getElementById('docsCount').textContent = `${filtered.length} de ${allDocs.length}`;
     }
 
     function renderDocs(docs) {
-      if (docs.length === 0) { document.getElementById('docsContainer').innerHTML = '<div class="empty">Vacío</div>'; return; }
+      if (docs.length === 0) {
+        document.getElementById('docsContainer').innerHTML = '<div class="empty">Sin documentos</div>';
+        return;
+      }
       document.getElementById('docsContainer').innerHTML = `
         <div class="table-wrap"><table>
           <thead><tr><th>Documento</th><th>Tipo</th><th>Chunks</th><th>Preview</th><th></th></tr></thead>
@@ -1006,29 +993,31 @@
             <tr>
               <td>${d.titulo}</td><td>${d.tipo}</td><td>${d.chunks}</td>
               <td class="preview-text">${d.preview}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="deleteDoc('${d.titulo}')">🗑️ Eliminar</button></td>
+              <td><button class="btn btn-danger btn-sm" onclick="deleteDoc('${d.titulo.replace(/'/g, "\\'")}')">🗑️</button></td>
             </tr>`).join('')}
           </tbody>
         </table></div>`;
     }
 
     async function deleteDoc(title) {
-      if (!confirm(`¿Eliminar ${title}?`)) return;
+      if (!confirm(`¿Eliminar "${title}"?`)) return;
       await api('delete_doc', { schema: currentSchema, title });
-      showToast('Eliminado', 'success');
+      showToast('Documento eliminado', 'success');
       loadDocs(currentSchema);
     }
 
     function openCreateModal() { document.getElementById('createModal').classList.add('open'); }
+
     async function confirmCreate() {
       const s = document.getElementById('newSchemaInput').value.trim();
       const b = document.getElementById('confirmCreateBtn');
-      if (s.length < 3) return showToast('Muy corto', 'error');
-      b.disabled = true; b.innerHTML = 'Creando...';
+      if (s.length < 3) return showToast('Nombre muy corto (mín. 3 caracteres)', 'error');
+      b.disabled = true; b.innerHTML = '<span class="spinner"></span> Creando...';
       try {
         await api('create_db', { new_schema: s });
-        showToast('DB creada', 'success');
+        showToast('Base de datos creada', 'success');
         document.getElementById('createModal').classList.remove('open');
+        document.getElementById('newSchemaInput').value = '';
         loadDatabases();
       } catch (e) { showToast(e.message, 'error'); }
       b.disabled = false; b.innerHTML = '＋ Crear base';
@@ -1038,7 +1027,7 @@
     // CRM MODULE
     // ================================================================
     async function loadCrm() {
-      document.getElementById('crmBody').innerHTML = '<tr><td colspan="6" class="empty"><div class="spinner"></div> Cargando...</td></tr>';
+      document.getElementById('crmBody').innerHTML = '<tr><td colspan="6" class="empty"><div class="spinner" style="border-color:rgba(19,91,236,0.2);border-top-color:var(--accent);"></div></td></tr>';
       try {
         const data = await api('crm_list');
         crmData = data.clients || [];
@@ -1050,19 +1039,23 @@
 
     function renderCrm(clients) {
       if (clients.length === 0) {
-        document.getElementById('crmBody').innerHTML = '<tr><td colspan="6" class="empty">No hay clientes registrados en el CRM.</td></tr>';
+        document.getElementById('crmBody').innerHTML = '<tr><td colspan="6" class="empty">No hay clientes registrados.</td></tr>';
         return;
       }
       document.getElementById('crmBody').innerHTML = clients.map(c => {
-        let docsUrl = ""; let wfUrl = "";
-        try { docsUrl = JSON.parse(c.documents || "[]")[0] || ""; } catch (e) { }
-        try { wfUrl = JSON.parse(c.workflow_links || "[]")[0] || ""; } catch (e) { }
+        let docsUrl = '', wfUrl = '';
+        try { docsUrl = JSON.parse(c.documents || '[]')[0] || ''; } catch (e) {}
+        try { wfUrl = JSON.parse(c.workflow_links || '[]')[0] || ''; } catch (e) {}
 
-        let schemaHtml = c.db_schema ? `<span class="badge badge-txt" style="cursor:pointer;" onclick="switchView('view-rag'); selectDB('${c.db_schema}');" title="Ver DB">${c.db_schema}</span>` : `<span class="badge badge-other">Sin DB</span>`;
+        const schemaHtml = c.db_schema
+          ? `<span class="badge badge-txt" style="cursor:pointer;" onclick="switchView('view-rag'); selectDB('${c.db_schema}');" title="Ver DB RAG">${c.db_schema}</span>`
+          : `<span class="badge badge-other">Sin DB</span>`;
+
+        const name = (c.name || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
         return `
         <tr>
-          <td><div style="font-weight:600;">${c.name}</div><div style="font-size:11px;color:var(--muted)">${c.notes ? c.notes.substring(0, 30) + '...' : ''}</div></td>
+          <td><div style="font-weight:600;">${c.name}</div><div style="font-size:11px;color:var(--muted)">${c.notes ? c.notes.substring(0, 40) + '...' : ''}</div></td>
           <td>
             <div>✉️ ${c.email || '-'}</div>
             <div>📞 ${c.phone || '-'}</div>
@@ -1071,24 +1064,29 @@
           <td><span class="badge badge-excel">${c.plan || '-'}</span></td>
           <td>${schemaHtml}</td>
           <td>
-            ${docsUrl ? `<a href="${docsUrl}" target="_blank" class="crm-link">📄 Cotización/Docs</a><br>` : ''}
-            ${wfUrl ? `<a href="${wfUrl}" target="_blank" class="crm-link">⚙️ Acceso N8N</a>` : ''}
-            ${c.drive_folder_id ? `<div style="font-size:10px;color:var(--muted);margin-top:4px;">Drive: ${c.drive_folder_id.substring(0, 10)}...</div>` : ''}
+            ${docsUrl ? `<a href="${docsUrl}" target="_blank" class="crm-link">📄 Cotización</a><br>` : ''}
+            ${wfUrl ? `<a href="${wfUrl}" target="_blank" class="crm-link">⚙️ N8N</a>` : ''}
+            ${c.drive_folder_id ? `<div style="font-size:10px;color:var(--muted);margin-top:4px;">Drive: ${c.drive_folder_id.substring(0, 12)}...</div>` : ''}
           </td>
           <td>
             <div style="display:flex; flex-direction:column; gap:4px;">
               <button class="btn btn-ghost btn-sm" onclick="editCrm('${c.id}')">✏️ Editar</button>
-              ${c.db_schema ? `<button class="btn btn-primary btn-sm" onclick="cloneBaseWorkflow('${c.name}', '${c.db_schema}', '${c.drive_folder_id || ''}')" title="Clonar Workflow Base">📋 Clonar WF</button>` : ''}
-              <button class="btn btn-danger btn-sm" onclick="deleteCrm('${c.id}', '${c.name.replace(/'/g, "\\'").replace(/"/g, "&quot;")}')">🗑️ Borrar</button>
+              ${c.db_schema ? `<button class="btn btn-primary btn-sm" onclick="cloneBaseWorkflow('${name}', '${c.db_schema}', '${c.drive_folder_id || ''}')" title="Clonar Workflow Base RAG">📋 Clonar WF</button>` : ''}
+              <button class="btn btn-danger btn-sm" onclick="deleteCrm('${c.id}', '${name}')">🗑️ Borrar</button>
             </div>
           </td>
-        </tr>
-      `}).join('');
+        </tr>`;
+      }).join('');
     }
 
     function openCrmModal(client = null) {
+      // Reset chatbot section
+      document.getElementById('crmLaunchChatbot').checked = false;
+      document.getElementById('chatbotSetupSection').style.display = 'none';
+
       document.getElementById('crmModal').classList.add('open');
       document.getElementById('crmAutoCreateDbLabel').style.display = client ? 'none' : 'flex';
+
       if (client) {
         document.getElementById('crmModalTitle').textContent = `✏️ Editar Cliente: ${client.name}`;
         document.getElementById('crmId').value = client.id;
@@ -1099,17 +1097,64 @@
         document.getElementById('crmResp').value = client.responsible;
         document.getElementById('crmPlan').value = client.plan;
         document.getElementById('crmNotes').value = client.notes;
-
-        try { document.getElementById('crmDocs').value = JSON.parse(client.documents || "[]")[0] || ""; } catch (e) { }
-        try { document.getElementById('crmWf').value = JSON.parse(client.workflow_links || "[]")[0] || ""; } catch (e) { }
-        document.getElementById('crmDrive').value = client.drive_folder_id || "";
-
+        try { document.getElementById('crmDocs').value = JSON.parse(client.documents || '[]')[0] || ''; } catch (e) {}
+        try { document.getElementById('crmWf').value = JSON.parse(client.workflow_links || '[]')[0] || ''; } catch (e) {}
+        document.getElementById('crmDrive').value = client.drive_folder_id || '';
       } else {
-        document.getElementById('crmModalTitle').textContent = "👤 Nuevo Cliente";
-        document.getElementById('crmId').value = "";
-        ['crmName', 'crmSchema', 'crmEmail', 'crmPhone', 'crmResp', 'crmNotes', 'crmDocs', 'crmWf', 'crmDrive'].forEach(id => document.getElementById(id).value = "");
-        document.getElementById('crmPlan').value = "Profesional";
+        document.getElementById('crmModalTitle').textContent = '👤 Nuevo Cliente';
+        document.getElementById('crmId').value = '';
+        ['crmName', 'crmSchema', 'crmEmail', 'crmPhone', 'crmResp', 'crmNotes', 'crmDocs', 'crmWf', 'crmDrive'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('crmPlan').value = 'Profesional';
       }
+
+      // Always clear chatbot fields when opening modal
+      ['crmSlug', 'crmBotNombre', 'crmBotEmail', 'crmAdminEmail', 'crmSmtpEmail', 'crmCalendarId', 'crmN8nApiKey'].forEach(id => document.getElementById(id).value = '');
+    }
+
+    function closeCrmModal() {
+      document.getElementById('crmModal').classList.remove('open');
+    }
+
+    function toggleChatbotSection(show) {
+      document.getElementById('chatbotSetupSection').style.display = show ? 'block' : 'none';
+      if (show) autoFillChatbotFields();
+    }
+
+    function syncSlug() {
+      const schema = document.getElementById('crmSchema').value;
+      const slugEl = document.getElementById('crmSlug');
+      if (!slugEl.value || slugEl.value === slugEl.dataset.autoValue) {
+        slugEl.value = schema;
+        slugEl.dataset.autoValue = schema;
+      }
+    }
+
+    function autoFillChatbotFields() {
+      if (!document.getElementById('crmLaunchChatbot').checked) return;
+
+      const name = document.getElementById('crmName').value;
+      const schema = document.getElementById('crmSchema').value;
+
+      // Auto-fill slug from schema
+      const slugEl = document.getElementById('crmSlug');
+      if (!slugEl.value && schema) slugEl.value = schema;
+
+      // Auto-fill bot name: first word + "Bot" if empty
+      const botNombreEl = document.getElementById('crmBotNombre');
+      if (!botNombreEl.value && name) {
+        botNombreEl.value = name.split(' ')[0];
+      }
+
+      // Auto-fill admin email from contact email
+      const adminEl = document.getElementById('crmAdminEmail');
+      if (!adminEl.value) {
+        const contactEmail = document.getElementById('crmEmail').value;
+        if (contactEmail) adminEl.value = contactEmail;
+      }
+
+      // Default calendar
+      const calEl = document.getElementById('crmCalendarId');
+      if (!calEl.value) calEl.value = 'primary';
     }
 
     function editCrm(id) {
@@ -1118,7 +1163,7 @@
     }
 
     async function deleteCrm(id, name) {
-      if (!confirm(`¿Eliminar definitivamente el cliente ${name} del CRM?\nNota: Su base de datos RAG no se borrará.`)) return;
+      if (!confirm(`¿Eliminar definitivamente el cliente "${name}" del CRM?\nNota: Su base de datos RAG no se borrará.`)) return;
       try {
         await api('crm_delete', { client_id: id });
         showToast('Cliente borrado', 'success');
@@ -1128,6 +1173,8 @@
 
     async function saveCrm() {
       const id = document.getElementById('crmId').value;
+      const launchChatbot = document.getElementById('crmLaunchChatbot').checked;
+
       const client = {
         id,
         name: document.getElementById('crmName').value,
@@ -1144,19 +1191,125 @@
 
       if (!client.name) return showToast('El nombre de la empresa es obligatorio', 'error');
 
+      // Validate chatbot fields if setup is enabled
+      if (launchChatbot) {
+        const slug = document.getElementById('crmSlug').value.trim();
+        const botEmail = document.getElementById('crmBotEmail').value.trim();
+        const adminEmail = document.getElementById('crmAdminEmail').value.trim();
+        if (!slug) return showToast('El Slug único es obligatorio para el setup del chatbot', 'error');
+        if (!botEmail) return showToast('El Email del Bot es obligatorio para el setup del chatbot', 'error');
+        if (!adminEmail) return showToast('El Email del Administrador es obligatorio para el setup del chatbot', 'error');
+      }
+
       const btn = document.getElementById('crmSaveBtn');
-      btn.disabled = true; btn.innerHTML = 'Guardando...';
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Guardando...';
+
       try {
+        // 1. Create RAG schema if needed
         if (!id && client.db_schema && document.getElementById('crmAutoCreateDb').checked) {
-          showToast('Creando schema de base RAG...', 'info');
-          try { await api('create_db', { new_schema: client.db_schema }); } catch (err) { console.warn(err); }
+          try { await api('create_db', { new_schema: client.db_schema }); } catch (err) { console.warn('Schema ya existe:', err); }
         }
+
+        // 2. Save CRM record
         await api('crm_save', { client });
-        showToast('Cliente guardado con éxito', 'success');
-        document.getElementById('crmModal').classList.remove('open');
-        loadCrm();
-      } catch (e) { showToast(e.message, 'error'); }
-      btn.disabled = false; btn.innerHTML = '💾 Guardar Cliente';
+
+        closeCrmModal();
+        btn.disabled = false;
+        btn.innerHTML = '💾 Guardar Cliente';
+
+        if (launchChatbot) {
+          // 3. Launch full installer
+          const chatbot = {
+            slug: document.getElementById('crmSlug').value.trim(),
+            company_name: client.name,
+            bot_nombre: document.getElementById('crmBotNombre').value.trim() || client.name.split(' ')[0],
+            bot_email: document.getElementById('crmBotEmail').value.trim(),
+            admin_email: document.getElementById('crmAdminEmail').value.trim(),
+            smtp_from_email: document.getElementById('crmSmtpEmail').value.trim() || client.email,
+            calendar_id: document.getElementById('crmCalendarId').value.trim() || 'primary',
+            n8n_api_key: document.getElementById('crmN8nApiKey').value.trim() || '',
+            drive_folder_id: client.drive_folder_id || '',
+          };
+          await launchFullOnboarding(client, chatbot);
+        } else {
+          showToast('Cliente guardado con éxito', 'success');
+          loadCrm();
+        }
+      } catch (e) {
+        showToast('Error: ' + e.message, 'error');
+        btn.disabled = false;
+        btn.innerHTML = '💾 Guardar Cliente';
+      }
+    }
+
+    async function launchFullOnboarding(client, chatbot) {
+      // Show installer modal
+      const modal = document.getElementById('installerModal');
+      document.getElementById('installerProgress').style.display = 'block';
+      document.getElementById('installerSuccess').style.display = 'none';
+      document.getElementById('installerError').style.display = 'none';
+      modal.classList.add('open');
+
+      // Reset steps
+      ['step-crm', 'step-rag', 'step-chatwoot', 'step-workflows', 'step-done'].forEach(id => {
+        const el = document.getElementById(id);
+        el.className = 'progress-step';
+      });
+
+      const setStep = (id, status, text) => {
+        const el = document.getElementById(id);
+        el.className = 'progress-step ' + status;
+        if (text) el.innerHTML = text;
+      };
+
+      const setStatus = (msg) => document.getElementById('installerStatusMsg').textContent = msg;
+
+      try {
+        setStep('step-crm', 'done', '✅ Cliente guardado en CRM');
+        setStep('step-rag', 'active', '⏳ Schema RAG ya creado...');
+        setStatus('Lanzando setup completo del chatbot...');
+
+        setStep('step-rag', 'done', '✅ Schema RAG listo');
+        setStep('step-chatwoot', 'active', '⏳ Creando cuenta Chatwoot...');
+        setStatus('Conectando con Chatwoot...');
+
+        const result = await api('full_onboarding', { client, chatbot });
+
+        setStep('step-chatwoot', 'done', '✅ Cuenta Chatwoot creada');
+        setStep('step-workflows', 'active', '⏳ Clonando workflows n8n...');
+        setStatus('Configurando workflows de n8n...');
+
+        // Small delay for UX
+        await new Promise(r => setTimeout(r, 800));
+
+        setStep('step-workflows', 'done', '✅ Workflows creados y activados');
+        setStep('step-done', 'done', '✅ Setup completo');
+        setStatus('¡Listo!');
+
+        // Show results
+        document.getElementById('installerProgress').style.display = 'none';
+        document.getElementById('installerSuccess').style.display = 'block';
+
+        const res = result.result || result;
+        document.getElementById('installerResults').innerHTML = `
+          <div style="font-weight:600; margin-bottom:8px;">📋 Datos generados para ${client.name}:</div>
+          ${res.chatwoot_url ? `<div>🌐 <strong>URL Chatwoot:</strong> <a href="${res.chatwoot_url}" target="_blank" class="crm-link">${res.chatwoot_url}</a></div>` : ''}
+          ${res.chatwoot_account_id ? `<div>🏢 <strong>Account ID:</strong> ${res.chatwoot_account_id}</div>` : ''}
+          ${res.chatwoot_admin_token ? `<div>🔑 <strong>Admin Token:</strong> <code style="font-size:10px;">${res.chatwoot_admin_token.substring(0,20)}...</code></div>` : ''}
+          ${res.webhook_path ? `<div>🔗 <strong>Webhook Path:</strong> <code>/webhook/${res.webhook_path}</code></div>` : ''}
+          ${res.workflow_a_id ? `<div>⚙️ <strong>Workflow A (Agente):</strong> <a href="https://n8n.ticosys.com/workflow/${res.workflow_a_id}" target="_blank" class="crm-link">Ver en n8n</a></div>` : ''}
+          ${res.workflow_b_id ? `<div>⚙️ <strong>Workflow B (Media):</strong> <a href="https://n8n.ticosys.com/workflow/${res.workflow_b_id}" target="_blank" class="crm-link">Ver en n8n</a></div>` : ''}
+          <div style="margin-top:10px; padding-top:10px; border-top:1px solid var(--border); font-size:11px; color:var(--muted);">
+            ⚠️ Guarda estos datos. Los tokens solo se muestran una vez.
+          </div>
+        `;
+
+      } catch (e) {
+        document.getElementById('installerProgress').style.display = 'none';
+        document.getElementById('installerError').style.display = 'block';
+        document.getElementById('installerErrorMsg').textContent = e.message || 'Error desconocido al ejecutar el installer.';
+      }
     }
 
     async function cloneBaseWorkflow(name, schema, folder_id) {
@@ -1166,20 +1319,22 @@
         const res = await api('clone_workflow', { name, schema, folder_id });
         if (res.success) {
           showToast('Workflow clonado con éxito', 'success');
-          // Podríamos intentar abrir el link si lo tenemos, o recargar el CRM
           loadCrm();
         } else {
-          showToast('Error al clonar: ' + res.error, 'error');
+          showToast('Error al clonar: ' + (res.error || 'desconocido'), 'error');
         }
       } catch (e) { showToast(e.message, 'error'); }
     }
 
+    // ================================================================
+    // TOAST
+    // ================================================================
     function showToast(msg, type = 'info') {
       const el = document.createElement('div');
       el.className = `toast toast-${type}`;
       el.innerHTML = `<span>${msg}</span>`;
       document.getElementById('toast-container').appendChild(el);
-      setTimeout(() => el.remove(), 4000);
+      setTimeout(() => el.remove(), 4500);
     }
   </script>
 </body>
