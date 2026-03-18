@@ -1121,7 +1121,7 @@
       }
 
       // Always clear chatbot fields when opening modal
-      ['crmSlug', 'crmBotNombre', 'crmBotEmail', 'crmAdminEmail', 'crmSmtpEmail', 'crmCalendarId', 'crmN8nApiKey'].forEach(id => document.getElementById(id).value = '');
+      ['crmSlug', 'crmBotNombre', 'crmAdminEmail', 'crmSmtpEmail', 'crmCalendarId', 'crmN8nApiKey'].forEach(id => document.getElementById(id).value = '');
     }
 
     function closeCrmModal() {
@@ -1207,10 +1207,8 @@
       // Validate chatbot fields if setup is enabled
       if (launchChatbot) {
         const slug = document.getElementById('crmSlug').value.trim();
-        const botEmail = document.getElementById('crmBotEmail').value.trim();
         const adminEmail = document.getElementById('crmAdminEmail').value.trim();
         if (!slug) return showToast('El Slug único es obligatorio para el setup del chatbot', 'error');
-        if (!botEmail) return showToast('El Email del Bot es obligatorio para el setup del chatbot', 'error');
         if (!adminEmail) return showToast('El Email del Administrador es obligatorio para el setup del chatbot', 'error');
       }
 
