@@ -734,12 +734,12 @@
 
           <div class="form-row">
             <div class="form-group">
-              <label>Email del Agente Bot (Chatwoot) *</label>
-              <input type="email" id="crmBotEmail" placeholder="ej: bot@clinicasalud.com">
+              <label>Token del Bot Chatwoot *</label>
+              <input type="password" id="crmChatwootBotToken" placeholder="Token del agente bot">
               <div class="help-text">
-                <strong>¿Qué es?</strong> Se creará una cuenta de agente en Chatwoot con este email. El bot usará esta cuenta para responder.
-                <br><strong>Dónde se crea:</strong> automáticamente en <code>crm.ticosys.com</code>, en la cuenta del cliente.
-                <br><strong>Puede ser:</strong> un alias (<code>bot@cliente.com</code>) o subdominio. No necesita ser una casilla real.
+                <strong>¿Qué es?</strong> El access token del agente bot ya existente en Chatwoot (ej: Tiko IA).
+                <br><strong>Dónde encontrarlo:</strong> Login como el bot en Chatwoot &rarr; Perfil &rarr; Access Token.
+                <br><strong>Para TicoSys:</strong> usar el token de "Tiko IA" (agent id=5).
               </div>
             </div>
             <div class="form-group">
@@ -1237,7 +1237,7 @@
             slug: document.getElementById('crmSlug').value.trim(),
             company_name: client.name,
             bot_nombre: document.getElementById('crmBotNombre').value.trim() || client.name.split(' ')[0],
-            bot_email: document.getElementById('crmBotEmail').value.trim(),
+            bot_token: document.getElementById('crmChatwootBotToken').value.trim(),
             admin_email: document.getElementById('crmAdminEmail').value.trim(),
             smtp_from_email: document.getElementById('crmSmtpEmail').value.trim() || client.email,
             calendar_id: document.getElementById('crmCalendarId').value.trim() || 'primary',
@@ -1245,6 +1245,7 @@
             drive_folder_id: client.drive_folder_id || '',
             chatwoot_account_id: document.getElementById('crmChatwootAccountId').value.trim() || '',
             chatwoot_admin_token: document.getElementById('crmChatwootAdminToken').value.trim() || '',
+            chatwoot_bot_token: document.getElementById('crmChatwootBotToken').value.trim() || '',
           };
           await launchFullOnboarding(client, chatbot);
         } else {
