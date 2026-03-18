@@ -791,6 +791,17 @@
             </div>
           </div>
 
+          <div style="margin-top:16px; border-top:2px solid #135bec22; padding-top:14px;">
+            <p style="font-weight:700; color:#135bec; font-size:13px; margin-bottom:8px;">Cuenta Chatwoot del Cliente</p>
+            <p style="font-size:11px; color:#64748b; margin-bottom:12px;">Primero crea la cuenta en crm.ticosys.com como super admin, luego completa estos campos.</p>
+            <label style="font-size:12px; font-weight:600; display:block; margin-bottom:4px;">ID Cuenta Chatwoot *</label>
+            <input type="number" id="crmChatwootAccountId" placeholder="2" style="width:100%; padding:8px; border:1px solid #e2e8f0; border-radius:6px; font-size:13px; margin-bottom:4px;">
+            <p style="font-size:11px; color:#64748b; margin-bottom:12px;">Super Admin &rarr; Accounts &rarr; click en cuenta &rarr; ID en URL: /super_admin/accounts/2</p>
+            <label style="font-size:12px; font-weight:600; display:block; margin-bottom:4px;">Access Token Admin Chatwoot *</label>
+            <input type="password" id="crmChatwootAdminToken" placeholder="Token del admin Chatwoot" style="width:100%; padding:8px; border:1px solid #e2e8f0; border-radius:6px; font-size:13px; margin-bottom:4px;">
+            <p style="font-size:11px; color:#64748b;">Login como admin del cliente &rarr; Perfil &rarr; Access Token &rarr; copiar</p>
+          </div>
+
         </div><!-- fin chatbot-section -->
       </div><!-- fin chatbotSetupSection -->
 
@@ -1232,6 +1243,8 @@
             calendar_id: document.getElementById('crmCalendarId').value.trim() || 'primary',
             n8n_api_key: document.getElementById('crmN8nApiKey').value.trim() || '',
             drive_folder_id: client.drive_folder_id || '',
+            chatwoot_account_id: document.getElementById('crmChatwootAccountId').value.trim() || '',
+            chatwoot_admin_token: document.getElementById('crmChatwootAdminToken').value.trim() || '',
           };
           await launchFullOnboarding(client, chatbot);
         } else {
