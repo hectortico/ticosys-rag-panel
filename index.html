@@ -255,6 +255,8 @@
     .badge-excel { background: rgba(16, 185, 129, 0.15); color: #34d399; }
     .badge-txt { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
     .badge-other { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .badge-enviable { background: rgba(16, 185, 129, 0.15); color: #059669; }
+    .badge-contexto { background: rgba(100, 116, 139, 0.15); color: #64748b; }
 
     /* BUTTONS */
     .btn {
@@ -1001,17 +1003,18 @@
       }
       document.getElementById('docsContainer').innerHTML = `
         <div class="table-wrap"><table>
-          <thead><tr><th>Documento</th><th>Tipo</th><th>Chunks</th><th>Preview</th><th></th></tr></thead>
+          <thead><tr><th>Documento</th><th>Tipo</th><th>Modo</th><th>Chunks</th><th>Preview</th><th></th></tr></thead>
           <tbody>${docs.map(d => `
             <tr>
-              <td>${d.titulo}</td><td>${d.tipo}</td><td>${d.chunks}</td>
-              <td class="preview-text">${d.preview}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="deleteDoc('${d.titulo.replace(/'/g, "\\'")}')">🗑️</button></td>
+              <td>${d.titulo || '—'}</td><td>${d.tipo || '—'}</td>
+              <td>${d.enviable ? '<span class="badge badge-enviable">&#128228; Enviable</span>' : '<span class="badge badge-contexto">&#128274; Contexto</span>'}</td>
+              <td>${d.chunks}</td>
+              <td class="preview-text">${d.preview || ''}</td>
+              <td><button class="btn btn-danger btn-sm" onclick="deleteDoc('${(d.titulo||'').replace(/'/g, "\'")}')">&#128465;&#65039;</button></td>
             </tr>`).join('')}
           </tbody>
         </table></div>`;
     }
-
     async function deleteDoc(title) {
       if (!confirm(`¿Eliminar "${title}"?`)) return;
       await api('delete_doc', { schema: currentSchema, title });
