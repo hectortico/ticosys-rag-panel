@@ -731,26 +731,32 @@
           </div>
 
           <div style="font-size:12px; font-weight:600; color:var(--accent); margin: 8px 0 14px; text-transform:uppercase; letter-spacing:0.5px;">
-            📧 Cuentas y Accesos
+            📧 Emails y Calendario
+          </div>
+
+          <div style="background:#ecfdf5; border-left:4px solid #10b981; padding:10px 14px; border-radius:6px; margin-bottom:14px;">
+            <p style="font-size:12px; color:#065f46; margin:0; line-height:1.5;">
+              ✅ <strong>Setup 100% automático.</strong> El installer crea por ti: la cuenta nueva en Chatwoot (vía Platform API), el usuario administrador con contraseña aleatoria, el agente bot con su token, las 7 etiquetas, el inbox y el webhook. <strong>NO necesitas crear nada manualmente en Chatwoot antes</strong>.
+            </p>
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label>Token del Bot Chatwoot *</label>
-              <input type="password" id="crmChatwootBotToken" placeholder="Token del agente bot">
-              <div class="help-text">
-                <strong>¿Qué es?</strong> El access token del agente bot ya existente en Chatwoot (ej: Tiko IA).
-                <br><strong>Dónde encontrarlo:</strong> Login como el bot en Chatwoot &rarr; Perfil &rarr; Access Token.
-                <br><strong>Para TicoSys:</strong> usar el token de "Tiko IA" (agent id=5).
-              </div>
-            </div>
-            <div class="form-group">
               <label>Email del Administrador del Cliente *</label>
               <input type="email" id="crmAdminEmail" placeholder="ej: admin@clinicasalud.com">
               <div class="help-text">
-                <strong>¿Qué es?</strong> Recibirá acceso de administrador a la cuenta Chatwoot del cliente y los reportes diarios del sistema.
-                <br><strong>Dónde se configura:</strong> Chatwoot → Settings → Agents (se crea automáticamente).
-                <br><strong>Importante:</strong> debe ser un email válido al que el cliente tenga acceso.
+                <strong>¿Qué es?</strong> Email del cliente que será administrador de su cuenta Chatwoot. <strong>Recibirá un email automático con su contraseña inicial</strong> tras la creación.
+                <br><strong>Importante:</strong> Debe ser un email único (no usado en otra cuenta de Chatwoot) y al que el cliente tenga acceso real.
+                <br><strong>Ejemplo:</strong> <code>director@tudame.com</code>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email del Agente Bot</label>
+              <input type="email" id="crmBotEmail" placeholder="ej: bot-tudame@ticosys.com  (opcional, se genera solo)">
+              <div class="help-text">
+                <strong>¿Qué es?</strong> Email único interno para el agente bot dentro de Chatwoot. No se usa para enviar nada real.
+                <br><strong>Si lo dejas vacío:</strong> se genera automáticamente como <code>bot-{slug}@ticosys.com</code>.
+                <br><strong>Importante:</strong> debe ser distinto al email del administrador.
               </div>
             </div>
           </div>
@@ -760,48 +766,38 @@
               <label>Email para Envío de Notificaciones (SMTP)</label>
               <input type="email" id="crmSmtpEmail" placeholder="ej: notificaciones@clinicasalud.com">
               <div class="help-text">
-                <strong>¿Qué es?</strong> El email <em>desde el que</em> se enviarán confirmaciones de citas, recordatorios y seguimientos a los usuarios finales.
-                <br><strong>Dónde se usa:</strong> Gmail de TicoSys enviará "en nombre de" este email (o lo verás como remitente en los flows de n8n).
-                <br><strong>Si no tienes:</strong> usa el mismo que el email de contacto del cliente.
+                <strong>¿Qué es?</strong> El email <em>desde el que</em> el bot enviará confirmaciones de citas, recordatorios y seguimientos a los usuarios finales del cliente.
+                <br><strong>Dónde se usa:</strong> Gmail de TicoSys enviará "en nombre de" este email (lo verás como remitente en los emails que dispara n8n).
+                <br><strong>Si lo dejas vacío:</strong> se usa el mismo email de contacto del cliente.
               </div>
             </div>
             <div class="form-group">
-              <label>Google Calendar ID</label>
-              <input type="text" id="crmCalendarId" placeholder="primary  ó  correo@gmail.com">
+              <label>Google Calendar ID *</label>
+              <input type="text" id="crmCalendarId" placeholder="primary">
               <div class="help-text">
-                <strong>¿Qué es?</strong> El ID del calendario de Google donde el bot agendará las citas de los usuarios.
-                <br><strong>Cómo encontrarlo:</strong> Google Calendar → Configuración del calendario → "ID de Calendario" (al final de la sección de integración).
-                <br><strong>Si es el calendario principal:</strong> usa simplemente <code>primary</code>.
+                <strong>¿Qué es?</strong> El ID del calendario de Google donde el bot agendará las citas de los clientes.
+                <br><strong>Cómo encontrarlo:</strong> Google Calendar &rarr; Configuración del calendario &rarr; "Integrar calendario" &rarr; campo "ID de calendario".
+                <br><strong>Si usa el calendario principal del cliente:</strong> escribe simplemente <code>primary</code>.
+                <br><strong>Ejemplo:</strong> <code>tudame.com_abc123@group.calendar.google.com</code>
               </div>
             </div>
           </div>
 
           <div style="font-size:12px; font-weight:600; color:var(--accent); margin: 8px 0 14px; text-transform:uppercase; letter-spacing:0.5px;">
-            🔑 Credenciales de API
+            🔑 Credenciales de API <span style="font-weight:400; color:var(--muted); text-transform:none;">(opcional — usa las internas si dejas vacío)</span>
           </div>
 
           <div class="form-group" style="margin-bottom:0;">
             <label style="display:flex; align-items:center; gap:6px;">
               n8n API Key
-              <span style="background: rgba(245,158,11,0.15); color: var(--warning); padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight:600; text-transform:none;">Expira ~28 Mar 2026</span>
+              <span style="background: rgba(16,185,129,0.15); color: #059669; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight:600; text-transform:none;">Clave interna vigente</span>
             </label>
-            <input type="text" id="crmN8nApiKey" placeholder="eyJhbGci... (dejar vacío para usar la clave guardada)" style="font-family:monospace; font-size:11px;">
+            <input type="text" id="crmN8nApiKey" placeholder="Dejar vacío para usar la clave interna" style="font-family:monospace; font-size:11px;">
             <div class="help-text">
-              <strong>¿Qué es?</strong> Token JWT para que el installer pueda crear y activar workflows via la API de n8n.
-              <br><strong>Cómo obtener uno nuevo:</strong> ir a <code>n8n.ticosys.com</code> → Settings → API → Create API Key → copiar el token generado.
-              <br><strong>Si lo dejas vacío:</strong> se usará la clave guardada internamente (puede estar expirada).
+              <strong>¿Qué es?</strong> Token JWT para que el installer pueda crear y activar workflows vía la API de n8n.
+              <br><strong>Recomendación:</strong> <strong>déjalo vacío</strong> — el installer ya tiene una clave interna vigente.
+              <br><strong>Solo llénalo si:</strong> la clave interna expiró y necesitas usar una nueva temporalmente. Generar nueva en <code>n8n.ticosys.com</code> &rarr; Settings &rarr; n8n API &rarr; Create API Key.
             </div>
-          </div>
-
-          <div style="margin-top:16px; border-top:2px solid #135bec22; padding-top:14px;">
-            <p style="font-weight:700; color:#135bec; font-size:13px; margin-bottom:8px;">Cuenta Chatwoot del Cliente</p>
-            <p style="font-size:11px; color:#64748b; margin-bottom:12px;">Primero crea la cuenta en crm.ticosys.com como super admin, luego completa estos campos.</p>
-            <label style="font-size:12px; font-weight:600; display:block; margin-bottom:4px;">ID Cuenta Chatwoot *</label>
-            <input type="number" id="crmChatwootAccountId" placeholder="2" style="width:100%; padding:8px; border:1px solid #e2e8f0; border-radius:6px; font-size:13px; margin-bottom:4px;">
-            <p style="font-size:11px; color:#64748b; margin-bottom:12px;">Super Admin &rarr; Accounts &rarr; click en cuenta &rarr; ID en URL: /super_admin/accounts/2</p>
-            <label style="font-size:12px; font-weight:600; display:block; margin-bottom:4px;">Access Token Admin Chatwoot *</label>
-            <input type="password" id="crmChatwootAdminToken" placeholder="Token del admin Chatwoot" style="width:100%; padding:8px; border:1px solid #e2e8f0; border-radius:6px; font-size:13px; margin-bottom:4px;">
-            <p style="font-size:11px; color:#64748b;">Login como admin del cliente &rarr; Perfil &rarr; Access Token &rarr; copiar</p>
           </div>
 
         </div><!-- fin chatbot-section -->
@@ -1233,20 +1229,17 @@
         btn.innerHTML = '💾 Guardar Cliente';
 
         if (launchChatbot) {
-          // 3. Launch full installer
+          // 3. Launch full installer (v3 — totalmente automático)
           const chatbot = {
             slug: document.getElementById('crmSlug').value.trim(),
             company_name: client.name,
             bot_nombre: document.getElementById('crmBotNombre').value.trim() || client.name.split(' ')[0],
-            bot_token: document.getElementById('crmChatwootBotToken').value.trim(),
+            bot_email: document.getElementById('crmBotEmail').value.trim() || '',
             admin_email: document.getElementById('crmAdminEmail').value.trim(),
             smtp_from_email: document.getElementById('crmSmtpEmail').value.trim() || client.email,
             calendar_id: document.getElementById('crmCalendarId').value.trim() || 'primary',
             n8n_api_key: document.getElementById('crmN8nApiKey').value.trim() || '',
             drive_folder_id: client.drive_folder_id || '',
-            chatwoot_account_id: document.getElementById('crmChatwootAccountId').value.trim() || '',
-            chatwoot_admin_token: document.getElementById('crmChatwootAdminToken').value.trim() || '',
-            chatwoot_bot_token: document.getElementById('crmChatwootBotToken').value.trim() || '',
           };
           await launchFullOnboarding(client, chatbot);
         } else {
