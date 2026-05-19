@@ -800,6 +800,104 @@
             </div>
           </div>
 
+
+          <div style="font-size:12px; font-weight:600; color:var(--accent); margin: 8px 0 14px; text-transform:uppercase; letter-spacing:0.5px;">
+            🎯 Tipo de Bot y Objetivo
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Tipo de Bot *</label>
+              <select id="crmTipoBot" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; font-size:14px; background:white;">
+                <option value="AGENDAR">📅 Agendar citas (informa + agenda)</option>
+                <option value="INFORMATIVO">📞 Informativo (solo info, sin agendamiento)</option>
+                <option value="VENTAS">🤝 Ventas (informa + escala a humano)</option>
+              </select>
+              <div class="help-text">
+                <strong>AGENDAR:</strong> El bot resuelve dudas y guía al cliente para agendar una cita en el calendario.
+                <br><strong>INFORMATIVO:</strong> Solo da información (precios, servicios, FAQ). No agenda nada.
+                <br><strong>VENTAS:</strong> El bot califica leads y escala a un humano cuando detecta intención de compra.
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Modelo IA del Agente</label>
+              <select id="crmIaModelo" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; font-size:14px; background:white;">
+                <option value="gemini-2.0-flash">Gemini 2.0 Flash (default — más económico)</option>
+                <option value="gemini-2.5-flash">Gemini 2.5 Flash (mejor razonamiento)</option>
+                <option value="gpt-4o-mini">GPT-4o-mini (vía OpenRouter)</option>
+                <option value="claude-haiku-4-5">Claude Haiku 4.5 (vía OpenRouter)</option>
+              </select>
+              <div class="help-text">
+                <strong>Recomendación:</strong> Gemini 2.0 Flash por costo bajo (~$0.50/mes para 100 clientes).
+                <br><strong>Si el bot tiene problemas con herramientas:</strong> probar Claude Haiku 4.5.
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:16px;">
+            <label>Descripción del negocio del cliente (opcional)</label>
+            <textarea id="crmClienteDescripcion" placeholder="Ej: TUDAME es una academia online de música infantil con clases en directo y material descargable." style="min-height:60px;"></textarea>
+            <div class="help-text">
+              <strong>¿Qué es?</strong> Una frase corta (1-2 líneas) que describe qué hace el negocio del cliente.
+              <br><strong>Cómo se usa:</strong> Se incluye en la identidad del bot ("Eres X, asistente de Y. Y es...").
+              <br><strong>Si lo dejas vacío:</strong> el bot solo dirá "Eres X, asistente de Y" sin descripción adicional.
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:16px;">
+            <label>Objetivo específico del bot (opcional pero recomendado)</label>
+            <textarea id="crmObjetivoEspecifico" placeholder="Ej: Promover el paquete de 4 clases. Si preguntan por cursos individuales, derivar a la web. Capturar email para newsletter." style="min-height:80px;"></textarea>
+            <div class="help-text">
+              <strong>¿Qué es?</strong> Instrucciones específicas para el bot sobre cómo debe orientar la conversación con este cliente concreto.
+              <br><strong>Cómo se usa:</strong> Reemplaza el "Objetivo principal" genérico del tipo de bot por tu instrucción específica.
+              <br><strong>Si lo dejas vacío:</strong> el bot usa el objetivo default del tipo elegido.
+            </div>
+          </div>
+
+          <div style="font-size:12px; font-weight:600; color:var(--accent); margin: 16px 0 14px; text-transform:uppercase; letter-spacing:0.5px;">
+            ✉️ SMTP del Cliente <span style="font-weight:400; color:var(--muted); text-transform:none;">(opcional — para que los emails del bot salgan desde el dominio del cliente)</span>
+          </div>
+
+          <div style="background:#fffbeb; border-left:4px solid #f59e0b; padding:10px 14px; border-radius:6px; margin-bottom:14px;">
+            <p style="font-size:12px; color:#78350f; margin:0; line-height:1.5;">
+              ℹ️ <strong>Si dejas estos campos vacíos</strong>, los emails del bot saldrán desde <code>info@ticosys.com</code> con la firma del cliente. Si quieres que salgan desde el dominio del cliente, rellena estos 4 campos con sus credenciales SMTP (ver guía PDF 05).
+            </p>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email del remitente</label>
+              <input type="email" id="crmSmtpUser" placeholder="info@cliente.com">
+              <div class="help-text">
+                Email completo desde el que saldrán los emails (confirmaciones, recordatorios).
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Contraseña de aplicación (SMTP)</label>
+              <input type="password" id="crmSmtpPassword" placeholder="abcdefghijklmnop">
+              <div class="help-text">
+                Para Gmail: <strong>Contraseña de aplicación</strong> generada en myaccount.google.com/apppasswords (no es la contraseña normal de Gmail).
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Servidor SMTP</label>
+              <input type="text" id="crmSmtpHost" placeholder="smtp.gmail.com" value="smtp.gmail.com">
+              <div class="help-text">
+                Default: <code>smtp.gmail.com</code>. Si el cliente usa otro proveedor, consulta su documentación.
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Puerto SMTP</label>
+              <input type="number" id="crmSmtpPort" placeholder="587" value="587">
+              <div class="help-text">
+                Default: <code>587</code> (TLS). Para SSL usar <code>465</code>.
+              </div>
+            </div>
+          </div>
+
         </div><!-- fin chatbot-section -->
       </div><!-- fin chatbotSetupSection -->
 
@@ -1120,7 +1218,11 @@
       }
 
       // Always clear chatbot fields when opening modal
-      ['crmSlug', 'crmBotNombre', 'crmAdminEmail', 'crmSmtpEmail', 'crmCalendarId', 'crmN8nApiKey'].forEach(id => document.getElementById(id).value = '');
+      ['crmSlug', 'crmBotNombre', 'crmBotEmail', 'crmAdminEmail', 'crmSmtpEmail', 'crmCalendarId', 'crmN8nApiKey', 'crmClienteDescripcion', 'crmObjetivoEspecifico', 'crmSmtpUser', 'crmSmtpPassword'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('crmTipoBot').value = 'AGENDAR';
+        document.getElementById('crmIaModelo').value = 'gemini-2.0-flash';
+        document.getElementById('crmSmtpHost').value = 'smtp.gmail.com';
+        document.getElementById('crmSmtpPort').value = '587';
     }
 
     function closeCrmModal() {
@@ -1240,6 +1342,14 @@
             calendar_id: document.getElementById('crmCalendarId').value.trim() || 'primary',
             n8n_api_key: document.getElementById('crmN8nApiKey').value.trim() || '',
             drive_folder_id: client.drive_folder_id || '',
+            tipo_bot: document.getElementById('crmTipoBot').value || 'AGENDAR',
+            objetivo_especifico: document.getElementById('crmObjetivoEspecifico').value.trim() || '',
+            cliente_descripcion: document.getElementById('crmClienteDescripcion').value.trim() || '',
+            ia_modelo_agente: document.getElementById('crmIaModelo').value || 'gemini-2.0-flash',
+            smtp_user: document.getElementById('crmSmtpUser').value.trim() || '',
+            smtp_password: document.getElementById('crmSmtpPassword').value.trim() || '',
+            smtp_host: document.getElementById('crmSmtpHost').value.trim() || 'smtp.gmail.com',
+            smtp_port: document.getElementById('crmSmtpPort').value.trim() || '587',
           };
           await launchFullOnboarding(client, chatbot);
         } else {
