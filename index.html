@@ -783,6 +783,18 @@
             </div>
           </div>
 
+          <div class="form-row">
+            <div class="form-group">
+              <label>Token del Bot de Telegram <span style="font-weight:400; color:var(--muted);">(opcional)</span></label>
+              <input type="text" id="crmTelegramToken" placeholder="ej: 7123456789:AAH...desde BotFather" style="font-family:monospace; font-size:11px;">
+              <div class="help-text">
+                <strong>¿Qué es?</strong> El token del bot de Telegram creado con <code>@BotFather</code>. Si lo pones, el alta crea automáticamente el canal de Telegram en Chatwoot — es el canal inicial del cliente mientras configura WhatsApp u otro canal.
+                <br><strong>Cómo obtenerlo:</strong> en Telegram, escribe a <code>@BotFather</code> &rarr; <code>/newbot</code> &rarr; copia el token que te entrega.
+                <br><strong>Si lo dejas vacío:</strong> se crea un inbox de tipo API genérico (sin canal de mensajería conectado).
+              </div>
+            </div>
+          </div>
+
           <div style="font-size:12px; font-weight:600; color:var(--accent); margin: 8px 0 14px; text-transform:uppercase; letter-spacing:0.5px;">
             🔑 Credenciales de API <span style="font-weight:400; color:var(--muted); text-transform:none;">(opcional — usa las internas si dejas vacío)</span>
           </div>
@@ -1218,7 +1230,7 @@
       }
 
       // Always clear chatbot fields when opening modal
-      ['crmSlug', 'crmBotNombre', 'crmBotEmail', 'crmAdminEmail', 'crmSmtpEmail', 'crmCalendarId', 'crmN8nApiKey', 'crmClienteDescripcion', 'crmObjetivoEspecifico', 'crmSmtpUser', 'crmSmtpPassword'].forEach(id => document.getElementById(id).value = '');
+      ['crmSlug', 'crmBotNombre', 'crmBotEmail', 'crmAdminEmail', 'crmSmtpEmail', 'crmCalendarId', 'crmN8nApiKey', 'crmClienteDescripcion', 'crmObjetivoEspecifico', 'crmSmtpUser', 'crmSmtpPassword', 'crmTelegramToken'].forEach(id => document.getElementById(id).value = '');
         document.getElementById('crmTipoBot').value = 'AGENDAR';
         document.getElementById('crmIaModelo').value = 'gemini-2.0-flash';
         document.getElementById('crmSmtpHost').value = 'smtp.gmail.com';
@@ -1350,6 +1362,7 @@
             smtp_password: document.getElementById('crmSmtpPassword').value.trim() || '',
             smtp_host: document.getElementById('crmSmtpHost').value.trim() || 'smtp.gmail.com',
             smtp_port: document.getElementById('crmSmtpPort').value.trim() || '587',
+            telegram_bot_token: document.getElementById('crmTelegramToken').value.trim() || '',
           };
           await launchFullOnboarding(client, chatbot);
         } else {
