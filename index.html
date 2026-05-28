@@ -846,6 +846,32 @@
             </div>
           </div>
 
+          <div class="form-row">
+            <div class="form-group">
+              <label>Zona horaria del cliente *</label>
+              <select id="crmTimezone" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; font-size:14px; background:white;">
+                <option value="Europe/Madrid">🇪🇸 Europe/Madrid (España, Canarias usa Atlantic/Canary)</option>
+                <option value="Atlantic/Canary">🇮🇨 Atlantic/Canary (Islas Canarias)</option>
+                <option value="America/Caracas">🇻🇪 America/Caracas (Venezuela)</option>
+                <option value="America/Mexico_City">🇲🇽 America/Mexico_City (México)</option>
+                <option value="America/Bogota">🇨🇴 America/Bogota (Colombia)</option>
+                <option value="America/Lima">🇵🇪 America/Lima (Perú, Ecuador)</option>
+                <option value="America/Santiago">🇨🇱 America/Santiago (Chile)</option>
+                <option value="America/Argentina/Buenos_Aires">🇦🇷 America/Argentina/Buenos_Aires (Argentina, Uruguay)</option>
+                <option value="America/Costa_Rica">🇨🇷 America/Costa_Rica (Costa Rica, CA)</option>
+                <option value="America/Panama">🇵🇦 America/Panama (Panamá)</option>
+                <option value="America/Santo_Domingo">🇩🇴 America/Santo_Domingo (R. Dominicana)</option>
+                <option value="America/New_York">🇺🇸 America/New_York (USA Este)</option>
+                <option value="America/Los_Angeles">🇺🇸 America/Los_Angeles (USA Oeste)</option>
+                <option value="UTC">🌍 UTC (sin offset)</option>
+              </select>
+              <div class="help-text">
+                <strong>¿Para qué?</strong> Los crons del cliente (recordatorio de cita 1h antes, seguimiento de leads, resumen diario) usan ESTA timezone. Sin esto, todos corren en UTC y los emails llegan a horas raras.
+                <br><strong>Default:</strong> Europe/Madrid. Cambia según el país del cliente.
+              </div>
+            </div>
+          </div>
+
           <div class="form-group" style="margin-bottom:16px;">
             <label>Descripción del negocio del cliente (opcional)</label>
             <textarea id="crmClienteDescripcion" placeholder="Ej: TUDAME es una academia online de música infantil con clases en directo y material descargable." style="min-height:60px;"></textarea>
@@ -1233,6 +1259,7 @@
       ['crmSlug', 'crmBotNombre', 'crmBotEmail', 'crmAdminEmail', 'crmSmtpEmail', 'crmCalendarId', 'crmN8nApiKey', 'crmClienteDescripcion', 'crmObjetivoEspecifico', 'crmSmtpUser', 'crmSmtpPassword', 'crmTelegramToken'].forEach(id => document.getElementById(id).value = '');
         document.getElementById('crmTipoBot').value = 'AGENDAR';
         document.getElementById('crmIaModelo').value = 'gemini-2.0-flash';
+        document.getElementById('crmTimezone').value = 'Europe/Madrid';
         document.getElementById('crmSmtpHost').value = 'smtp.gmail.com';
         document.getElementById('crmSmtpPort').value = '587';
     }
@@ -1363,6 +1390,7 @@
             smtp_host: document.getElementById('crmSmtpHost').value.trim() || 'smtp.gmail.com',
             smtp_port: document.getElementById('crmSmtpPort').value.trim() || '587',
             telegram_bot_token: document.getElementById('crmTelegramToken').value.trim() || '',
+            timezone: document.getElementById('crmTimezone').value || 'Europe/Madrid',
           };
           await launchFullOnboarding(client, chatbot);
         } else {
